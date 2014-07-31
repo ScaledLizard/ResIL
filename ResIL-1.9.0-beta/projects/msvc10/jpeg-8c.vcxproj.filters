@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\cderror.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\cdjpeg.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jdct.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jerror.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jinclude.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jmemsys.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jmorecfg.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jpegint.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jpeglib.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jversion.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\transupp.h" />
+    <ClInclude Include="..\..\Input Libs\jpegsr9a\jconfig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrtarga.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\cdjpeg.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\cjpeg.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\ckconfig.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\djpeg.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\example.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jaricom.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcapimin.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcapistd.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcarith.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jccoefct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jccolor.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcdctmgr.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jchuff.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcinit.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcmainct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcmarker.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcmaster.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcomapi.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcparam.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcprepct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jcsample.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jctrans.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdapimin.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdapistd.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdarith.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdatadst.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdatasrc.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdcoefct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdcolor.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jddctmgr.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdhuff.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdinput.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdmainct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdmarker.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdmaster.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdmerge.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdpostct.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdsample.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jdtrans.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jerror.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jfdctflt.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jfdctfst.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jfdctint.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jidctflt.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jidctfst.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jidctint.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jmemmgr.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jmemnobs.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jpegtran.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jquant1.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jquant2.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\jutils.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdbmp.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdcolmap.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdgif.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdjpgcom.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdppm.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdrle.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdswitch.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdtarga.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\transupp.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrbmp.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrgif.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrjpgcom.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrppm.c" />
+    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrrle.c" />
+  </ItemGroup>
+</Project>
