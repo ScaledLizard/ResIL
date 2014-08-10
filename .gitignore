@@ -15,7 +15,9 @@ cmake_install.cmake
 
 # temp files
 *.swp
+*~
 
 # build files
 *.o
 *.so
+
