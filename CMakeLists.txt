@@ -3,20 +3,20 @@ cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageLib)
 
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 OPTION(BUILD_SHARED_LIBS "Build with shared (.DLL .SO) libraries." ON)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH} )
+
 include(compat_flags)
 
-
-#find_package(lcms)
-#find_package(mng)
+find_package(LCMS)
+find_package(MNG)
 find_package(JPEG)
 find_package(PNG)
 find_package(TIFF)
 find_package(ZLIB)
-#find_package(openexr)
+find_package(OPENEXR)
 
 SET(DEVIL_INCS
 

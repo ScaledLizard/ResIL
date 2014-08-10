@@ -4,8 +4,9 @@ FILE(GLOB ILU_INC include/*.h ../include/IL/config.h ../include/IL/devil_interna
 FILE(GLOB ILU_RSRC)
 
 INCLUDE_DIRECTORIES(
-
-	${ILU_SOURCE_DIR}/include
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${DevIL_SOURCE_DIR}/../include
+	${DevIL_SOURCE_DIR}/include
 )
 
 #SET(ILU_SRCS ${ILU_SRCS} ${ILU_INCS} )
@@ -42,7 +43,3 @@ TARGET_LINK_LIBRARIES(ILU
 	DevIL
 )
 
-INCLUDE_DIRECTORIES(
-	${DevIL_SOURCE_DIR}/../include
-	${DevIL_SOURCE_DIR}/include
-)

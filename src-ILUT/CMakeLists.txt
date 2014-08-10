@@ -3,8 +3,11 @@ FILE(GLOB ILUT_INC include/*.h ../include/IL/config.h ../include/IL/devil_intern
 FILE(GLOB ILUT_RSRC)
 
 INCLUDE_DIRECTORIES(
-
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 	${ILUT_SOURCE_DIR}/include
+	${DevIL_SOURCE_DIR}/../include
+	${DevIL_SOURCE_DIR}/include
+	${DevILU_SOURCE_DIR}/include
 )
 
 #SET(ILUT_SRCS ${ILUT_SRCS} ${ILUT_INCS} )
@@ -39,14 +42,7 @@ ADD_LIBRARY(ILUT SHARED ${ILUT_SRCS} ${ILUT_INC} ${ILUT_RSRC})
 ## add link sub library info
 
 TARGET_LINK_LIBRARIES(ILUT
-
 	DevIL
 	ILU
 )
 
-INCLUDE_DIRECTORIES(
-
-	${DevIL_SOURCE_DIR}/../include
-	${DevIL_SOURCE_DIR}/include
-	${DevILU_SOURCE_DIR}/include
-)
