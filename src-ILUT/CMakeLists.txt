@@ -4,7 +4,6 @@ FILE(GLOB ILUT_RSRC)
 
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
-	${ILUT_SOURCE_DIR}/include
 	${DevIL_SOURCE_DIR}/../include
 	${DevIL_SOURCE_DIR}/include
 	${DevILU_SOURCE_DIR}/include

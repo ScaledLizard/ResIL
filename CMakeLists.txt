@@ -9,7 +9,13 @@ OPTION(BUILD_SHARED_LIBS "Build with shared (.DLL .SO) libraries." ON)
 
 
 include(compat_flags)
+# FIXME: config.h needs to be generated
+#include(configh)
 
+find_package(SDL)
+if (SDL_FOUND)
+	add_definitions(-DILUT_USE_SDL)
+endif()
 find_package(LCMS)
 find_package(MNG)
 find_package(JPEG)
@@ -34,9 +40,12 @@ SUBDIRS(
 	src-IL
 	src-ILU
 	src-ILUT
-
-#	examples
 )
+
+option(DEVIL_BUILD_EXAMPLES "build examples" OFF)
+if (DEVIL_BUILD_EXAMPLES)
+	add_subdirectory( examples)
+endif()
 
 
 # need to check for vc6 or vc2003 output dir
