@@ -1,0 +1,11 @@
+# files created by build environment
+/autom4te.cache/
+/config.log
+/config.status
+Makefile
+/libtool
+/test/format_test/format_checks.sh
+/data/*.pc
+
+# temp files
+*.swp
