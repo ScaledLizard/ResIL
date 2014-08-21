@@ -1,0 +1,60 @@
+PROJECT(DevIL)
+
+FILE(GLOB DevIL_SRCS src/*.cpp)
+FILE(GLOB DevIL_INC include/*.h ../include/IL/config.h ../include/IL/devil_internal_exports.h ../include/IL/il.h)
+FILE(GLOB DevIL_RSRC)
+FILE(GLOB DevIL_TXT)
+
+INCLUDE_DIRECTORIES(
+	${DevIL_SOURCE_DIR}/include
+	${DevIL_SOURCE_DIR}/../include
+	${OPENEXR_INCLUDE_DIR}
+	${LCMS_SOURCE_DIR}
+	${LIBJPEG_SOURCE_DIR}
+	${LIBMNG_SOURCE_DIR}
+	${LIBPNG_SOURCE_DIR}
+	${LIBTIFF_SOURCE_DIR}
+	${ZLIB_SOURCE_DIR}
+)
+
+#SET(DevIL_INC ${DEVIL_INCS} ${DEVIL_SRCS})
+
+SET(LIBRARY_OUTPUT_PATH		${DEVIL_LIB_DEST_DIR}	)
+
+#
+# for windows add the .def and .rc files to the source list
+#
+IF(WIN32)
+	ADD_DEFINITIONS(-DIL_USE_PRAGMA_LIBS)
+	IF(BUILD_SHARED_LIBS)
+		#ADD_DEFINITIONS(-DIL_DLL -DMNG_DLL -DMNG_USE_DLL -DJPEGDLL)
+		ADD_DEFINITIONS(-DIL_DLL -DJPEGSTATIC)
+		SET(DevIL_SRCS ${DevIL_SRCS} msvc/il.def)
+		SET(DevIL_RSRC ${DevIL_RSRC} "msvc/resources/IL Logo.ico" msvc/IL.rc)
+		SET(DevIL_TXT ${DevIL_TXT} ../AUTHORS ../ChangeLog ../CREDITS ../libraries.txt ../MSVC++.txt ../README.unix ../README.win ../TODO)
+#		SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib ")
+		SET(CMAKE_C_FLAGS_RELEASE "/MT /O2")
+	ELSE(BUILD_SHARED_LIBS)
+		ADD_DEFINITIONS(-DIL_STATIC_LIB -DJPEGSTATIC)
+	ENDIF(BUILD_SHARED_LIBS)
+ENDIF(WIN32)
+
+SOURCE_GROUP("Source Files" FILES src/*.c src/*.cpp)
+SOURCE_GROUP("Header Files" FILES ${DevIL_INC} )
+SOURCE_GROUP("Resource Files" FILES ${DevIL_RSRC} )
+SOURCE_GROUP("Text Files" FILES ${DevIL_TXT} )
+
+# Remove SHARED to create a static library
+ADD_LIBRARY(DevIL SHARED ${DevIL_SRCS} ${DevIL_INC} ${DevIL_RSRC} ${DevIL_TXT})
+
+## add link sub library info
+
+TARGET_LINK_LIBRARIES(DevIL
+	${LCMS_LIBRARY}
+	${JPEG_LIBRARY}
+	${MNG_LIBRARY}
+	${PNG_LIBRARY}
+	${TIFF_LIBRARY}
+	${ZLIB_LIBRARY}
+)
+

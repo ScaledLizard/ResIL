@@ -1,0 +1,13 @@
+subdirs(
+	allegro_example
+	animation_example
+	cpp_wrapper_example
+	direct3d_example
+	opengl_example
+	override_example
+	register_read_example
+	sdl_example
+	simple_example
+	volume_example
+	windows_example
+)

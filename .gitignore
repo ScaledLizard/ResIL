@@ -1,0 +1,23 @@
+# files created by build environment
+/autom4te.cache/
+/config.log
+/config.status
+Makefile
+/libtool
+/test/format_test/format_checks.sh
+/data/*.pc
+
+# files created by cmake
+CMakeFiles
+cmake_install.cmake
+/CMakeDepends.txt
+/CMakeCache.txt
+
+# temp files
+*.swp
+*~
+
+# build files
+*.o
+*.so
+
