@@ -266,7 +266,7 @@ ILboolean ilAble(ILenum Mode, ILboolean Flag)
 
 
 //! Checks whether the mode is enabled.
-ILboolean ILAPIENTRY il2IsEnabled(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY il2IsEnabled(ILenum Mode)
 {
 	switch (Mode)
 	{
@@ -304,14 +304,14 @@ ILboolean ILAPIENTRY il2IsEnabled(ILenum Mode)
 
 
 //! Checks whether the mode is disabled.
-ILboolean ILAPIENTRY ilIsDisabled(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY ilIsDisabled(ILenum Mode)
 {
 	return !il2IsEnabled(Mode);
 }
 
 
 //! Sets Param equal to the current value of the Mode
-void ILAPIENTRY il2GetIntegerv(ILenum Mode, ILint *Param)
+ILAPI void ILAPIENTRY il2GetIntegerv(ILenum Mode, ILint *Param)
 {
 	if (Param == NULL) {
 		il2SetError(IL_INVALID_PARAM);
@@ -435,7 +435,7 @@ void ILAPIENTRY il2GetIntegerv(ILenum Mode, ILint *Param)
 }
 
 //! Sets Param equal to the current value of the Mode
-void ILAPIENTRY il2GetImageInteger(ILimage *Image, ILenum Mode, ILint *Param)
+ILAPI void ILAPIENTRY il2GetImageInteger(ILimage *Image, ILenum Mode, ILint *Param)
 {
     ILimage *SubImage;
     if (Image == NULL) {
@@ -563,7 +563,7 @@ void ILAPIENTRY il2GetImageInteger(ILimage *Image, ILenum Mode, ILint *Param)
 
 
 //! Returns the current value of the Mode
-ILint ILAPIENTRY il2GetInteger(ILenum Mode)
+ILAPI ILint ILAPIENTRY il2GetInteger(ILenum Mode)
 {
 	ILint Temp;
 	Temp = 0;
@@ -837,7 +837,7 @@ ILenum iGetHint(ILenum Target)
 }
 
 
-void ILAPIENTRY ilSetString(ILenum Mode, const char *String)
+ILAPI void ILAPIENTRY ilSetString(ILenum Mode, const char *String)
 {
 	if (String == NULL) {
 		il2SetError(IL_INVALID_PARAM);
@@ -913,7 +913,7 @@ void ILAPIENTRY ilSetString(ILenum Mode, const char *String)
 }
 
 
-void ILAPIENTRY il2SetInteger(ILenum Mode, ILint Param)
+ILAPI void ILAPIENTRY il2SetInteger(ILenum Mode, ILint Param)
 {
 	switch (Mode)
 	{
@@ -1031,7 +1031,7 @@ void ILAPIENTRY il2SetInteger(ILenum Mode, ILint Param)
 }
 
 
-void ILAPIENTRY il2SetImageInteger(ILimage* image, ILenum Mode, ILint Param)
+ILAPI void ILAPIENTRY il2SetImageInteger(ILimage* image, ILenum Mode, ILint Param)
 {
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
@@ -1081,7 +1081,7 @@ ILint iGetInt(ILenum Mode)
 }
 
 //! Sets Param equal to the current value of the Mode
-void ILAPIENTRY il2GetBooleanv(ILenum Mode, ILboolean *Param)
+ILAPI void ILAPIENTRY il2GetBooleanv(ILenum Mode, ILboolean *Param)
 {
 	if (Param == NULL) {
 		il2SetError(IL_INVALID_PARAM);
@@ -1095,7 +1095,7 @@ void ILAPIENTRY il2GetBooleanv(ILenum Mode, ILboolean *Param)
 
 
 //! Returns the current value of the Mode
-ILboolean ILAPIENTRY il2GetBoolean(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY il2GetBoolean(ILenum Mode)
 {
 	ILboolean Temp;
 	Temp = IL_FALSE;

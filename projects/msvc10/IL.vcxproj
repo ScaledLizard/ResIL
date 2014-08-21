@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\IL\devil_internal_exports.h" />
     <ClInclude Include="..\..\include\IL\il.h" />
+    <ClInclude Include="..\..\include\IL\il2.h" />
     <ClInclude Include="..\..\src-IL\include\il_alloc.h" />
     <ClInclude Include="..\..\src-IL\include\il_bits.h" />
     <ClInclude Include="..\..\src-IL\include\il_bmp.h" />

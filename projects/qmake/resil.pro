@@ -1,3 +1,5 @@
+VERSION = 1.9.0
+
 SOURCES += \
 "../../Input Libs/openexr-2.1.0/IlmImf/ImfStringAttribute.cpp" \
 "../../Input Libs/openexr-2.1.0/IlmImf/ImfOpaqueAttribute.cpp" \
@@ -169,7 +171,7 @@ SOURCES += \
 ../../src-IL/src/il_jpeg.cpp \
 ../../src-IL/src/il_rot.cpp \
 ../../src-IL/src/il_convert.cpp \
-../../src-IL/src/il_exr.cpp \
+#../../src-IL/src/il_exr.cpp \
 ../../src-IL/src/il_psd.cpp \
 ../../src-IL/src/il_profiles.cpp \
 ../../src-IL/src/il_ftx.cpp \
@@ -612,3 +614,4 @@ TEMPLATE = lib
 linux {
 	QMAKE_CXXFLAGS += -std=c++0x
 }
+

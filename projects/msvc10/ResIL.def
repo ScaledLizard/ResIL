@@ -53,19 +53,18 @@ ilTexImage
 ilTypeFromExt
 
 il2ClearImage
-il2CloseImage
 il2ConvertImage
 il2CopyImageAttr
 il2CopyPixels
-;il2DeleteImages
+il2DeleteImage
 il2DetermineSize
 il2DetermineType
 il2DetermineTypeFuncs
 ;il2GenImages
 il2GenImage
-;il2GetData
-;il2GetError
-;il2GetInteger
+il2GetData
+il2GetError
+il2GetInteger
 il2GetClear
 ilGetCurName
 il2GetImageInteger
@@ -84,10 +83,10 @@ il2SaveFuncs
 il2SaveL
 il2SaveImage
 il2SetError
+il2SetInteger
 il2SetRead
-;il2SetInteger
 ;il2SetString
-;il2SetPixels
+il2SetPixels
 il2SetPal
 il2SetWrite
 ;il2ShutDown

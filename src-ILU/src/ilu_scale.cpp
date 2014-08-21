@@ -15,16 +15,15 @@
 #include "ilu_states.h"
 
 
-ILboolean ILAPIENTRY iluEnlargeImage(ILfloat XDim, ILfloat YDim, ILfloat ZDim)
+ILboolean ILAPIENTRY ilu2EnlargeImage(ILimage* image, ILfloat XDim, ILfloat YDim, ILfloat ZDim)
 {
 	if (XDim <= 0.0f || YDim <= 0.0f || ZDim <= 0.0f) {
 		il2SetError(ILU_INVALID_PARAM);
 		return IL_FALSE;
 	}
 
-	iluCurImage = ilGetCurImage();
-	return iluScale((ILuint)(iluCurImage->Width * XDim), (ILuint)(iluCurImage->Height * YDim),
-					(ILuint)(iluCurImage->Depth * ZDim));
+	return ilu2Scale(image, (ILuint)(image->Width * XDim), (ILuint)(image->Height * YDim),
+					(ILuint)(image->Depth * ZDim));
 }
 
 
@@ -33,20 +32,19 @@ ILimage *iluScale2D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Heigh
 ILimage *iluScale3D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Height, ILuint Depth);
 
 
-ILboolean ILAPIENTRY iluScale(ILuint Width, ILuint Height, ILuint Depth)
+ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILuint Depth)
 {
 	ILimage		*Temp;
 	ILboolean	UsePal;
 	ILenum		PalType;
 	ILenum		Origin;
 
-	iluCurImage = ilGetCurImage();
-	if (iluCurImage == NULL) {
+	if (image == NULL) {
 		il2SetError(ILU_ILLEGAL_OPERATION);
 		return IL_FALSE;
 	}
 
-	if (iluCurImage->Width == Width && iluCurImage->Height == Height && iluCurImage->Depth == Depth)
+	if (image->Width == Width && image->Height == Height && image->Depth == Depth)
 		return IL_TRUE;
 
 	// A parameter of 0 is not valid.  Let's just assume that the user wanted a value of 1 instead.
@@ -54,7 +52,7 @@ ILboolean ILAPIENTRY iluScale(ILuint Width, ILuint Height, ILuint Depth)
 	if (Height == 0) Height = 1;
 	if (Depth == 0)  Depth = 1;
 
-	if ((iluCurImage->Width<Width) || (iluCurImage->Height<Height)) // only do special scale if there is some zoom?
+	if ((image->Width<Width) || (image->Height<Height)) // only do special scale if there is some zoom?
 	{
 		switch (iluFilter)
 		{
@@ -65,67 +63,67 @@ ILboolean ILAPIENTRY iluScale(ILuint Width, ILuint Height, ILuint Depth)
 			case ILU_SCALE_LANCZOS3:
 			case ILU_SCALE_MITCHELL:
 
-				iluCurImage = ilGetCurImage();
-				if (iluCurImage == NULL) {
+				image = ilGetCurImage();
+				if (image == NULL) {
 					il2SetError(ILU_ILLEGAL_OPERATION);
 					return IL_FALSE;
 				}
 
 				// Not supported yet.
-				if (iluCurImage->Type != IL_UNSIGNED_BYTE ||
-					iluCurImage->Format == IL_COLOUR_INDEX ||
-					iluCurImage->Depth > 1) {
+				if (image->Type != IL_UNSIGNED_BYTE ||
+					image->Format == IL_COLOUR_INDEX ||
+					image->Depth > 1) {
 						il2SetError(ILU_ILLEGAL_OPERATION);
 						return IL_FALSE;
 				}
 
-				if (iluCurImage->Width > Width) // shrink width first
+				if (image->Width > Width) // shrink width first
 				{
-					Origin = iluCurImage->Origin;
-					Temp = iluScale_(iluCurImage, Width, iluCurImage->Height, iluCurImage->Depth);
+					Origin = image->Origin;
+					Temp = iluScale_(image, Width, image->Height, image->Depth);
 					if (Temp != NULL) {
-						if (!ilTexImage(Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
+						if (!il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
 							ilCloseImage(Temp);
 							return IL_FALSE;
 						}
-						iluCurImage->Origin = Origin;
+						image->Origin = Origin;
 						ilCloseImage(Temp);
 					}
 				}
-				else if (iluCurImage->Height > Height) // shrink height first
+				else if (image->Height > Height) // shrink height first
 				{
-					Origin = iluCurImage->Origin;
-					Temp = iluScale_(iluCurImage, iluCurImage->Width, Height, iluCurImage->Depth);
+					Origin = image->Origin;
+					Temp = iluScale_(image, image->Width, Height, image->Depth);
 					if (Temp != NULL) {
-						if (!ilTexImage(Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
+						if (!il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
 							ilCloseImage(Temp);
 							return IL_FALSE;
 						}
-						iluCurImage->Origin = Origin;
+						image->Origin = Origin;
 						ilCloseImage(Temp);
 					}
 				}
 
-				return (ILboolean)iluScaleAdvanced(Width, Height, iluFilter);
+				return (ILboolean)ilu2ScaleAdvanced(image, Width, Height, iluFilter);
 		}
 	}
 
 
-	Origin = iluCurImage->Origin;
-	UsePal = (iluCurImage->Format == IL_COLOUR_INDEX);
-	PalType = iluCurImage->Pal.PalType;
-	Temp = iluScale_(iluCurImage, Width, Height, Depth);
+	Origin = image->Origin;
+	UsePal = (image->Format == IL_COLOUR_INDEX);
+	PalType = image->Pal.PalType;
+	Temp = iluScale_(image, Width, Height, Depth);
 	if (Temp != NULL) {
-		if (!ilTexImage(Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
+		if (!il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
 			ilCloseImage(Temp);
 			return IL_FALSE;
 		}
-		iluCurImage->Origin = Origin;
+		image->Origin = Origin;
 		ilCloseImage(Temp);
 		if (UsePal) {
-			if (!ilConvertImage(IL_COLOUR_INDEX, IL_UNSIGNED_BYTE))
+			if (!il2ConvertImage(image, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE))
 				return IL_FALSE;
-			ilConvertPal(PalType);
+			il2ConvertPal(image, PalType);
 		}
 		return IL_TRUE;
 	}
@@ -134,43 +132,40 @@ ILboolean ILAPIENTRY iluScale(ILuint Width, ILuint Height, ILuint Depth)
 }
 
 
-ILAPI ILimage* ILAPIENTRY iluScale_(ILimage *Image, ILuint Width, ILuint Height, ILuint Depth)
+ILAPI ILimage* ILAPIENTRY iluScale_(ILimage *image, ILuint Width, ILuint Height, ILuint Depth)
 {
-	ILimage	*Scaled, *CurImage, *ToScale;
+	ILimage	*Scaled = NULL, *ToScale = NULL;
 	ILenum	Format, PalType;
 
-	CurImage = ilGetCurImage();
-	Format = Image->Format;
+	Format = image->Format;
 	if (Format == IL_COLOUR_INDEX) {
-		ilSetCurImage(Image);
-		PalType = Image->Pal.PalType;
-		ToScale = iConvertImage(iluCurImage, ilGetPalBaseType(Image->Pal.PalType), iluCurImage->Type);
+		PalType = image->Pal.PalType;
+		ToScale = iConvertImage(image, ilGetPalBaseType(image->Pal.PalType), image->Type);
 	}
 	else {
-		ToScale = Image;
+		ToScale = image;
 	}
 
 	// So we don't replicate this 3 times (one in each iluScalexD_() function.
 	Scaled = (ILimage*)icalloc(1, sizeof(ILimage));
 	if (il2CopyImageAttr(Scaled, ToScale) == IL_FALSE) {
 		ilCloseImage(Scaled);
-		if (ToScale != Image)
+		if (ToScale != image)
 			ilCloseImage(ToScale);
-		ilSetCurImage(CurImage);
+		ilSetCurImage(image);
 		return NULL;
 	}
 	if (il2ResizeImage(Scaled, Width, Height, Depth, ToScale->Bpp, ToScale->Bpc) == IL_FALSE) {
 		ilCloseImage(Scaled);
-		if (ToScale != Image)
+		if (ToScale != image)
 			ilCloseImage(ToScale);
-		ilSetCurImage(CurImage);
 		return NULL;
 	}
 	
-	if (Height <= 1 && Image->Height <= 1) {
+	if (Height <= 1 && image->Height <= 1) {
 		iluScale1D_(ToScale, Scaled, Width);
 	}
-	if (Depth <= 1 && Image->Depth <= 1) {
+	if (Depth <= 1 && image->Depth <= 1) {
 		iluScale2D_(ToScale, Scaled, Width, Height);
 	}
 	else {
@@ -180,7 +175,7 @@ ILAPI ILimage* ILAPIENTRY iluScale_(ILimage *Image, ILuint Width, ILuint Height,
 	if (Format == IL_COLOUR_INDEX) {
 		//ilSetCurImage(Scaled);
 		//ilConvertImage(IL_COLOUR_INDEX);
-		ilSetCurImage(CurImage);
+		ilSetCurImage(image);
 		ilCloseImage(ToScale);
 	}
 
@@ -188,7 +183,7 @@ ILAPI ILimage* ILAPIENTRY iluScale_(ILimage *Image, ILuint Width, ILuint Height,
 }
 
 
-ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
+ILimage *iluScale1D_(ILimage *image, ILimage *Scaled, ILuint Width)
 {
 	ILuint		x1, x2;
 	ILuint		NewX1, NewX2, NewX3, x, c;
@@ -196,34 +191,34 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 	ILushort	*ShortPtr, *SShortPtr;
 	ILuint		*IntPtr, *SIntPtr;
 
-	if (Image == NULL) {
+	if (image == NULL) {
 		il2SetError(ILU_ILLEGAL_OPERATION);
 		return IL_FALSE;
 	}
 
-	ScaleX = (ILdouble)Width / Image->Width;
+	ScaleX = (ILdouble)Width / image->Width;
 
-	ShortPtr = (ILushort*)Image->Data;
+	ShortPtr = (ILushort*)image->Data;
 	SShortPtr = (ILushort*)Scaled->Data;
-	IntPtr = (ILuint*)Image->Data;
+	IntPtr = (ILuint*)image->Data;
 	SIntPtr = (ILuint*)Scaled->Data;
 
 	if (iluFilter == ILU_NEAREST) {
-		switch (Image->Bpc)
+		switch (image->Bpc)
 		{
 			case 1:
 				for (x = 0; x < Width; x++) {
 					NewX1 = x * Scaled->Bpp;
-					NewX2 = (ILuint)(x / ScaleX) * Image->Bpp;
+					NewX2 = (ILuint)(x / ScaleX) * image->Bpp;
 					for (c = 0; c < Scaled->Bpp; c++) {
-						Scaled->Data[NewX1 + c] = Image->Data[NewX2 + c];
+						Scaled->Data[NewX1 + c] = image->Data[NewX2 + c];
 					}
 				}
 				break;
 			case 2:
 				for (x = 0; x < Width; x++) {
 					NewX1 = x * Scaled->Bpp;
-					NewX2 = (ILuint)(x / ScaleX) * Image->Bpp;
+					NewX2 = (ILuint)(x / ScaleX) * image->Bpp;
 					for (c = 0; c < Scaled->Bpp; c++) {
 						SShortPtr[NewX1 + c] = ShortPtr[NewX2 + c];
 					}
@@ -232,7 +227,7 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 			case 4:
 				for (x = 0; x < Width; x++) {
 					NewX1 = x * Scaled->Bpp;
-					NewX2 = (ILuint)(x / ScaleX) * Image->Bpp;
+					NewX2 = (ILuint)(x / ScaleX) * image->Bpp;
 					for (c = 0; c < Scaled->Bpp; c++) {
 						SIntPtr[NewX1 + c] = IntPtr[NewX2 + c];
 					}
@@ -241,7 +236,7 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 		}
 	}
 	else {  // IL_LINEAR or IL_BILINEAR
-		switch (Image->Bpc)
+		switch (image->Bpc)
 		{
 			case 1:
 				NewX3 = 0;
@@ -249,12 +244,12 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 					t1 = x / (ILdouble)Width;
 					t2 = t1 * Width - (ILuint)(t1 * Width);
 					f = (1.0 - cos(t2 * IL_PI)) * .5;
-					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * Image->Bpp;
-					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * Image->Bpp;
+					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * image->Bpp;
+					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * image->Bpp;
 
 					for (c = 0; c < Scaled->Bpp; c++) {
-						x1 = Image->Data[NewX1 + c];
-						x2 = Image->Data[NewX2 + c];
+						x1 = image->Data[NewX1 + c];
+						x2 = image->Data[NewX2 + c];
 
 						Scaled->Data[NewX3 + c] = (ILubyte)(x1 * (1.0 - f) + x2 * f);
 					}
@@ -268,8 +263,8 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 					t1 = x / (ILdouble)Width;
 					t2 = t1 * Width - (ILuint)(t1 * Width);
 					f = (1.0 - cos(t2 * IL_PI)) * .5;
-					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * Image->Bpp;
-					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * Image->Bpp;
+					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * image->Bpp;
+					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * image->Bpp;
 
 					for (c = 0; c < Scaled->Bpp; c++) {
 						x1 = ShortPtr[NewX1 + c];
@@ -287,8 +282,8 @@ ILimage *iluScale1D_(ILimage *Image, ILimage *Scaled, ILuint Width)
 					t1 = x / (ILdouble)Width;
 					t2 = t1 * Width - (ILuint)(t1 * Width);
 					f = (1.0 - cos(t2 * IL_PI)) * .5;
-					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * Image->Bpp;
-					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * Image->Bpp;
+					NewX1 = ((ILuint)(t1 * Width / ScaleX)) * image->Bpp;
+					NewX2 = ((ILuint)(t1 * Width / ScaleX) + 1) * image->Bpp;
 
 					for (c = 0; c < Scaled->Bpp; c++) {
 						x1 = IntPtr[NewX1 + c];

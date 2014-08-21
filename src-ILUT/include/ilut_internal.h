@@ -74,7 +74,7 @@ void	ilutDefaultStates(void);
 
 // ImageLib Utility Toolkit's Win32 Functions
 #ifdef ILUT_USE_WIN32
-	ILboolean ilutWin32Init();
+	ILAPI ILboolean ilutWin32Init();
 #endif
 
 // ImageLib Utility Toolkit's Win32 Functions

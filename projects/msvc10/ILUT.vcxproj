@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\IL\ilut.h" />
     <ClInclude Include="..\..\src-ILUT\include\ilut_allegro.h" />
     <ClInclude Include="..\..\src-ILUT\include\ilut_internal.h" />
     <ClInclude Include="..\..\src-ILUT\include\ilut_opengl.h" />
@@ -42,6 +43,9 @@
     <ClCompile Include="..\..\src-ILUT\src\ilut_sdlsurface.cpp" />
     <ClCompile Include="..\..\src-ILUT\src\ilut_states.cpp" />
     <ClCompile Include="..\..\src-ILUT\src\ilut_win32.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILUT.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5543AC6F-5F08-4F58-94DF-9B89221C6DB2}</ProjectGuid>

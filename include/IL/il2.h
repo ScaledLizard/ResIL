@@ -141,13 +141,13 @@ void ILAPIENTRY il2Init(void);
 // Generate a new image 
 // Return value: handle used by API 2.x functions
 // Use ilCloseImage to close the image later
-ILimage* ILAPIENTRY il2GenImage();
+ILAPI ILimage* ILAPIENTRY il2GenImage();
 
 // Creates a new ILimage based on the specifications given
 ILAPI ILimage* ILAPIENTRY il2NewImage(ILuint Width, ILuint Height, ILuint Depth, ILubyte Bpp, ILubyte Bpc);
 
 // Delete an image and all associated data
-ILAPI void ILAPIENTRY il2CloseImage(ILimage * imageExt);
+ILAPI void ILAPIENTRY il2DeleteImage(ILimage * imageExt);
 
 // Reset read functions to use file system for io
 ILAPI void ILAPIENTRY il2ResetRead(ILimage* image);
@@ -191,15 +191,6 @@ ILAPI ILboolean ILAPIENTRY il2LoadFuncs(ILimage* image, ILenum type);
 ILAPI ILboolean ILAPIENTRY il2Load(ILimage* image, ILenum Type, ILconst_string FileName);
 
 ILAPI ILint64	ILAPIENTRY il2DetermineSize(ILimage* image, ILenum Type);
-
-
-
-
-
-
-
-
-
 
 // Apply color profile
 ILAPI ILboolean ILAPIENTRY il2ApplyProfile(ILimage* image, ILstring InProfile, ILstring OutProfile);

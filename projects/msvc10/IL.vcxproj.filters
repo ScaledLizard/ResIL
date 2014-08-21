@@ -114,6 +114,9 @@
     <ClInclude Include="..\..\include\IL\il.h">
       <Filter>Includes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\IL\il2.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src-IL\src\il_nvidia.cpp">

@@ -58,7 +58,7 @@ ILAPI ILimage* ILAPIENTRY il2NewImage(ILuint Width, ILuint Height, ILuint Depth,
 }
 
 // Generate a new image
-ILimage* ILAPIENTRY il2GenImage()
+ILAPI ILimage* ILAPIENTRY il2GenImage()
 {
 	return il2NewImage(1, 1, 1, 1, 1);
 }
@@ -78,7 +78,7 @@ ILAPI ILimage* ILAPIENTRY ilNewImageFull(ILuint Width, ILuint Height, ILuint Dep
 	}
 
 	if (!il2InitImage(image, Width, Height, Depth, Bpp, Format, Type, Data)) {
-		il2CloseImage(image);
+		il2DeleteImage(image);
 		return NULL;
 	}
 	
@@ -86,7 +86,7 @@ ILAPI ILimage* ILAPIENTRY ilNewImageFull(ILuint Width, ILuint Height, ILuint Dep
 }
 
 // Delete an image and all associated data
-ILAPI void ILAPIENTRY il2CloseImage(ILimage * image)
+ILAPI void ILAPIENTRY il2DeleteImage(ILimage * image)
 {
 	if (image->Data != NULL) 
 		ifree(image->Data);
@@ -202,7 +202,7 @@ ILAPI ILboolean ILAPIENTRY il2TexSubImage_(ILimage *Image, void *Data)
 	\exception IL_INVALID_PARAM Data was NULL.
 	\return Boolean value of failure or success
 */
-ILboolean ILAPIENTRY il2SetData(ILimage* image, void *Data)
+ILAPI ILboolean ILAPIENTRY il2SetData(ILimage* image, void *Data)
 {
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
@@ -220,7 +220,7 @@ ILboolean ILAPIENTRY il2SetData(ILimage* image, void *Data)
 	than one byte per channel for easier access to data.
 	\exception IL_ILLEGAL_OPERATION No currently bound image
 	\return ILubyte pointer to image data.*/
-ILubyte* ILAPIENTRY il2GetData(ILimage* image)
+ILAPI ILubyte* ILAPIENTRY il2GetData(ILimage* image)
 {
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
@@ -237,7 +237,7 @@ ILubyte* ILAPIENTRY il2GetData(ILimage* image)
 	called again.
 	\exception IL_ILLEGAL_OPERATION No currently bound image
 	\return ILubyte pointer to image palette data.*/
-ILubyte* ILAPIENTRY il2GetPalette(ILimage* image)
+ILAPI ILubyte* ILAPIENTRY il2GetPalette(ILimage* image)
 {
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
@@ -260,7 +260,7 @@ static ILfloat ClearBlue  = 0.90588f;
 static ILfloat ClearAlpha = 0.0f;
 static ILfloat ClearLum   = 1.0f;
 
-void ILAPIENTRY il2ClearColour(ILclampf Red, ILclampf Green, ILclampf Blue, ILclampf Alpha)
+ILAPI void ILAPIENTRY il2ClearColour(ILclampf Red, ILclampf Green, ILclampf Blue, ILclampf Alpha)
 {
 	// Clamp to 0.0f - 1.0f.
 	ClearRed	= Red < 0.0f ? 0.0f : (Red > 1.0f ? 1.0f : Red);

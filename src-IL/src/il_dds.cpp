@@ -398,7 +398,7 @@ void GetBitsFromMask(ILuint Mask, ILuint *ShiftLeft, ILuint *ShiftRight)
 
 // Same as DecompressARGB, but it works on images with more than 8 bits
 //  per channel, such as a2r10g10b10 and a2b10g10r10.
-ILboolean DecompressARGB16(ILimage* image, DDSHEAD * header, ILuint CompFormat, ILubyte*& CompData)
+ILboolean DecompressARGB16(ILimage* image, DDSHEAD * header, ILuint /*CompFormat*/, ILubyte*& CompData)
 {
 	ILuint ReadI = 0, TempBpp, i;
 	ILuint RedL, RedR;
@@ -1005,7 +1005,7 @@ ILboolean Decompress3Dc(ILimage* image, DDSHEAD * header, ILubyte*& CompData)
 
 //Taken from OpenEXR
 unsigned int
-halfToFloat (unsigned short y)
+dds_halfToFloat (unsigned short y)
 {
 	int s = (y >> 15) & 0x00000001;
 	int e = (y >> 10) & 0x0000001f;
@@ -1072,7 +1072,7 @@ ILboolean iConvFloat16ToFloat32(ILuint* dest, ILushort* src, ILuint size)
 	for (i = 0; i < size; ++i, ++dest, ++src) {
 		//float: 1 sign bit, 8 exponent bits, 23 mantissa bits
 		//half: 1 sign bit, 5 exponent bits, 10 mantissa bits
-		*dest = halfToFloat(*src);
+		*dest = dds_halfToFloat(*src);
 	}
 
 	return IL_TRUE;
@@ -1087,8 +1087,8 @@ ILboolean iConvG16R16ToFloat32(ILuint* dest, ILushort* src, ILuint size)
 	for (i = 0; i < size; i += 3) {
 		//float: 1 sign bit, 8 exponent bits, 23 mantissa bits
 		//half: 1 sign bit, 5 exponent bits, 10 mantissa bits
-		*dest++ = halfToFloat(*src++);
-		*dest++ = halfToFloat(*src++);
+		*dest++ = dds_halfToFloat(*src++);
+		*dest++ = dds_halfToFloat(*src++);
 		*((ILfloat*)dest++) = 1.0f;
 	}
 
@@ -1104,7 +1104,7 @@ ILboolean iConvR16ToFloat32(ILuint* dest, ILushort* src, ILuint size)
 	for (i = 0; i < size; i += 3) {
 		//float: 1 sign bit, 8 exponent bits, 23 mantissa bits
 		//half: 1 sign bit, 5 exponent bits, 10 mantissa bits
-		*dest++ = halfToFloat(*src++);
+		*dest++ = dds_halfToFloat(*src++);
 		*((ILfloat*)dest++) = 1.0f;
 		*((ILfloat*)dest++) = 1.0f;
 	}
@@ -1556,23 +1556,19 @@ mip_fail:
 ILboolean iLoadDdsCubemapInternal(ILimage* baseImage, DDSHEAD * header, ILuint CompFormat, 
 	ILboolean Has16BitComponents)
 {
-	ILuint	i;
-	ILubyte	Bpp, Channels, Bpc;
-	ILimage *currImage;
+	ILimage *currImage = NULL;
 	SIO * io = &baseImage->io;
-
 	ILubyte* CompData = NULL;
+	ILubyte	Channels = iCompFormatToChannelCount(CompFormat);
+	ILubyte	Bpc = iCompFormatToBpc(CompFormat, Has16BitComponents);
 
-	Bpp = iCompFormatToBpp(header, CompFormat);
-	Channels = iCompFormatToChannelCount(CompFormat);
-	Bpc = iCompFormatToBpc(CompFormat, Has16BitComponents);
 	if (CompFormat == PF_LUMINANCE && header->RGBBitCount == 16 && header->RBitMask == 0xFFFF) { //@TODO: This is a HACK.
-		Bpc = 2; Bpp = 2;
+		Bpc = 2;
 	}
 
 	currImage = baseImage;
 	// Run through cube map possibilities
-	for (i = 0; i < CUBEMAP_SIDES; i++) {
+	for (ILuint	i = 0; i < CUBEMAP_SIDES; i++) {
 		// Reset each time
 		if (header->ddsCaps2 & CubemapDirections[i]) {
 			if (i != 0) {
@@ -1940,7 +1936,7 @@ void ilFreeImageDxtcData(ILimage* image)
  */
 ILAPI ILboolean ILAPIENTRY iDxtcDataToSurface(ILimage* image, DDSHEAD* header)
 {
-	ILuint CompFormat;
+	ILuint CompFormat = 0;
 
 	if (image == NULL || image->DxtcData == NULL) {
 		il2SetError(IL_INVALID_PARAM);

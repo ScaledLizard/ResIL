@@ -441,22 +441,21 @@ __zoom_cleanup:
 } /* zoom */
 
 
-ILuint iluScaleAdvanced(ILuint Width, ILuint Height, ILenum Filter)
+ILuint ilu2ScaleAdvanced(ILimage* image, ILuint Width, ILuint Height, ILenum Filter)
 {
 	double (*f)(double) = filter;
 	double s = filter_support;
 	ILimage *Dest;
 
-	iluCurImage = ilGetCurImage();
-	if (iluCurImage == NULL) {
+	if (image == NULL) {
 		il2SetError(ILU_ILLEGAL_OPERATION);
 		return IL_FALSE;
 	}
 
 	// Not supported yet.
-	if (iluCurImage->Type != IL_UNSIGNED_BYTE ||
-		iluCurImage->Format == IL_COLOUR_INDEX ||
-		iluCurImage->Depth > 1) {
+	if (image->Type != IL_UNSIGNED_BYTE ||
+		image->Format == IL_COLOUR_INDEX ||
+		image->Depth > 1) {
 			il2SetError(ILU_ILLEGAL_OPERATION);
 			return IL_FALSE;
 	}
@@ -469,21 +468,20 @@ ILuint iluScaleAdvanced(ILuint Width, ILuint Height, ILenum Filter)
 		case ILU_SCALE_BSPLINE: f=B_spline_filter; s=B_spline_support; break;
 		case ILU_SCALE_LANCZOS3: f=Lanczos3_filter; s=Lanczos3_support; break;
 		case ILU_SCALE_MITCHELL: f=Mitchell_filter; s=Mitchell_support; break;
-		//case 'h': f=filter; s=filter_support; break;
 	}
 
-	Dest = il2NewImage(Width, Height, 1, iluCurImage->Bpp, 1);
-	Dest->Origin = iluCurImage->Origin;
-	Dest->Duration = iluCurImage->Duration;
-	for (c = 0; c < (ILuint)iluCurImage->Bpp; c++) {
-		if (zoom(Dest, iluCurImage, f, s) != 0) {
+	Dest = il2NewImage(Width, Height, 1, image->Bpp, 1);
+	Dest->Origin = image->Origin;
+	Dest->Duration = image->Duration;
+	for (c = 0; c < (ILuint)image->Bpp; c++) {
+		if (zoom(Dest, image, f, s) != 0) {
 			return IL_FALSE;
 		}
 	}
 
-	ilTexImage(Width, Height, 1, iluCurImage->Bpp, iluCurImage->Format, iluCurImage->Type, Dest->Data);
-	iluCurImage->Origin = Dest->Origin;
-	iluCurImage->Duration = Dest->Duration;
+	il2TexImage(image, Width, Height, 1, image->Bpp, image->Format, image->Type, Dest->Data);
+	image->Origin = Dest->Origin;
+	image->Duration = Dest->Duration;
 	ilCloseImage(Dest);
 
 	return IL_TRUE;

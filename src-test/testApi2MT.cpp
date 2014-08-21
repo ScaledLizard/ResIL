@@ -79,7 +79,7 @@ void test_ilLoad(wchar_t* sourceFN, wchar_t* targetFN)
 		++errors;
 	}
 	testHeap();
-	il2CloseImage(handle);
+	il2DeleteImage(handle);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ void test_ilLoadF(wchar_t* sourceFN, wchar_t* targetFN)
 		}
 
 	testHeap();
-	il2CloseImage(image);
+	il2DeleteImage(image);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,7 @@ void test_ilLoadImage(wchar_t* sourceFN, wchar_t* targetFN)
 		++errors;
 	}
 	testHeap();
-	il2CloseImage(handle);
+	il2DeleteImage(handle);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -204,7 +204,7 @@ void test_ilLoadL(wchar_t* sourceFN, wchar_t* targetFN)
 			++errors;
 		}
 	testHeap();
-	il2CloseImage(handle);
+	il2DeleteImage(handle);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -551,7 +551,7 @@ void testSavers(const TCHAR* sourceFN, const TCHAR* targetFN)
 	//testSavers2(handle, IL_VTF, targetFN, L"vtf");
 
 	testHeap();
-	il2CloseImage(handle);
+	il2DeleteImage(handle);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

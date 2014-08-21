@@ -15,24 +15,8 @@
 #include "IL/il2.h"
 
 
-void ILAPIENTRY iluDeleteImage(ILuint Id)
-{
-	ilDeleteImages(1, &Id);
-	return;
-}
-
-
-ILuint ILAPIENTRY iluGenImage()
-{
-	ILuint Id;
-	ilGenImages(1, &Id);
-	ilBindImage(Id);
-	return Id;
-}
-
-
 //! Retrieves information about the current bound image.
-void ILAPIENTRY iluGetImageInfo(ILinfo *Info)
+/*void ILAPIENTRY iluGetImageInfo(ILinfo *Info)
 {
 	iluCurImage = ilGetCurImage();
 	if (iluCurImage == NULL || Info == NULL) {
@@ -62,3 +46,4 @@ void ILAPIENTRY iluGetImageInfo(ILinfo *Info)
 	
 	return;
 }
+*/

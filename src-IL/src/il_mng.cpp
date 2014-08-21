@@ -52,7 +52,7 @@
 ILboolean ilIsValidMng(SIO* io)
 {
 	unsigned char mngSig[8];
-	ILint read = io->read(io, mngSig, 1, sizeof(mngSig));
+	ILint64 read = io->read(io, mngSig, 1, sizeof(mngSig));
 	io->seek(io, -read, SEEK_CUR);
 
 	if (mngSig[0] == 0x8A 
@@ -124,7 +124,7 @@ mng_bool MNG_DECL mymngreadstream(mng_handle mng, mng_ptr buffer, mng_size_t siz
 	SIO * io = &image->io;
 
 	// read the requested amount of data from the file
-	*bytesread = io->read(io, buffer, 1, (ILuint)size);
+	*bytesread = (mng_uint32) io->read(io, buffer, 1, (ILuint)size);
 
 	return MNG_TRUE;
 }
@@ -137,7 +137,7 @@ mng_bool MNG_DECL mymngwritedata(mng_handle mng, mng_ptr buffer, mng_size_t size
 {
 	ILimage* image = (ILimage*) mng_get_userdata(mng);
 	SIO * io = &image->io;
-	*byteswritten = io->write(buffer, 1, (ILuint)size, io);
+	*byteswritten = (mng_uint32) io->write(buffer, 1, (ILuint)size, io);
 
 	if (*byteswritten < size) {
 		il2SetError(IL_FILE_WRITE_ERROR);

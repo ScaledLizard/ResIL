@@ -55,7 +55,7 @@ static void GccMain()
 #endif
 
 
-void ILAPIENTRY ilutInit()
+void ILAPIENTRY ilut2Init()
 {
 	ilutDefaultStates();  // Set states to their defaults
 	// Can cause crashes if DevIL is not initialized yet
@@ -73,4 +73,9 @@ void ILAPIENTRY ilutInit()
 #endif
 
 	return;
+}
+
+void ILAPIENTRY ilutInit()
+{
+	ilut2Init();
 }

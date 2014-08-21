@@ -27,7 +27,7 @@ ILAPI void ILAPIENTRY il2SetError(ILenum Error)
 
 
 //! Gets the last error
-ILenum ILAPIENTRY il2GetError(void)
+ILAPI ILenum ILAPIENTRY il2GetError(void)
 {
 	auto retVal = lastError;
 	lastError = IL_NO_ERROR;

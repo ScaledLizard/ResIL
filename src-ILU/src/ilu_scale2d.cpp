@@ -22,6 +22,7 @@ ILimage *iluScale2DNear_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint H
 ILimage *iluScale2DLinear_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Height);
 ILimage *iluScale2DBilinear_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Height);
 
+// Global variables
 static ILuint	x1, x2;
 static ILuint	NewY1, NewY2, NewX1, NewX2, Size, x, y, c;
 static ILdouble	ScaleX, ScaleY, t1, t2, t3, t4, f, ft, NewX;
@@ -30,7 +31,6 @@ static ILuint	ImgBps, SclBps;
 static ILushort	*ShortPtr, *SShortPtr;
 static ILuint	*IntPtr, *SIntPtr;
 static ILfloat	*FloatPtr, *SFloatPtr;
-
 
 
 ILimage *iluScale2D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Height)

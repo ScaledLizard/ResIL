@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\src-ILU\src\ilu_utilities.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src-ILU\src\ilu_api1.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src-ILU\include\ilu_internal.h">
@@ -75,6 +78,12 @@
       <Filter>Includes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src-ILU\include\ilu_filter.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\IL\ilu.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\IL\ilu2.h">
       <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>

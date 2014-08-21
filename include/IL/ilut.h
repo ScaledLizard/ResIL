@@ -21,16 +21,16 @@
 #define __ilut_h_
 #define __ILUT_H__
 
-#include <IL/il.h>
-#include <IL/ilu.h>
+#include <IL/il2.h>
+#include <IL/ilu2.h>
 
 
 //-----------------------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------------------
 
-#define ILUT_VERSION_1_7_8 1
-#define ILUT_VERSION       178
+#define ILUT_VERSION_1_9_0 1
+#define ILUT_VERSION       190
 
 
 // Attribute Bits
@@ -230,6 +230,7 @@ ILAPI ILint			ILAPIENTRY ilutGetInteger(ILenum Mode);
 ILAPI void          ILAPIENTRY ilutGetIntegerv(ILenum Mode, ILint *Param);
 ILAPI ILstring      ILAPIENTRY ilutGetString(ILenum StringName);
 ILAPI void          ILAPIENTRY ilutInit(void);
+ILAPI void          ILAPIENTRY ilut2Init(void);
 ILAPI ILboolean     ILAPIENTRY ilutIsDisabled(ILenum Mode);
 ILAPI ILboolean     ILAPIENTRY ilutIsEnabled(ILenum Mode);
 ILAPI void          ILAPIENTRY ilutPopAttrib(void);
@@ -300,6 +301,9 @@ ILAPI ILboolean     ILAPIENTRY ilutRenderer(ILenum Renderer);
 	ILAPI ILboolean	ILAPIENTRY ilutWinLoadUrl(ILstring Url);
 	ILAPI ILboolean ILAPIENTRY ilutWinPrint(ILuint XPos, ILuint YPos, ILuint Width, ILuint Height, HDC hDC);
 	ILAPI ILboolean	ILAPIENTRY ilutWinSaveImage(ILstring FileName, HBITMAP Bitmap);
+
+	ILAPI HBITMAP ILAPIENTRY ilut2ConvertToHBitmap(ILimage* image, HDC hDC);
+	ILAPI HBITMAP ILAPIENTRY ilut2ConvertSliceToHBitmap(ILimage* image, HDC hDC, ILuint slice);
 #endif//ILUT_USE_WIN32
 
 // ImageLib Utility Toolkit's DirectX 8 Functions

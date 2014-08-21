@@ -4,27 +4,22 @@
 // Development startet in 2014
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifdef WIN32
 // Prevent stupid MSVC warnings for using basic proven C functions
-#ifdef _MSC_VER
 #define _SCL_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
-#endif
-
 #include <Windows.h>
 #include <tchar.h>
-#include "IL/il.h"
-#include "IL/ilu.h"
 #include <direct.h>
-
-///////////////////////////////////////////////////////////////////////////////
-
 #define PathCharMod "%S"
-
-#ifdef _WIN32
 #define PATH_SEPARATOR L"\\"
 #else
+#define PathCharMod "%s"
 #define PATH_SEPARATOR "/"
 #endif
+
+#include "IL/il.h"
+#include "IL/ilu.h"
 
 int errors;
 

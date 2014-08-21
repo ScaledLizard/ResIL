@@ -194,7 +194,7 @@ ILAPI ILboolean ILAPIENTRY ilSave(ILenum Type, ILconst_string FileName);
 ILAPI ILuint    ILAPIENTRY ilSaveF(ILenum Type, ILHANDLE File);
 ILAPI ILboolean ILAPIENTRY ilSaveFuncs(ILenum type);
 ILAPI ILboolean ILAPIENTRY ilSaveImage(ILconst_string FileName);
-ILAPI ILuint    ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size);
+ILAPI ILint64    ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size);
 ILAPI ILboolean ILAPIENTRY ilSavePal(ILconst_string FileName);
 ILAPI ILboolean ILAPIENTRY ilSetAlpha(ILdouble AlphaValue);
 ILAPI ILboolean ILAPIENTRY ilSetData(void *Data);

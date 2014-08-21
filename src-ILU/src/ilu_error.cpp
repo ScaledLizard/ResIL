@@ -57,7 +57,7 @@ ILconst_string *iluMiscErrorStrings[ILU_NUM_LANGUAGES] = {
 };
 
 
-ILconst_string ILAPIENTRY iluErrorString(ILenum Error)
+ILconst_string ILAPIENTRY ilu2ErrorString(ILenum Error)
 {
 	// Now we are dealing with Unicode strings.
 	if (Error == IL_NO_ERROR) {
@@ -77,7 +77,7 @@ ILconst_string ILAPIENTRY iluErrorString(ILenum Error)
 }
 
 
-ILboolean ILAPIENTRY iluSetLanguage(ILenum Language)
+ILboolean ILAPIENTRY ilu2SetLanguage(ILenum Language)
 {
 	switch (Language)
 	{

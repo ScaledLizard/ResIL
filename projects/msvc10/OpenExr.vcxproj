@@ -265,7 +265,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OPENEXR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;D:\ResIL-1.8.3d\Input Libs\ilmbase-2.1.0\IlmThread;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;D:\ResIL-1.8.3d\Input Libs\ilmbase-2.1.0\IlmThread;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\\Input Libs\ilmbase-2.1.0\IlmThread</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

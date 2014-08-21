@@ -377,7 +377,7 @@ ILboolean iLoadPxrInternal(ILimage* image);
 ILboolean iLoadRawInternal(ILimage* image);
 ILboolean iSaveRawInternal(ILimage* image);
 
-ILboolean ilLoadRot(ILimage* image);
+ILboolean iLoadRotInternal(ILimage* image);
 
 ILboolean iIsValidSgi(SIO* io);
 ILboolean iLoadSgiInternal(ILimage* image);
@@ -398,8 +398,8 @@ ILboolean ilIsValidTiffFunc(SIO* io);
 ILboolean iLoadTiffInternal(ILimage* image);
 ILboolean iSaveTiffInternal(ILimage* image);
 
-ILboolean ilIsValidTpl(SIO* io);
-ILboolean ilLoadTpl(ILimage* image);
+ILboolean iIsValidTpl(SIO* io);
+ILboolean iLoadTplInternal(ILimage* image);
 
 ILboolean iLoadUtxInternal(ILimage* image);
 

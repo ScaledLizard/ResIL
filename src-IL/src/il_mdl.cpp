@@ -36,7 +36,7 @@ ILboolean iIsValidMdl(SIO * io)
 
 ILboolean iLoadMdlInternal(ILimage* image)
 {
-	ILuint		Id, Version, NumTex, TexOff, TexDataOff, Position, ImageNum;
+	ILuint		Id, Version, NumTex, TexOff, TexDataOff, ImageNum;
 	ILubyte		*TempPal;
 	TEX_HEAD	TexHead;
 	ILimage		*BaseImage=NULL;
@@ -78,7 +78,7 @@ ILboolean iLoadMdlInternal(ILimage* image)
 		TexHead.Width = GetLittleUInt(io);
 		TexHead.Height = GetLittleUInt(io);
 		TexHead.Offset = GetLittleUInt(io);
-		Position = io->tell(io);
+		ILint64 Position = io->tell(io);
 
 		if (TexHead.Offset == 0) {
 			il2SetError(IL_ILLEGAL_FILE_VALUE);

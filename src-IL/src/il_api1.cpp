@@ -380,7 +380,7 @@ ILuint ILAPIENTRY ilSaveF(ILenum type, ILHANDLE File)
 }
 
 // Save image to lump
-ILuint ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size)
+ILint64 ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size)
 {
 	return il2SaveL(iCurImage, Type, Lump, Size);
 }

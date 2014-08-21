@@ -309,7 +309,7 @@ ILboolean ilCopyPixels3D(ILimage* image, ILuint XOff, ILuint YOff, ILuint ZOff, 
 }
 
 
-ILuint ILAPIENTRY il2CopyPixels(ILimage* image, ILuint XOff, ILuint YOff, ILuint ZOff, ILuint Width, ILuint Height, ILuint Depth, ILenum Format, ILenum Type, void *Data)
+ILAPI ILuint ILAPIENTRY il2CopyPixels(ILimage* image, ILuint XOff, ILuint YOff, ILuint ZOff, ILuint Width, ILuint Height, ILuint Depth, ILenum Format, ILenum Type, void *Data)
 {
 	void	*Converted = NULL;
 	ILubyte	*TempBuff = NULL;
@@ -551,7 +551,7 @@ ILboolean ilSetPixels3D(ILimage* image, ILint XOff, ILint YOff, ILint ZOff, ILui
 }
 
 
-void ILAPIENTRY il2SetPixels(ILimage* image, ILint XOff, ILint YOff, ILint ZOff, ILuint Width, ILuint Height, ILuint Depth, ILenum Format, ILenum Type, void *Data)
+ILAPI void ILAPIENTRY il2SetPixels(ILimage* image, ILint XOff, ILint YOff, ILint ZOff, ILuint Width, ILuint Height, ILuint Depth, ILenum Format, ILenum Type, void *Data)
 {
 	void *Converted;
 
@@ -658,7 +658,7 @@ ILboolean ILAPIENTRY il2DefaultImage(ILimage* image)
 }
 
 
-ILubyte* ILAPIENTRY il2GetAlpha(ILimage* image, ILenum Type)
+ILAPI ILubyte* ILAPIENTRY il2GetAlpha(ILimage* image, ILenum Type)
 {
 	ILimage		*TempImage;
 	ILubyte		*Alpha;
@@ -754,7 +754,7 @@ ILubyte* ILAPIENTRY il2GetAlpha(ILimage* image, ILenum Type)
 }
 
 // sets the Alpha value to a specific value for each pixel in the image
-ILboolean ILAPIENTRY ilSetAlpha(ILimage* image, ILdouble AlphaValue)
+ILAPI ILboolean ILAPIENTRY ilSetAlpha(ILimage* image, ILdouble AlphaValue)
 {
 	ILboolean	ret = IL_TRUE;
 	ILuint		i,Size;
@@ -838,7 +838,7 @@ ILboolean ILAPIENTRY ilSetAlpha(ILimage* image, ILdouble AlphaValue)
 	return IL_TRUE;
 }
 
-void ILAPIENTRY ilModAlpha(ILimage* image, ILdouble AlphaValue)
+ILAPI void ILAPIENTRY ilModAlpha(ILimage* image, ILdouble AlphaValue)
 {
     ILuint AlphaOff = 0;
     ILboolean ret = IL_FALSE;
@@ -921,7 +921,7 @@ void ILAPIENTRY ilModAlpha(ILimage* image, ILdouble AlphaValue)
 //! Clamps data values of unsigned bytes from 16 to 235 for display on an
 //   NTSC television.  Reasoning for this is given at
 //   http://msdn.microsoft.com/en-us/library/bb174608.aspx.
-ILboolean ILAPIENTRY ilClampNTSC(ILimage* image)
+ILAPI ILboolean ILAPIENTRY ilClampNTSC(ILimage* image)
 {
 	ILuint x, y, z, c;
 	ILuint Offset = 0;

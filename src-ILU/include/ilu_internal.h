@@ -41,7 +41,7 @@
 #include <IL/config.h>
 #endif
 
-#include <IL/ilu.h>
+#include <IL/ilu2.h>
 #include <IL/devil_internal_exports.h>
 
 
@@ -56,8 +56,6 @@
 	#define IL_TEXT(s) s
 	#define TEXT(s) s
 #endif
-
-extern ILimage *iluCurImage;
 
 
 // Useful global variables
@@ -93,8 +91,8 @@ INLINE ILint ilRound(ILfloat Num) {
 
 
 
-ILuint	iluScaleAdvanced(ILuint Width, ILuint Height, ILenum Filter);
-ILubyte	*iScanFill(void);
+ILuint	ilu2ScaleAdvanced(ILimage* image, ILuint Width, ILuint Height, ILenum Filter);
+ILubyte	*iScanFill(ILimage* image);
 
 
 #endif//INTERNAL_H

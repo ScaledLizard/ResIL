@@ -10,16 +10,19 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-
 #include "ilu_internal.h"
 #include "ilu_states.h"
 
-
+// Constants 
 ILconst_string _iluVendor	= IL_TEXT("Abysmal Software");
-ILconst_string _iluVersion	= IL_TEXT("Developer's Image Library Utilities (ILU) 1.7.8");// IL_TEXT(__DATE__));
+ILconst_string _iluVersion	= IL_TEXT("Developer's Image Library Utilities (ILU) 1.9.0");// IL_TEXT(__DATE__));
+
+// Global variables
+ILenum iluFilter = ILU_NEAREST;
+ILenum iluPlacement = ILU_CENTER;
 
 
-ILstring ILAPIENTRY iluGetString(ILenum StringName)
+ILstring ILAPIENTRY ilu2GetString(ILenum StringName)
 {
 	switch (StringName)
 	{
@@ -36,7 +39,7 @@ ILstring ILAPIENTRY iluGetString(ILenum StringName)
 }
 
 
-void ILAPIENTRY iluGetIntegerv(ILenum Mode, ILint *Param)
+void ILAPIENTRY ilu2GetIntegerv(ILenum Mode, ILint *Param)
 {
 	switch (Mode)
 	{
@@ -55,19 +58,16 @@ void ILAPIENTRY iluGetIntegerv(ILenum Mode, ILint *Param)
 }
 
 
-ILint ILAPIENTRY iluGetInteger(ILenum Mode)
+ILint ILAPIENTRY ilu2GetInteger(ILenum Mode)
 {
 	ILint Temp;
 	Temp = 0;
-	iluGetIntegerv(Mode, &Temp);
+	ilu2GetIntegerv(Mode, &Temp);
 	return Temp;
 }
 
 
-ILenum iluFilter = ILU_NEAREST;
-ILenum iluPlacement = ILU_CENTER;
-
-void ILAPIENTRY iluImageParameter(ILenum PName, ILenum Param)
+void ILAPIENTRY ilu2ImageParameter(ILenum PName, ILenum Param)
 {
 	switch (PName)
 	{

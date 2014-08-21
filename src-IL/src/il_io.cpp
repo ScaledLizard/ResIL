@@ -397,7 +397,7 @@ ILAPI ILenum ILAPIENTRY iDetermineTypeFuncs(SIO*  io)
 	#endif
 
 	#ifndef IL_NO_TPL
-	if (ilIsValidTpl(io))
+	if (iIsValidTpl(io))
 		return IL_TPL;
 	#endif
 
@@ -601,7 +601,7 @@ ILboolean ILAPIENTRY iIsValid(ILenum Type, SIO* io)
 
 		#ifndef IL_NO_TPL
 		case IL_TPL:
-			return ilIsValidTpl(io);
+			return iIsValidTpl(io);
 		#endif
 
 		#ifndef IL_NO_VTF
@@ -876,12 +876,12 @@ ILAPI ILboolean ILAPIENTRY il2LoadFuncs(ILimage* imageExt, ILenum type)
 
 		#ifndef IL_NO_ROT
 		case IL_ROT:
-			return ilLoadRot(image);
+			return iLoadRotInternal(image);
 		#endif
 
 		#ifndef IL_NO_TPL
 		case IL_TPL:
-			return ilLoadTpl(image);
+			return iLoadTplInternal(image);
 		#endif
 
 		#ifndef IL_NO_UTX

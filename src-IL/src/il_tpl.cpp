@@ -55,53 +55,6 @@ ILboolean iLoadTplInternal(void);
 ILboolean TplGetIndexImage(ILimage *Image, ILuint TexOff, ILuint DataFormat);
 
 
-//! Checks if the file specified in FileName is a valid TPL file.
-/*ILboolean ilIsValidTpl(ILconst_string FileName)
-{
-	ILHANDLE	TplFile;
-	ILboolean	bTpl = IL_FALSE;
-	
-	if (!iCheckExtension(FileName, IL_TEXT("tpl"))) {
-		il2SetError(IL_INVALID_EXTENSION);
-		return bTpl;
-	}
-	
-	TplFile = iopenr(FileName);
-	if (TplFile == NULL) {
-		il2SetError(IL_COULD_NOT_OPEN_FILE);
-		return bTpl;
-	}
-	
-	bTpl = ilIsValidTplF(TplFile);
-	icloser(TplFile);
-	
-	return bTpl;
-}
-
-
-//! Checks if the ILHANDLE contains a valid TPL file at the current position.
-ILboolean ilIsValidTplF(ILHANDLE File)
-{
-	ILuint		FirstPos;
-	ILboolean	bRet;
-	
-	iSetInputFile(File);
-	FirstPos = itell();
-	bRet = iIsValidTpl();
-	iseek(FirstPos, IL_SEEK_SET);
-	
-	return bRet;
-}
-
-
-//! Checks if Lump is a valid TPL lump.
-ILboolean ilIsValidTplL(const void *Lump, ILuint Size)
-{
-	iSetInputLump(Lump, Size);
-	return iIsValidTpl();
-}*/
-
-
 // Internal function used to get the TPL header from the current file.
 ILboolean iGetTplHead(SIO* io, TPLHEAD *Header)
 {
@@ -142,54 +95,12 @@ ILboolean iCheckTpl(TPLHEAD *Header)
 }
 
 
-//! Reads a TPL file
-/*ILboolean ilLoadTpl(ILconst_string FileName)
-{
-	ILHANDLE	TplFile;
-	ILboolean	bTpl = IL_FALSE;
-	
-	TplFile = iopenr(FileName);
-	if (TplFile == NULL) {
-		ilSetError(IL_COULD_NOT_OPEN_FILE);
-		return bTpl;
-	}
-
-	bTpl = ilLoadTplF(TplFile);
-	icloser(TplFile);
-
-	return bTpl;
-}
-
-
-//! Reads an already-opened TPL file
-ILboolean ilLoadTplF(ILHANDLE File)
-{
-	ILuint		FirstPos;
-	ILboolean	bRet;
-	
-	iSetInputFile(File);
-	FirstPos = itell();
-	bRet = iLoadTplInternal();
-	iseek(FirstPos, IL_SEEK_SET);
-	
-	return bRet;
-}
-
-
-//! Reads from a memory "lump" that contains a TPL
-ILboolean ilLoadTplL(const void *Lump, ILuint Size)
-{
-	iSetInputLump(Lump, Size);
-	return iLoadTplInternal();
-}*/
-
-
 // Internal function used to load the TPL.
 ILboolean iLoadTplInternal(ILimage* image)
 {
 	TPLHEAD		Header;
 	ILimage		*Image/*, *BaseImage*/;
-	ILuint		Pos, TexOff, PalOff, DataFormat, Bpp, DataOff, WrapS, WrapT;
+	ILuint		TexOff, PalOff, DataFormat, Bpp, DataOff, WrapS, WrapT;
 	ILuint		x, y, xBlock, yBlock, i, j, k, n;
 	ILenum		Format;
 	ILushort	Width, Height, ShortPixel;
@@ -213,7 +124,7 @@ ILboolean iLoadTplInternal(ILimage* image)
 	}
 
 	// Points to the beginning of the texture header directory.
-	Pos = io->tell(io);
+	ILint64 Pos = io->tell(io);
 
 	for (n = 0; n < Header.nTextures; n++) {
 		// Go back to the texture header directory for texture number n+1.

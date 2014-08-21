@@ -18,7 +18,6 @@
 //
 //-----------------------------------------------------------------------------
 
-
 #include "il_internal.h"
 #ifndef IL_NO_WDP
 #include <WMPGlue.h>
@@ -33,48 +32,6 @@
 		#endif
 	#endif
 #endif
-
-
-//! Reads a WDP file
-ILboolean ilLoadWdp(ILconst_string FileName)
-{
-	ILHANDLE	WdpFile;
-	ILboolean	bWdp = IL_FALSE;
-	
-	WdpFile = iopenr(FileName);
-	if (WdpFile == NULL) {
-		ilSetError(IL_COULD_NOT_OPEN_FILE);
-		return bWdp;
-	}
-
-	bWdp = ilLoadWdpF(WdpFile);
-	icloser(WdpFile);
-
-	return bWdp;
-}
-
-
-//! Reads an already-opened WDP file
-ILboolean ilLoadWdpF(ILHANDLE File)
-{
-	ILuint		FirstPos;
-	ILboolean	bRet;
-	
-	iSetInputFile(File);
-	FirstPos = itell();
-	bRet = iLoadWdpInternal();
-	iseek(FirstPos, IL_SEEK_SET);
-	
-	return bRet;
-}
-
-
-//! Reads from a memory "lump" that contains a WDP
-ILboolean ilLoadWdpL(const void *Lump, ILuint Size)
-{
-	iSetInputLump(Lump, Size);
-	return iLoadWdpInternal();
-}
 
 //@TODO: Put in ilPKImageEncode_WritePixels_DevIL?
 ERR WriteDevILHeader(PKImageEncode* pIE)

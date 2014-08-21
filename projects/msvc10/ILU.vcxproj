@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src-ILU\src\ilu_alloc.cpp" />
+    <ClCompile Include="..\..\src-ILU\src\ilu_api1.cpp" />
     <ClCompile Include="..\..\src-ILU\src\ilu_error.cpp" />
     <ClCompile Include="..\..\src-ILU\src\ilu_filter.cpp" />
     <ClCompile Include="..\..\src-ILU\src\ilu_filter_rcg.cpp" />
@@ -46,6 +47,8 @@
     <ClCompile Include="..\..\src-ILU\src\ilu_utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\IL\ilu.h" />
+    <ClInclude Include="..\..\include\IL\ilu2.h" />
     <ClInclude Include="..\..\src-ILU\include\ilu_alloc.h" />
     <ClInclude Include="..\..\src-ILU\include\ilu_filter.h" />
     <ClInclude Include="..\..\src-ILU\include\ilu_internal.h" />

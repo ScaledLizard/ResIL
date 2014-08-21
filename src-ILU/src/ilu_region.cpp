@@ -14,6 +14,7 @@
 #include "ilu_internal.h"
 #include "ilu_region.h"
 
+// Global variables
 ILpointi	*RegionPointsi = NULL;
 ILpointf	*RegionPointsf = NULL;
 ILuint		PointNum = 0;
@@ -164,10 +165,13 @@ void BuildActiveList(ILint scan, Edge *active, Edge *edges[])
 }
 
 
-#define iRegionSetPixel(x,y) (iRegionMask[y * iluCurImage->Width + x] = 1 )
+inline void iRegionSetPixel(ILimage* image, ILint x, ILint y) 
+{
+	iRegionMask[y * image->Width + x] = 1;
+}
 
 
-void FillScan(ILint scan, Edge *active)
+void FillScan(ILimage* image, ILint scan, Edge *active)
 {
 	Edge *p1, *p2;
 	ILint i;
@@ -176,7 +180,7 @@ void FillScan(ILint scan, Edge *active)
 	while (p1) {
 		p2 = p1->next;
 		for (i = (ILuint)p1->xIntersect; i < p2->xIntersect; i++) {
-			iRegionSetPixel((ILuint)i, scan);
+			iRegionSetPixel(image, (ILuint)i, scan);
 		}
 		p1 = p2->next;
 	}
@@ -223,9 +227,9 @@ void ResortActiveList(Edge *active)
 }
 
 
-ILubyte *iScanFill()
+ILubyte *iScanFill(ILimage* image)
 {
-	Edge	**edges = NULL, *active = NULL/*, *temp*/;
+	Edge	**edges = NULL, *active = NULL;
 	ILuint	i, scan;
 
 	iRegionMask = NULL;
@@ -241,20 +245,20 @@ ILubyte *iScanFill()
 
 	for (i = 0; i < PointNum; i++) {
 		if (RegionPointsf) {
-			RegionPointsi[i].x = (ILuint)(iluCurImage->Width * RegionPointsf[i].x);
-			RegionPointsi[i].y = (ILuint)(iluCurImage->Height * RegionPointsf[i].y);
+			RegionPointsi[i].x = (ILuint)(image->Width * RegionPointsf[i].x);
+			RegionPointsi[i].y = (ILuint)(image->Height * RegionPointsf[i].y);
 		}
-		if (RegionPointsi[i].x >= (ILint)iluCurImage->Width || RegionPointsi[i].y >= (ILint)iluCurImage->Height)
+		if (RegionPointsi[i].x >= (ILint)image->Width || RegionPointsi[i].y >= (ILint)image->Height)
 			goto error;
 	}
 
-	edges = (Edge**)ialloc(sizeof(Edge*) * iluCurImage->Height);
-	iRegionMask = (ILubyte*)ialloc(iluCurImage->Width * iluCurImage->Height * iluCurImage->Depth);
+	edges = (Edge**)ialloc(sizeof(Edge*) * image->Height);
+	iRegionMask = (ILubyte*)ialloc(image->Width * image->Height * image->Depth);
 	if (edges == NULL || iRegionMask == NULL)
 		goto error;
-	imemclear(iRegionMask, iluCurImage->Width * iluCurImage->Height * iluCurImage->Depth);
+	imemclear(iRegionMask, image->Width * image->Height * image->Depth);
 
-	for (i = 0; i < iluCurImage->Height; i++) {
+	for (i = 0; i < image->Height; i++) {
 		edges[i] = (Edge*)ialloc(sizeof(Edge));
 		edges[i]->next = NULL;
 	}
@@ -262,23 +266,14 @@ ILubyte *iScanFill()
 	active = (Edge*)ialloc(sizeof(Edge));
 	active->next = NULL;
 
-	for (scan = 0; scan < iluCurImage->Height; scan++) {
+	for (scan = 0; scan < image->Height; scan++) {
 		BuildActiveList(scan, active, edges);
 		if (active->next) {
-			FillScan(scan, active);
+			FillScan(image, scan, active);
 			UpdateActiveList(scan, active);
 			ResortActiveList(active);
 		}
 	}
-
-	// Free edge records that have been allocated.
-	/*for (i = 0; i < iluCurImage->Height; i++) {
-		while (edges[i]) {
-			temp = edges[i]->next;
-			ifree(edges[i]);
-			edges[i] = temp;
-		}
-	}*/
 
 	ifree(edges);
 

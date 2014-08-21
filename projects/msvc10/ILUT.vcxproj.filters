@@ -21,6 +21,9 @@
     <ClInclude Include="..\..\src-ILUT\include\ilut_internal.h">
       <Filter>Includes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\IL\ilut.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src-ILUT\src\ilut_allegro.cpp">
@@ -50,5 +53,8 @@
     <ClCompile Include="..\..\src-ILUT\src\ilut_win32.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILUT.def" />
   </ItemGroup>
 </Project>

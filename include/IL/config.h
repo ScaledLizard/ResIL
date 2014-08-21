@@ -271,7 +271,7 @@
 /* wdp support (WDP is Microsoft's successor to JPEG, able to store many
    different image types either lossy or losslessly, also known as HD Photo.)
    */
-#undef IL_NO_WDP
+#define IL_NO_WDP
 
 /* xpm support (XPM (X PixMap) is an ASCII-based image used in X Windows.) */
 #undef IL_NO_XPM
