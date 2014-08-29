@@ -382,8 +382,6 @@ ILAPI ILimage* ILAPIENTRY iConvertImage(ILimage *Image, ILenum DestFormat, ILenu
 	\return Boolean value of failure or success*/
 ILboolean ILAPIENTRY il2ConvertImage(ILimage* image, ILenum DestFormat, ILenum DestType)
 {
-	ILimage *Image, *pCurImage;
-
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
 		return IL_FALSE;
@@ -403,36 +401,38 @@ ILboolean ILAPIENTRY il2ConvertImage(ILimage* image, ILenum DestFormat, ILenum D
 		ilAddAlphaKey(image);
 	}
 
-	pCurImage = image;
-	while (pCurImage != NULL)
+	ILimage * pCurFrame = image;
+	while (pCurFrame != NULL)
 	{
-		Image = iConvertImage(pCurImage, DestFormat, DestType);
-		if (Image == NULL)
+		ILimage * convertedImage = iConvertImage(pCurFrame, DestFormat, DestType);
+		if (convertedImage == NULL)
 			return IL_FALSE;
 
 		//ilCopyImageAttr(pCurImage, Image);  // Destroys subimages.
 
 		// We don't copy the colour profile here, since it stays the same.
 		//	Same with the DXTC data.
-		pCurImage->Format = DestFormat;
-		pCurImage->Type = DestType;
-		pCurImage->Bpc = ilGetBpcType(DestType);
-		pCurImage->Bpp = ilGetBppFormat(DestFormat);
-		pCurImage->Bps = pCurImage->Width * pCurImage->Bpc * pCurImage->Bpp;
-		pCurImage->SizeOfPlane = pCurImage->Bps * pCurImage->Height;
-		pCurImage->SizeOfData = pCurImage->Depth * pCurImage->SizeOfPlane;
-		if (pCurImage->Pal.Palette && pCurImage->Pal.PalSize && pCurImage->Pal.PalType != IL_PAL_NONE)
-			ifree(pCurImage->Pal.Palette);
-		pCurImage->Pal.Palette = Image->Pal.Palette;
-		pCurImage->Pal.PalSize = Image->Pal.PalSize;
-		pCurImage->Pal.PalType = Image->Pal.PalType;
-		Image->Pal.Palette = NULL;
-		ifree(pCurImage->Data);
-		pCurImage->Data = Image->Data;
-		Image->Data = NULL;
-		ilCloseImage(Image);
+		pCurFrame->Format = DestFormat;
+		pCurFrame->Type = DestType;
+		pCurFrame->Bpc = ilGetBpcType(DestType);
+		pCurFrame->Bpp = ilGetBppFormat(DestFormat);
+		pCurFrame->Bps = pCurFrame->Width * pCurFrame->Bpc * pCurFrame->Bpp;
+		pCurFrame->SizeOfPlane = pCurFrame->Bps * pCurFrame->Height;
+		pCurFrame->SizeOfData = pCurFrame->Depth * pCurFrame->SizeOfPlane;
 
-		pCurImage = pCurImage->Next;
+		if (pCurFrame->Pal.Palette && pCurFrame->Pal.PalSize && pCurFrame->Pal.PalType != IL_PAL_NONE)
+			ifree(pCurFrame->Pal.Palette);
+		pCurFrame->Pal.Palette = convertedImage->Pal.Palette;
+		pCurFrame->Pal.PalSize = convertedImage->Pal.PalSize;
+		pCurFrame->Pal.PalType = convertedImage->Pal.PalType;
+
+		convertedImage->Pal.Palette = NULL;
+		ifree(pCurFrame->Data);
+		pCurFrame->Data = convertedImage->Data;
+		convertedImage->Data = NULL;
+		il2DeleteImage(convertedImage);
+
+		pCurFrame = pCurFrame->Next;
 	}
 
 	return IL_TRUE;
@@ -443,6 +443,9 @@ ILboolean ILAPIENTRY il2ConvertImage(ILimage* image, ILenum DestFormat, ILenum D
 //	Must be either an 8, 24 or 32-bit (coloured) image (or palette).
 ILboolean il2SwapColours(ILimage* image)
 {
+	if (image == NULL) 
+		return IL_FALSE;
+
 	ILuint		i = 0, Size = image->Bpp * image->Width * image->Height;
 	ILbyte		PalBpp = ilGetBppPal(image->Pal.PalType);
 	ILushort	*ShortPtr;

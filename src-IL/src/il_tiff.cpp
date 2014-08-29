@@ -17,7 +17,7 @@
 #include <time.h>
 #include "tiffio.h"
 #include "il_manip.h"
-#include "IL/il2.h"
+//#include "IL/il2.h"
 
 #define MAGIC_HEADER1	0x4949
 #define MAGIC_HEADER2	0x4D4D
@@ -824,26 +824,26 @@ ILboolean iSaveTiffInternal(ILimage* image)
 	Format = TempImage->Format;
 	SwapColors = (Format == IL_BGR || Format == IL_BGRA);
 	if (SwapColors)
- 		ilSwapColours();
+ 		il2SwapColours(TempImage);
 
 	for (ixLine = 0; ixLine < TempImage->Height; ++ixLine) {
 		if (TIFFWriteScanline(File, TempImage->Data + ixLine * TempImage->Bps, ixLine, 0) < 0) {
 			TIFFClose(File);
 			il2SetError(IL_LIB_TIFF_ERROR);
 			if (SwapColors)
-				ilSwapColours();
+				il2SwapColours(TempImage);
 			if (TempImage->Data != OldData) {
 				ifree( TempImage->Data );
 				TempImage->Data = OldData;
 			}
 			if (TempImage != image)
-				ilCloseImage(TempImage);
+				il2DeleteImage(TempImage);
 			return IL_FALSE;
 		}
 	}
 
 	if (SwapColors)
- 		ilSwapColours();
+ 		il2SwapColours(TempImage);
 
 	if (TempImage->Data != OldData) {
 		ifree(TempImage->Data);
@@ -851,7 +851,7 @@ ILboolean iSaveTiffInternal(ILimage* image)
 	}
 
 	if (TempImage != image)
-		ilCloseImage(TempImage);
+		il2DeleteImage(TempImage);
 
 	TIFFClose(File);
 

@@ -26,6 +26,7 @@ ilGetCurImage
 ilGetData
 ilGetError
 ilGetInteger
+ilGetImageInteger
 ilGetPalBaseType
 ilInit
 ilIsImage

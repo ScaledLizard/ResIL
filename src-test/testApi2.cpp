@@ -461,7 +461,7 @@ void testSavers2(ILimage* handle, ILenum type, const TCHAR* targetName, const TC
 	_tcscat(targetFN, targetExt);
 	DWORD t1 = GetTickCount();
 	if (!il2Save(handle, type, targetFN)) {
-		printf("testSavers2: Failed to save " PathCharMod " using ilSave\n", targetFN);
+		printf("testSavers2: Failed to save " PathCharMod " using il2Save\n", targetFN);
 		++errors;
 	}
 	DWORD t2 = GetTickCount();
@@ -473,7 +473,7 @@ void testSavers2(ILimage* handle, ILenum type, const TCHAR* targetName, const TC
 	_tcscat(targetFN, targetExt);
 	FILE* file = _wfopen(targetFN, L"wb");
 	if (!il2SaveF(handle, type, file)) {
-		printf("testSavers2: Failed to save " PathCharMod " using ilSaveF\n", targetFN);
+		printf("testSavers2: Failed to save " PathCharMod " using il2SaveF\n", targetFN);
 		++errors;
 	}
 	fclose(file);
@@ -489,12 +489,12 @@ void testSavers2(ILimage* handle, ILenum type, const TCHAR* targetName, const TC
 		FILE* file = _wfopen(targetFN, L"wb");
 		size_t writtenToFile = fwrite(lump, 1, lumpSize, file);
 		if (writtenToLump != writtenToFile) {
-			printf("testSavers2: Failed to write " PathCharMod " after ilSaveL\n", targetFN);
+			printf("testSavers2: Failed to write " PathCharMod " after il2SaveL\n", targetFN);
 			++errors;
 		}
 		fclose(file);
 	} else {
-		printf("testSavers2: Failed to save " PathCharMod " using ilSaveL\n", targetFN);
+		printf("testSavers2: Failed to save " PathCharMod " using il2SaveL\n", targetFN);
 		++errors;
 	}
 	delete lump;
@@ -507,7 +507,7 @@ void testSavers2(ILimage* handle, ILenum type, const TCHAR* targetName, const TC
 	if (writeFile != NULL) {
 		il2SetWrite(handle, NULL, NULL, myPutc, mySeek, myTell, myWrite);
 		if (!il2SaveFuncs(handle, type))
-			printf("testSavers2: Failed to save " PathCharMod " using ilSave\n", targetFN);
+			printf("testSavers2: Failed to save " PathCharMod " using il2Save\n", targetFN);
 		fclose(writeFile);
 	} else
 		printf("testSavers2: Failed to open " PathCharMod " for writing\n", targetFN);

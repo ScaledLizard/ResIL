@@ -24,6 +24,8 @@ ILAPI ILboolean ILAPIENTRY il2InitImage(ILimage *Image, ILuint Width, ILuint Hei
 
 	Image->Origin      = IL_ORIGIN_LOWER_LEFT;
 	Image->Pal.PalType = IL_PAL_NONE;
+	Image->Pal.Palette = NULL;
+	Image->Pal.PalSize = 0;
 	Image->Duration    = 0;
 	Image->DxtcFormat  = IL_DXT_NO_COMP;
 	Image->DxtcData    = NULL;

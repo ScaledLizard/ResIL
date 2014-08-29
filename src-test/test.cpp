@@ -405,6 +405,35 @@ ILboolean testDetermineTypeFromContent(TCHAR* fn)
 
 ///////////////////////////////////////////////////////////////////////////////
 
+void saveScaled(wchar_t* sourceFN, wchar_t* targetFN, int xscale, int yscale)
+{
+	testHeap();
+	ilInit();
+	testHeap();
+	ILuint handle = ilGenImage();
+	testHeap();
+	ilBindImage(handle);
+	testHeap();
+	//printf("Loading " PathCharMod "\n", sourceFN);
+	if (!ilLoadImage(sourceFN)) {
+		printf("test_ilLoadImage: Failed to load " PathCharMod "\n", sourceFN);
+		++errors;
+		return;
+	}
+
+	iluScale(xscale, yscale, 1);
+	testHeap();
+	DeleteFile(targetFN);
+	if (!ilSaveImage(targetFN)) {
+		printf("test_ilLoadImage: Failed to save " PathCharMod "\n", targetFN);
+		++errors;
+	}
+	testHeap();
+	ilDeleteImage(handle);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 void testLoaders(TCHAR* fn)
 {
 	TCHAR sourceFN[MAX_PATH];
@@ -422,6 +451,14 @@ void testLoaders(TCHAR* fn)
 	_tcscat(targetFN, fn);
 	_tcscat(targetFN, L".ilLoad.bmp");
 	test_ilLoad(sourceFN, targetFN);
+
+	_tcscpy(targetFN, targetDir);
+	_tcscat(targetFN, fn);
+	_tcscat(targetFN, L".150x150.bmp");
+
+	printf("Save scaled: " PathCharMod " -> " PathCharMod "\n", sourceFN, targetFN);
+	saveScaled(sourceFN, targetFN, 150, 150);
+	printf("Done\n");
 
 	// ilLoadF, ilLoadL and ilLoadFuncs can work only if the type of the file can be determined
 	// correctly from the contents without knowing the extension, so test that before running

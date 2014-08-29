@@ -405,15 +405,14 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 	ILint	weight;
 	ILuint	k;
 	ILfloat	vv[MAXCOLOR], temp;
-	//ILint	color_num;
-	ILubyte	*NewData = NULL, *Palette = NULL;
 	ILimage	*TempImage = NULL, *NewImage = NULL;
 	ILubyte	*Ir = NULL, *Ig = NULL, *Ib = NULL;
 
-	ILint num_alloced_colors; // number of colors we allocated space for in palette, as NumCols but will not be less than 256
-
-	num_alloced_colors=NumCols;
-	if(num_alloced_colors<256) { num_alloced_colors=256; }
+	// number of colors we allocated space for in palette, as NumCols but will not be less than 256
+	ILint num_alloced_colors=NumCols;
+	if(num_alloced_colors<256) { 
+		num_alloced_colors=256; 
+	}
 
 	TempImage = iConvertImage(Image, IL_RGB, IL_UNSIGNED_BYTE);
 
@@ -426,9 +425,14 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 	auto size = Width * Height * Depth;
 	ILushort	* Qadd = (ILushort*)ialloc(sizeof(ILushort) * size);
 
-	NewData = (ILubyte*)ialloc(Width * Height * Image->Depth);
-	Palette = (ILubyte*)ialloc(3 * num_alloced_colors);
-	if (!NewData || !Palette) {
+	ILubyte * NewData = (ILubyte*)ialloc(Width * Height * Image->Depth);
+	if (!NewData) {
+		ifree(NewData);
+		return NULL;
+	}
+
+	ILubyte * Palette = (ILubyte*)ialloc(3 * num_alloced_colors);
+	if (!Palette) {
 		ifree(NewData);
 		ifree(Palette);
 		return NULL;
@@ -606,7 +610,7 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 	NewImage->Type = IL_UNSIGNED_BYTE;
 
 	NewImage->Pal.Palette = Palette;
-	NewImage->Pal.PalSize = 256 * 3;
+	NewImage->Pal.PalSize = num_alloced_colors * 3;
 	NewImage->Pal.PalType = IL_PAL_BGR24;
 	NewImage->Data = NewData;
 

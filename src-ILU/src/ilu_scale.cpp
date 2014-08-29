@@ -35,8 +35,6 @@ ILimage *iluScale3D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Heigh
 ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILuint Depth)
 {
 	ILimage		*Temp;
-	ILboolean	UsePal;
-	ILenum		PalType;
 	ILenum		Origin;
 
 	if (image == NULL) {
@@ -108,10 +106,9 @@ ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILui
 		}
 	}
 
-
 	Origin = image->Origin;
-	UsePal = (image->Format == IL_COLOUR_INDEX);
-	PalType = image->Pal.PalType;
+	ILboolean	UsePal = (image->Format == IL_COLOUR_INDEX);
+	ILenum		PalType = image->Pal.PalType;
 	Temp = iluScale_(image, Width, Height, Depth);
 	if (Temp != NULL) {
 		if (!il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {

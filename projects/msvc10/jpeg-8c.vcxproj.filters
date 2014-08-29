@@ -17,9 +17,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\Input Libs\jpegsr9a\wrtarga.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\cdjpeg.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\cjpeg.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\ckconfig.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\djpeg.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\example.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jaricom.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jcapimin.c" />
@@ -64,14 +61,12 @@
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jidctint.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jmemmgr.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jmemnobs.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\jpegtran.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jquant1.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jquant2.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\jutils.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdbmp.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdcolmap.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdgif.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\rdjpgcom.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdppm.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdrle.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\rdswitch.c" />
@@ -79,7 +74,6 @@
     <ClCompile Include="..\..\Input Libs\jpegsr9a\transupp.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\wrbmp.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\wrgif.c" />
-    <ClCompile Include="..\..\Input Libs\jpegsr9a\wrjpgcom.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\wrppm.c" />
     <ClCompile Include="..\..\Input Libs\jpegsr9a\wrrle.c" />
   </ItemGroup>

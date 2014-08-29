@@ -244,13 +244,13 @@ ILAPI ILubyte*	ILAPIENTRY ilNVidiaCompressDXT(ILubyte *Data, ILuint Width, ILuin
 ILAPI ILubyte*	ILAPIENTRY ilSquishCompressDXT(ILubyte *Data, ILuint Width, ILuint Height, ILuint Depth, ILenum DxtFormat, ILuint *DxtSize);
 
 // Conversion functions
-ILboolean	ilAddAlpha(void);
-ILboolean	ilAddAlphaKey(ILimage *Image);
-ILboolean	iFastConvert(ILimage *Image, ILenum DestFormat);
+ILAPI ILboolean	ilAddAlpha(void);
+ILAPI ILboolean	ilAddAlphaKey(ILimage *Image);
+ILAPI ILboolean	iFastConvert(ILimage *Image, ILenum DestFormat);
 //ILboolean	ilFixCur(void);
 //ILboolean	ilFixImage(void);
-ILboolean	ilRemoveAlpha(void);
-ILboolean	ilSwapColours(void);
+ILAPI ILboolean	ilRemoveAlpha(void);
+ILAPI ILboolean	ilSwapColours(void);
 // Palette functions
 ILboolean	iCopyPalette(ILpal *Dest, ILpal *Src);
 // Miscellaneous functions

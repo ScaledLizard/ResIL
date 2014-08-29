@@ -28,7 +28,7 @@ ILimage		**ImageStack = NULL;
 iFree		*FreeNames = NULL;
 
 //! Creates Num images and puts their index in Images - similar to glGenTextures().
-void ILAPIENTRY ilGenImages(ILsizei Num, ILuint *Images)
+ILAPI void ILAPIENTRY ilGenImages(ILsizei Num, ILuint *Images)
 {
 	ILsizei	Index = 0;
 	iFree	*TempFree = FreeNames;
@@ -64,7 +64,7 @@ void ILAPIENTRY ilGenImages(ILsizei Num, ILuint *Images)
 	return;
 }
 
-ILuint ILAPIENTRY ilGenImage()
+ILAPI ILuint ILAPIENTRY ilGenImage()
 {
     ILuint i;
     ilGenImages(1,&i);
@@ -72,7 +72,7 @@ ILuint ILAPIENTRY ilGenImage()
 }
 
 //! Makes Image the current active image - similar to glBindTexture().
-void ILAPIENTRY ilBindImage(ILuint Image)
+ILAPI void ILAPIENTRY ilBindImage(ILuint Image)
 {
 	if (ImageStack == NULL || StackSize == 0) {
 		if (!iEnlargeStack()) {
@@ -101,7 +101,7 @@ void ILAPIENTRY ilBindImage(ILuint Image)
 
 
 //! Deletes Num images from the image stack - similar to glDeleteTextures().
-void ILAPIENTRY ilDeleteImages(ILsizei Num, const ILuint *Images)
+ILAPI void ILAPIENTRY ilDeleteImages(ILsizei Num, const ILuint *Images)
 {
 	iFree	*Temp = FreeNames;
 	ILuint	Index = 0;
@@ -159,7 +159,7 @@ ILAPI void ILAPIENTRY ilDeleteImage(const ILuint Num) {
 }
 
 //! Checks if Image is a valid ilGenImages-generated image (like glIsTexture()).
-ILboolean ILAPIENTRY ilIsImage(ILuint Image)
+ILAPI ILboolean ILAPIENTRY ilIsImage(ILuint Image)
 {
 	//iFree *Temp = FreeNames;
 
@@ -243,7 +243,7 @@ ILAPI void ILAPIENTRY ilCloseImage(void * image)
 
 
 // Restore file-based i/o functions
-void ILAPIENTRY ilResetWrite()
+ILAPI void ILAPIENTRY ilResetWrite()
 {
 	il2SetWrite(iCurImage, iDefaultOpenW, iDefaultCloseW, iDefaultPutc,
 				iDefaultSeek, iDefaultTell, iDefaultWrite);
@@ -251,39 +251,39 @@ void ILAPIENTRY ilResetWrite()
 }
 
 //! Allows you to override the default file-reading functions.
-void ILAPIENTRY ilSetRead(fOpenProc aOpen, fCloseProc aClose, fEofProc aEof, fGetcProc aGetc, 
+ILAPI void ILAPIENTRY ilSetRead(fOpenProc aOpen, fCloseProc aClose, fEofProc aEof, fGetcProc aGetc, 
 	fReadProc aRead, fSeekProc aSeek, fTellProc aTell)
 {
 	il2SetRead(iCurImage, aOpen, aClose, aEof, aGetc, aRead, aSeek, aTell);
 }
 
 // Reset read functions to use file system for io
-void ILAPIENTRY ilResetRead()
+ILAPI void ILAPIENTRY ilResetRead()
 {
 	il2ResetRead(iCurImage);
 }
 
 // Allows you to override the default file-writing functions
-void ILAPIENTRY ilSetWrite(fOpenProc aOpen, fCloseProc aClose, fPutcProc aPutc, fSeekProc aSeek, 
+ILAPI void ILAPIENTRY ilSetWrite(fOpenProc aOpen, fCloseProc aClose, fPutcProc aPutc, fSeekProc aSeek, 
 	fTellProc aTell, fWriteProc aWrite)
 {
 	il2SetWrite(iCurImage, aOpen, aClose, aPutc, aSeek, aTell, aWrite);
 }
 
 // Get current lump read/write pos
-ILuint64 ILAPIENTRY ilGetLumpPos()
+ILAPI ILuint64 ILAPIENTRY ilGetLumpPos()
 {
 	return il2GetLumpPos(iCurImage);
 }
 
 // Return a type ID for the image file that can be accessed using the current
 // set of io functions
-ILenum ILAPIENTRY ilDetermineTypeFuncs()
+ILAPI ILenum ILAPIENTRY ilDetermineTypeFuncs()
 {
 	return iDetermineTypeFuncs(&iCurImage->io);
 }
 
-ILenum ILAPIENTRY ilDetermineType(ILconst_string FileName)
+ILAPI ILenum ILAPIENTRY ilDetermineType(ILconst_string FileName)
 {
 	return il2DetermineType(FileName);
 }
@@ -297,7 +297,7 @@ ILenum ILAPIENTRY ilDetermineType(ILconst_string FileName)
 	If IL_TYPE_UNKNOWN is specified, ilLoadF will try to determine the type of the file and load it.
 	\param File File stream to load from. The caller is responsible for closing the handle.
 	\return Boolean value of failure or success.  Returns IL_FALSE if loading fails.*/
-ILboolean ILAPIENTRY ilLoadF(ILenum Type, ILHANDLE File)
+ILAPI ILboolean ILAPIENTRY ilLoadF(ILenum Type, ILHANDLE File)
 {
 	return il2LoadF(iCurImage, Type, File);
 }
@@ -313,13 +313,13 @@ ILboolean ILAPIENTRY ilLoadF(ILenum Type, ILHANDLE File)
 	\param Lump The buffer where the file data is located
 	\param Size Size of the buffer
 	\return Boolean value of failure or success.  Returns IL_FALSE if loading fails.*/
-ILboolean ILAPIENTRY ilLoadL(ILenum Type, const void *Lump, ILuint Size)
+ILAPI ILboolean ILAPIENTRY ilLoadL(ILenum Type, const void *Lump, ILuint Size)
 {
 	return il2LoadL(iCurImage, Type, Lump, Size);
 }
 
 
-ILboolean ILAPIENTRY ilLoad(ILenum Type, ILconst_string FileName)
+ILAPI ILboolean ILAPIENTRY ilLoad(ILenum Type, ILconst_string FileName)
 {
 	return il2Load(iCurImage, Type, FileName);
 }
@@ -333,12 +333,12 @@ ILboolean ILAPIENTRY ilLoad(ILenum Type, ILconst_string FileName)
 	If IL_TYPE_UNKNOWN is specified, ilLoadFuncs fails.
 	\param File File stream to load from.
 	\return Boolean value of failure or success.  Returns IL_FALSE if loading fails.*/
-ILboolean ILAPIENTRY ilLoadFuncs(ILenum type)
+ILAPI ILboolean ILAPIENTRY ilLoadFuncs(ILenum type)
 {
 	return il2LoadFuncs(iCurImage, type);
 }
 
-ILboolean ILAPIENTRY ilLoadImage(ILconst_string FileName)
+ILAPI ILboolean ILAPIENTRY ilLoadImage(ILconst_string FileName)
 {
 	return il2LoadImage(iCurImage, FileName);
 }
@@ -362,25 +362,25 @@ ILAPI ILint64	ILAPIENTRY ilDetermineSize(ILenum type)
 	\param FileName Ansi or Unicode string, depending on the compiled version of DevIL, that gives
 	       the filename to save to.
 	\return Boolean value of failure or success.  Returns IL_FALSE if saving failed.*/
-ILboolean ILAPIENTRY ilSave(ILenum type, ILconst_string fileName)
+ILAPI ILboolean ILAPIENTRY ilSave(ILenum type, ILconst_string fileName)
 {
 	return il2Save(iCurImage, type, fileName);
 }
 
 // Save  image, determines file type from extension
-ILboolean ILAPIENTRY ilSaveImage(ILconst_string FileName)
+ILAPI ILboolean ILAPIENTRY ilSaveImage(ILconst_string FileName)
 {
 	return il2SaveImage(iCurImage, FileName);
 }
 
 // Save image, using caller's FILE*
-ILuint ILAPIENTRY ilSaveF(ILenum type, ILHANDLE File)
+ILAPI ILuint ILAPIENTRY ilSaveF(ILenum type, ILHANDLE File)
 {
 	return il2SaveF(iCurImage, type, File);
 }
 
 // Save image to lump
-ILint64 ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size)
+ILAPI ILint64 ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size)
 {
 	return il2SaveL(iCurImage, Type, Lump, Size);
 }
@@ -397,37 +397,37 @@ ILint64 ILAPIENTRY ilSaveL(ILenum Type, void *Lump, ILuint Size)
 	\exception IL_INVALID_PARAM One of the parameters is incorrect, such as one of the dimensions being 0.
 	\exception IL_OUT_OF_MEMORY Could not allocate enough memory.
 	\return Boolean value of failure or success*/
-ILboolean ILAPIENTRY ilTexImage(ILuint Width, ILuint Height, ILuint Depth, ILubyte Bpp, ILenum Format, ILenum Type, void *Data)
+ILAPI ILboolean ILAPIENTRY ilTexImage(ILuint Width, ILuint Height, ILuint Depth, ILubyte Bpp, ILenum Format, ILenum Type, void *Data)
 {
 	return il2TexImage(iCurImage, Width, Height, Depth, Bpp, Format, Type, Data);
 }
 
-ILboolean ILAPIENTRY il2ApplyProfile(ILstring InProfile, ILstring OutProfile)
+ILAPI ILboolean ILAPIENTRY il2ApplyProfile(ILstring InProfile, ILstring OutProfile)
 {
 	return il2ApplyProfile(iCurImage, InProfile, OutProfile);
 }
 
-ILboolean ILAPIENTRY ilConvertImage(ILenum DestFormat, ILenum DestType)
+ILAPI ILboolean ILAPIENTRY ilConvertImage(ILenum DestFormat, ILenum DestType)
 {
 	return il2ConvertImage(iCurImage, DestFormat, DestType);
 }
 
-ILboolean ilSwapColours()
+ILAPI ILboolean ilSwapColours()
 {
 	return il2SwapColours(iCurImage);
 }
 
-ILboolean ilFixImage()
+ILAPI ILboolean ilFixImage()
 {
 	return il2FixImage(iCurImage);
 }
 
-ILboolean ilRemoveAlpha()
+ILAPI ILboolean ilRemoveAlpha()
 {
 	return il2RemoveAlpha(iCurImage);
 }
 
-ILboolean ilFixCur()
+ILAPI ILboolean ilFixCur()
 {
 	return il2FixImage(iCurImage);
 }
@@ -438,7 +438,7 @@ ILboolean ilFixCur()
 	\exception IL_INVALID_PARAM Data was NULL.
 	\return Boolean value of failure or success
 */
-ILboolean ILAPIENTRY ilSetData(void *Data)
+ILAPI ILboolean ILAPIENTRY ilSetData(void *Data)
 {
 	return il2SetData(iCurImage, Data);
 }
@@ -451,7 +451,7 @@ ILboolean ILAPIENTRY ilSetData(void *Data)
 	than one byte per channel for easier access to data.
 	\exception IL_ILLEGAL_OPERATION No currently bound image
 	\return ILubyte pointer to image data.*/
-ILubyte* ILAPIENTRY ilGetData(void)
+ILAPI ILubyte* ILAPIENTRY ilGetData(void)
 {
 
 	return il2GetData(iCurImage);
@@ -463,13 +463,13 @@ ILubyte* ILAPIENTRY ilGetData(void)
 	called again.
 	\exception IL_ILLEGAL_OPERATION No currently bound image
 	\return ILubyte pointer to image palette data.*/
-ILubyte* ILAPIENTRY ilGetPalette(void)
+ILAPI ILubyte* ILAPIENTRY ilGetPalette(void)
 {
 	return il2GetPalette(iCurImage);
 }
 
 //! Clears the current bound image to the values specified in ilClearColour
-ILboolean ILAPIENTRY ilClearImage()
+ILAPI ILboolean ILAPIENTRY ilClearImage()
 {
 	return il2ClearImage(iCurImage);
 }
@@ -489,9 +489,9 @@ ILAPI ILubyte*  ILAPIENTRY ilGetAlpha(ILenum Type)
 	return il2GetAlpha(iCurImage, Type);
 }
 
-ILboolean ILAPIENTRY ilBlit(ILuint Source, ILint DestX,  ILint DestY,   ILint DestZ, 
-                                           ILuint SrcX,  ILuint SrcY,   ILuint SrcZ,
-                                           ILuint Width, ILuint Height, ILuint Depth)
+ILAPI ILboolean ILAPIENTRY ilBlit(ILuint Source, ILint DestX,  ILint DestY,   ILint DestZ, 
+	ILuint SrcX,  ILuint SrcY,   ILuint SrcZ,
+	ILuint Width, ILuint Height, ILuint Depth)
 {
 	ILimage * targetImage = iCurImage;
 	ILuint targetName = ilGetCurName();
@@ -507,7 +507,7 @@ ILboolean ILAPIENTRY ilBlit(ILuint Source, ILint DestX,  ILint DestY,   ILint De
 }
 
 //! Overlays the image found in Src on top of the current bound image at the coords specified.
-ILboolean ILAPIENTRY ilOverlayImage(ILuint Source, ILint XCoord, ILint YCoord, ILint ZCoord)
+ILAPI ILboolean ILAPIENTRY ilOverlayImage(ILuint Source, ILint XCoord, ILint YCoord, ILint ZCoord)
 {
 	ILuint	Width, Height, Depth;
 	ILuint	Dest;
@@ -523,7 +523,7 @@ ILboolean ILAPIENTRY ilOverlayImage(ILuint Source, ILint XCoord, ILint YCoord, I
 }
 
 //! Copies everything from Src to the current bound image.
-ILboolean ILAPIENTRY ilCopyImage(ILuint Src)
+ILAPI ILboolean ILAPIENTRY ilCopyImage(ILuint Src)
 {
 	ILuint DestName = ilGetCurName();
 	ILimage *DestImage = iCurImage, *SrcImage;
@@ -542,7 +542,7 @@ ILboolean ILAPIENTRY ilCopyImage(ILuint Src)
 }
 
 // Copy data and attributes of the currently bound image into a new image
-ILuint ILAPIENTRY ilCloneCurImage()
+ILAPI ILuint ILAPIENTRY ilCloneCurImage()
 {
 	ILuint Id;
 	ILimage *CurImage;
@@ -591,7 +591,7 @@ ILAPI ILimage* ILAPIENTRY ilGetCurImage()
 
 
 //! Used for setting the current image if it is an animation.
-ILboolean ILAPIENTRY ilActiveImage(ILuint Number)
+ILAPI ILboolean ILAPIENTRY ilActiveImage(ILuint Number)
 {
 	ILimage* candidate = il2GetFrame(iCurImage, Number);
 
@@ -617,7 +617,7 @@ ILAPI void ILAPIENTRY ilReplaceCurImage(ILimage *Image)
 
 
 // Like realloc but sets new memory to 0.
-void* ILAPIENTRY ilRecalloc(void *Ptr, ILuint OldSize, ILuint NewSize)
+ILAPI void* ILAPIENTRY ilRecalloc(void *Ptr, ILuint OldSize, ILuint NewSize)
 {
 	void *Temp = ialloc(NewSize);
 	ILuint CopySize = (OldSize < NewSize) ? OldSize : NewSize;
@@ -651,7 +651,7 @@ ILboolean iEnlargeStack()
 
 // Frees any extra memory in the stack.
 //	- Should be called on exit or when unloading the library
-void ILAPIENTRY ilShutDown()
+ILAPI void ILAPIENTRY ilShutDown()
 {
 	// if it is not initialized do not shutdown
 	iFree* TempFree = (iFree*)FreeNames;
@@ -714,7 +714,7 @@ ILAPI void ILAPIENTRY iBindImageTemp()
 
 
 //! Sets the current mipmap level
-ILboolean ILAPIENTRY ilActiveMipmap(ILuint Number)
+ILAPI ILboolean ILAPIENTRY ilActiveMipmap(ILuint Number)
 {
 	ILimage* candidate = il2GetMipmap(iCurImage, Number);
 
@@ -727,7 +727,7 @@ ILboolean ILAPIENTRY ilActiveMipmap(ILuint Number)
 
 
 //! Used for setting the current face if it is a cubemap.
-ILboolean ILAPIENTRY ilActiveFace(ILuint Number)
+ILAPI ILboolean ILAPIENTRY ilActiveFace(ILuint Number)
 {
 	ILimage* candidate = il2GetFace(iCurImage, Number);
 
@@ -740,7 +740,7 @@ ILboolean ILAPIENTRY ilActiveFace(ILuint Number)
 
 
 //! Used for setting the current layer if layers exist.
-ILboolean ILAPIENTRY ilActiveLayer(ILuint Number)
+ILAPI ILboolean ILAPIENTRY ilActiveLayer(ILuint Number)
 {
 	ILimage* candidate = il2GetLayer(iCurImage, Number);
 
@@ -759,14 +759,14 @@ ILAPI void ILAPIENTRY ilSetCurImage(ILimage *Image)
 	return;
 }
 
-ILuint ILAPIENTRY ilCreateSubImage(ILenum Type, ILuint Num)
+ILAPI ILuint ILAPIENTRY ilCreateSubImage(ILenum Type, ILuint Num)
 {
 	return il2CreateSubImage(iCurImage, Type, Num);
 }
 
 //! Internal function to figure out where we are in an image chain.
 //@TODO: This may get much more complex with mipmaps under faces, etc.
-ILuint iGetActiveNum(ILenum Type)
+ILAPI ILuint iGetActiveNum(ILenum Type)
 {
 	ILimage *BaseImage;
 	ILuint Num = 0;
@@ -830,35 +830,35 @@ ILuint iGetActiveNum(ILenum Type)
 }
 
 
-void ILAPIENTRY ilSetImageInteger(ILenum Mode, ILint Param)
+ILAPI void ILAPIENTRY ilSetImageInteger(ILenum Mode, ILint Param)
 {
 	il2SetImageInteger(iCurImage, Mode, Param);
 }
 
-void ILAPIENTRY ilGetImageInteger(ILenum Mode, ILint *Param)
+ILAPI void ILAPIENTRY ilGetImageInteger(ILenum Mode, ILint *Param)
 {
 	il2GetImageInteger(iCurImage, Mode, Param);
 }
 
 // ONLY call at startup.
-void ILAPIENTRY ilInit()
+ILAPI void ILAPIENTRY ilInit()
 {
 	il2Init();
 }
 
-void ILAPIENTRY ilRegisterPal(void *Pal, ILuint Size, ILenum Type)
+ILAPI void ILAPIENTRY ilRegisterPal(void *Pal, ILuint Size, ILenum Type)
 {
 	il2RegisterPal(iCurImage, Pal, Size, Type);
 }
 
 //! Sets Param equal to the current value of the Mode
-void ILAPIENTRY ilGetIntegerv(ILenum Mode, ILint *Param)
+ILAPI void ILAPIENTRY ilGetIntegerv(ILenum Mode, ILint *Param)
 {
 	return il2GetIntegerv(Mode, Param);
 }
 
 //! Returns the current value of the Mode
-ILint ILAPIENTRY ilGetInteger(ILenum Mode)
+ILAPI ILint ILAPIENTRY ilGetInteger(ILenum Mode)
 {
 	ILint Temp;
 	Temp = 0;
@@ -866,38 +866,38 @@ ILint ILAPIENTRY ilGetInteger(ILenum Mode)
 	return Temp;
 }
 
-ILuint ILAPIENTRY ilGetDXTCData(void *Buffer, ILuint BufferSize, ILenum DXTCFormat)
+ILAPI ILuint ILAPIENTRY ilGetDXTCData(void *Buffer, ILuint BufferSize, ILenum DXTCFormat)
 {
 	return il2GetDXTCData(iCurImage, Buffer, BufferSize, DXTCFormat);
 }
 
-void ILAPIENTRY ilClearColour(ILclampf Red, ILclampf Green, ILclampf Blue, ILclampf Alpha)
+ILAPI void ILAPIENTRY ilClearColour(ILclampf Red, ILclampf Green, ILclampf Blue, ILclampf Alpha)
 {
 	il2ClearColour(Red, Green, Blue, Alpha);
 }
 
 //! Enables a mode
-ILboolean ILAPIENTRY ilEnable(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY ilEnable(ILenum Mode)
 {
 	return ilAble(Mode, IL_TRUE);
 }
 
 
 //! Disables a mode
-ILboolean ILAPIENTRY ilDisable(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY ilDisable(ILenum Mode)
 {
 	return ilAble(Mode, IL_FALSE);
 }
 
 //! Sets Param equal to the current value of the Mode
-void ILAPIENTRY ilGetBooleanv(ILenum mode, ILboolean *param)
+ILAPI void ILAPIENTRY ilGetBooleanv(ILenum mode, ILboolean *param)
 {
 	il2GetBooleanv(mode, param);
 }
 
 
 //! Returns the current value of the Mode
-ILboolean ILAPIENTRY ilGetBoolean(ILenum mode)
+ILAPI ILboolean ILAPIENTRY ilGetBoolean(ILenum mode)
 {
 	return il2GetBoolean(mode);
 }
@@ -909,13 +909,13 @@ ILAPI void ILAPIENTRY ilSetError(ILenum Error)
 }
 
 //! Gets the last error
-ILenum ILAPIENTRY ilGetError(void)
+ILAPI ILenum ILAPIENTRY ilGetError(void)
 {
 	return il2GetError();
 }
 
 // Set global state
-void ILAPIENTRY ilSetInteger(ILenum Mode, ILint Param)
+ILAPI void ILAPIENTRY ilSetInteger(ILenum Mode, ILint Param)
 {
 	il2SetInteger(Mode, Param);
 }
@@ -927,19 +927,19 @@ ILAPI void ILAPIENTRY ilSetPixels(ILint XOff, ILint YOff, ILint ZOff,
 }
 
 //! Converts the current image to the DestFormat format.
-ILboolean ILAPIENTRY ilConvertPal(ILenum DestFormat)
+ILAPI ILboolean ILAPIENTRY ilConvertPal(ILenum DestFormat)
 {
 	return il2ConvertPal(iCurImage, DestFormat);
 }
 
 //! Checks whether the mode is enabled.
-ILboolean ILAPIENTRY ilIsEnabled(ILenum Mode)
+ILAPI ILboolean ILAPIENTRY ilIsEnabled(ILenum Mode)
 {
 	return il2IsEnabled(Mode);
 }
 
 //! Returns a constant string detailing aspects about this library.
-ILconst_string ILAPIENTRY ilGetString(ILenum StringName)
+ILAPI ILconst_string ILAPIENTRY ilGetString(ILenum StringName)
 {
 	return il2GetString(StringName);
 }
@@ -951,7 +951,7 @@ ILAPI void ILAPIENTRY ilSetPal(ILpal *pal)
 }
 
 //! Loads a palette from FileName into the current image's palette.
-ILboolean ILAPIENTRY ilLoadPal(ILconst_string FileName)
+ILAPI ILboolean ILAPIENTRY ilLoadPal(ILconst_string FileName)
 {
 	return il2LoadPal(iCurImage, FileName);
 }
