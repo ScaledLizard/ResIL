@@ -14,7 +14,6 @@
 #include "il_internal.h"
 #ifndef IL_NO_TGA
 #include "il_targa.h"
-//#include <time.h>  // for ilMakeString()
 #include <string.h>
 #include "il_manip.h"
 #include "il_bits.h"
@@ -120,7 +119,6 @@ ILboolean iUncompressTgaData(ILimage *image)
 ILboolean iReadColMapTga(ILimage* image, TARGAHEAD *Header)
 {
 	char		ID[255];
-	ILuint		i;
 	ILushort	Pixel;
 	
 	if (image->io.read(&image->io, ID, 1, Header->IDLen) != Header->IDLen)
@@ -129,23 +127,18 @@ ILboolean iReadColMapTga(ILimage* image, TARGAHEAD *Header)
 	if (!il2TexImage(image, Header->Width, Header->Height, 1, (ILubyte)(Header->Bpp >> 3), 0, IL_UNSIGNED_BYTE, NULL)) {
 		return IL_FALSE;
 	}
-	if (image->Pal.Palette && image->Pal.PalSize)
-		ifree(image->Pal.Palette);
-	
 	image->Format = IL_COLOUR_INDEX;
-	image->Pal.PalSize = Header->ColMapLen * (Header->ColMapEntSize >> 3);
 	
 	switch (Header->ColMapEntSize)
 	{
 		case 16:
-			image->Pal.PalType = IL_PAL_BGRA32;
-			image->Pal.PalSize = Header->ColMapLen * 4;
+			image->Pal.use(Header->ColMapLen, NULL, IL_PAL_BGRA32);
 			break;
 		case 24:
-			image->Pal.PalType = IL_PAL_BGR24;
+			image->Pal.use(Header->ColMapLen, NULL, IL_PAL_BGR24);
 			break;
 		case 32:
-			image->Pal.PalType = IL_PAL_BGRA32;
+			image->Pal.use(Header->ColMapLen, NULL, IL_PAL_BGRA32);
 			break;
 		default:
 			// Should *never* reach here
@@ -153,29 +146,25 @@ ILboolean iReadColMapTga(ILimage* image, TARGAHEAD *Header)
 			return IL_FALSE;
 	}
 	
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL) {
-		return IL_FALSE;
-	}
-	
 	// Do we need to do something with FirstEntry?	Like maybe:
 	//	image->io.read(&image->io, Image->Pal + Targa->FirstEntry, 1, Image->Pal.PalSize);  ??
 	if (Header->ColMapEntSize != 16)
 	{
-		if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
+		//if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
 			return IL_FALSE;
 	}
 	else {
-		// 16 bit palette, so we have to break it up.
-		for (i = 0; i < image->Pal.PalSize; i += 4)
+		// 16 bit palette, so we have to break it up. Bit order: A1 R5 G5 B5
+		for (ILshort i = 0; i < Header->ColMapLen; ++i)
 		{
 			Pixel = GetBigUShort(&image->io);
 			if (image->io.eof(&image->io))
 				return IL_FALSE;
-			image->Pal.Palette[3] = (Pixel & 0x8000) >> 12;
-			image->Pal.Palette[0] = (Pixel & 0xFC00) >> 7;
-			image->Pal.Palette[1] = (Pixel & 0x03E0) >> 2;
-			image->Pal.Palette[2] = (Pixel & 0x001F) << 3;
+			ILubyte b = (Pixel & 0xFC00) >> 7;
+			ILubyte g = (Pixel & 0x03E0) >> 2;
+			ILubyte r = (Pixel & 0x001F) << 3;
+			ILubyte a = (Pixel & 0x8000) >> 12;
+			image->Pal.setRGBA(i, r, g, b, a);
 		}
 	}
 	
@@ -492,7 +481,7 @@ ILboolean iSaveTargaInternal(ILimage* image)
 	ILboolean	Compress;
 	ILuint		RleLen;
 	ILubyte 	*Rle;
-	ILpal		*TempPal = NULL;
+	ILpal		TempPal;
 	ILimage 	*TempImage = NULL;
 	ILuint		ExtOffset, i;
 	char		*Footer = "TRUEVISION-XFILE.\0";
@@ -513,10 +502,7 @@ ILboolean iSaveTargaInternal(ILimage* image)
 	if (ID)
 		IDLen = (ILubyte)ilCharStrLen(ID);
 	
-	if (image->Pal.Palette && image->Pal.PalSize && image->Pal.PalType != IL_PAL_NONE)
-		UsePal = IL_TRUE;
-	else
-		UsePal = IL_FALSE;
+	UsePal = image->Pal.hasPalette();
 	
 	image->io.write(&IDLen, sizeof(ILubyte), 1, &image->io);
 	image->io.write(&UsePal, sizeof(ILubyte), 1, &image->io);
@@ -562,16 +548,16 @@ ILboolean iSaveTargaInternal(ILimage* image)
 	image->io.write(&Type, sizeof(ILubyte), 1, &image->io);
 	SaveLittleShort(&image->io, ColMapStart);
 	
-	switch (image->Pal.PalType)
+	switch (image->Pal.getPalType())
 	{
 		case IL_PAL_NONE:
 			PalSize = 0;
 			PalEntSize = 0;
 			break;
 		case IL_PAL_BGR24:
-			PalSize = (ILshort)(image->Pal.PalSize / 3);
+			PalSize = (ILshort)(image->Pal.getPalSize() / 3);
 			PalEntSize = 24;
-			TempPal = &image->Pal;
+			TempPal = image->Pal;
 			break;
 			
 		case IL_PAL_RGB24:
@@ -580,9 +566,7 @@ ILboolean iSaveTargaInternal(ILimage* image)
 		case IL_PAL_BGR32:
 		case IL_PAL_BGRA32:
 			TempPal = iConvertPal(&image->Pal, IL_PAL_BGR24);
-			if (TempPal == NULL)
-				return IL_FALSE;
-				PalSize = (ILshort)(TempPal->PalSize / 3);
+			PalSize = (ILshort)(TempPal.getNumCols());
 			PalEntSize = 24;
 			break;
 		default:
@@ -635,7 +619,8 @@ ILboolean iSaveTargaInternal(ILimage* image)
 	
 	// Write out the colormap
 	if (UsePal)
-		image->io.write(TempPal->Palette, sizeof(ILubyte), TempPal->PalSize, &image->io);
+		TempPal.writeToFile(&image->io);
+		//image->io.write(TempPal->Palette, sizeof(ILubyte), TempPal->PalSize, &image->io);
 	// else do nothing
 	
 	if (!Compress)
@@ -708,11 +693,6 @@ ILboolean iSaveTargaInternal(ILimage* image)
 	}
 	if (Format == IL_RGB || Format == IL_RGBA) {
 		ilSwapColours();
-	}
-	
-	if (TempPal != &image->Pal && TempPal != NULL) {
-		ifree(TempPal->Palette);
-		ifree(TempPal);
 	}
 	
 	if (TempImage != image)

@@ -129,7 +129,7 @@ ILboolean iUncompressPcx(ILimage* image, PCXHEAD *Header)
 
 	ILubyte	ByteHead, Colour, *ScanLine /* For all planes */;
 	ILuint ScanLineSize;
-	ILuint	c, i, x, y;
+	ILuint	c, i;
 
 	if (Header->Bpp < 8) {
 		/*il2SetError(IL_FORMAT_NOT_SUPPORTED);
@@ -145,25 +145,18 @@ ILboolean iUncompressPcx(ILimage* image, PCXHEAD *Header)
 	{
 		case 1:
 			image->Format = IL_COLOUR_INDEX;
-			image->Pal.PalType = IL_PAL_RGB24;
-			image->Pal.PalSize = 256 * 3;  // Need to find out for sure...
-			image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-			if (image->Pal.Palette == NULL) {
+			if (!image->Pal.use(256, NULL, IL_PAL_RGB24)) {
 				return IL_FALSE;
 			}
 			break;
 		//case 2:  // No 16-bit images in the pcx format!
 		case 3:
 			image->Format = IL_RGB;
-			image->Pal.Palette = NULL;
-			image->Pal.PalSize = 0;
-			image->Pal.PalType = IL_PAL_NONE;
+			image->Pal.clear();
 			break;
 		case 4:
 			image->Format = IL_RGBA;
-			image->Pal.Palette = NULL;
-			image->Pal.PalSize = 0;
-			image->Pal.PalType = IL_PAL_NONE;
+			image->Pal.clear();
 			break;
 
 		default:
@@ -177,8 +170,8 @@ ILboolean iUncompressPcx(ILimage* image, PCXHEAD *Header)
 		return IL_FALSE;
 	}
 
-	for (y = 0; y < image->Height; y++) {
-		x = 0;
+	for (ILuint y = 0; y < image->Height; y++) {
+		ILuint x = 0;
 		//read scanline
 		while (x < ScanLineSize) {
 			if (image->io.read(&image->io, &ByteHead, 1, 1) != 1) {
@@ -213,19 +206,16 @@ ILboolean iUncompressPcx(ILimage* image, PCXHEAD *Header)
 
 	// Read in the palette
 	if (Header->Version == 5 && image->Bpp == 1) {
-		x = image->io.tell(&image->io);
+		ILint64 x = image->io.tell(&image->io);
 		if (image->io.read(&image->io, &ByteHead, 1, 1) == 0) {  // If true, assume that we have a luminance image.
 			il2GetError();  // Get rid of the IL_FILE_READ_ERROR.
 			image->Format = IL_LUMINANCE;
-			if (image->Pal.Palette)
-				ifree(image->Pal.Palette);
-			image->Pal.PalSize = 0;
-			image->Pal.PalType = IL_PAL_NONE;
+			image->Pal.clear();
 		}
 		else {
 			if (ByteHead != 12)  // Some Quake2 .pcx files don't have this byte for some reason.
 				image->io.seek(&image->io, -1, IL_SEEK_CUR);
-			if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
+			if (!image->Pal.readFromFile(&image->io))
 				goto file_read_error;
 		}
 	}
@@ -320,16 +310,11 @@ ILboolean iUncompressSmall(ILimage* image, PCXHEAD *Header)
 		//changed decoding 2003-09-10 (was buggy)...could need a speedup
 
 		Bps = Header->Bps * Header->NumPlanes * 8;
-		image->Pal.Palette = (ILubyte*)ialloc(16 * 3);  // Size of palette always (48 bytes).
 		ScanLine = (ILubyte*)ialloc(Bps);
-		if (image->Pal.Palette == NULL || ScanLine == NULL) {
+		if (!image->Pal.use(16, Header->ColMap, IL_PAL_RGB24) || ScanLine == NULL) {
 			ifree(ScanLine);
-			ifree(image->Pal.Palette);
 			return IL_FALSE;
 		}
-		memcpy(image->Pal.Palette, Header->ColMap, 16 * 3);
-		image->Pal.PalSize = 16 * 3;
-		image->Pal.PalType = IL_PAL_RGB24;
 
 		memset(image->Data, 0, image->SizeOfData);
 
@@ -459,9 +444,10 @@ ILuint encLine(SIO* io, ILubyte *inBuff, ILint inLen, ILubyte Stride)
 ILboolean iSavePcxInternal(ILimage* image)
 {
 	ILuint	i, c, PalSize;
-	ILpal	*TempPal;
+	ILpal	TempPal;
 	ILimage	*TempImage = image;
-	ILubyte	*TempData;
+	ILubyte	*TempData = NULL;
+	SIO * io = &image->io;
 
 	if (image == NULL) {
 		il2SetError(IL_ILLEGAL_OPERATION);
@@ -510,70 +496,60 @@ ILboolean iSavePcxInternal(ILimage* image)
 	}
 
 
-	image->io.putc(0xA, &image->io);  // Manufacturer - always 10
-	image->io.putc(0x5, &image->io);  // Version Number - always 5
-	image->io.putc(0x1, &image->io);  // Encoding - always 1
-	image->io.putc(0x8, &image->io);  // Bits per channel
-	SaveLittleUShort(&image->io, 0);  // X Minimum
-	SaveLittleUShort(&image->io, 0);  // Y Minimum
-	SaveLittleUShort(&image->io, (ILushort)(image->Width - 1));
-	SaveLittleUShort(&image->io, (ILushort)(image->Height - 1));
-	SaveLittleUShort(&image->io, 0);
-	SaveLittleUShort(&image->io, 0);
+	io->putc(0xA, &image->io);  // Manufacturer - always 10
+	io->putc(0x5, &image->io);  // Version Number - always 5
+	io->putc(0x1, &image->io);  // Encoding - always 1
+	io->putc(0x8, &image->io);  // Bits per channel
+	SaveLittleUShort(io, 0);  // X Minimum
+	SaveLittleUShort(io, 0);  // Y Minimum
+	SaveLittleUShort(io, (ILushort)(image->Width - 1));
+	SaveLittleUShort(io, (ILushort)(image->Height - 1));
+	SaveLittleUShort(io, 0);
+	SaveLittleUShort(io, 0);
 
 	// Useless palette info?
 	for (i = 0; i < 48; i++) {
-		image->io.putc(0, &image->io);
+		io->putc(0, &image->io);
 	}
-	image->io.putc(0x0, &image->io);  // Reserved - always 0
+	io->putc(0x0, &image->io);  // Reserved - always 0
 
-	image->io.putc(image->Bpp, &image->io);  // Number of planes - only 1 is supported right now
+	io->putc(image->Bpp, &image->io);  // Number of planes - only 1 is supported right now
 
-	SaveLittleUShort(&image->io, (ILushort)(image->Width & 1 ? image->Width + 1 : image->Width));  // Bps
-	SaveLittleUShort(&image->io, 0x1);  // Palette type - ignored?
+	SaveLittleUShort(io, (ILushort)(image->Width & 1 ? image->Width + 1 : image->Width));  // Bps
+	SaveLittleUShort(io, 0x1);  // Palette type - ignored?
 
 	// Mainly filler info
 	for (i = 0; i < 58; i++) {
-		image->io.putc(0x0, &image->io);
+		io->putc(0x0, &image->io);
 	}
 
 	// Output data
 	for (i = 0; i < TempImage->Height; i++) {
 		for (c = 0; c < TempImage->Bpp; c++) {
-			encLine(&image->io, TempData + TempImage->Bps * i + c, TempImage->Width, (ILubyte)(TempImage->Bpp - 1));
+			encLine(io, TempData + TempImage->Bps * i + c, TempImage->Width, (ILubyte)(TempImage->Bpp - 1));
 		}
 	}
 
 	// Automatically assuming we have a palette...dangerous!
 	//	Also assuming 3 bpp palette
-	image->io.putc(0xC, &image->io);  // Pad byte must have this value
+	image->io.putc(0xC, io);  // Pad byte must have this value
 
 	// If the current image has a palette, take care of it
 	if (TempImage->Format == IL_COLOUR_INDEX) {
 		// If the palette in .pcx format, write it directly
-		if (TempImage->Pal.PalType == IL_PAL_RGB24) {
-			image->io.write(TempImage->Pal.Palette, 1, TempImage->Pal.PalSize, &image->io);
+		if (TempImage->Pal.getPalType() == IL_PAL_RGB24) {
+			image->io.write(TempImage->Pal.getPalette(), 1, TempImage->Pal.getPalSize(), &image->io);
 		}
 		else {
 			TempPal = iConvertPal(&TempImage->Pal, IL_PAL_RGB24);
-			if (TempPal == NULL) {
-				if (TempImage->Origin == IL_ORIGIN_LOWER_LEFT)
-					ifree(TempData);
-				if (TempImage != image)
-					ilCloseImage(TempImage);
-				return IL_FALSE;
-			}
-
-			image->io.write(TempPal->Palette, 1, TempPal->PalSize, &image->io);
-			ifree(TempPal->Palette);
-			ifree(TempPal);
+			TempPal.writeToFile(io);
 		}
 	}
 
 	// If the palette is not all 256 colours, we have to pad it.
-	PalSize = 768 - image->Pal.PalSize;
+	PalSize = 768 - image->Pal.getPalSize();
 	for (i = 0; i < PalSize; i++) {
-		image->io.putc(0x0, &image->io);
+		io->putc(0x0, &image->io);
 	}
 
 	if (TempImage->Origin == IL_ORIGIN_LOWER_LEFT)

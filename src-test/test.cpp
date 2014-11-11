@@ -25,10 +25,13 @@ int errors;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const TCHAR* sourceDir = L"D:\\testIL\\";
-//const TCHAR* sourceDir = L"D:\\testIL\\bad\\";
-//const TCHAR* sourceDir = L"D:\\temp\\bugs\\";
-const TCHAR* targetDir = L"D:\\testIL\\decoded\\";
+//const TCHAR* sourceDir = L"D:\\testIL\\";
+const TCHAR* sourceDir = L"c:\\testIL\\";
+
+//const TCHAR* targetDir = L"D:\\testIL\\decoded\\";
+const TCHAR* targetDir = L"c:\\testIL\\decoded\\";
+
+const TCHAR* encodedPath = L"D:\\TestIL\\encoded";
 
 void printOffset(void* a, void* b, char* msg)
 {
@@ -39,8 +42,12 @@ void printOffset(void* a, void* b, char* msg)
 inline void testHeap()
 {
    #ifdef _DEBUG
-	void* p = malloc(1024);
-	free(p);
+	const int count = 100;
+	void* p[count];
+	for (size_t i = 0 ; i < count; ++i)
+		p[i] = malloc(16*i);
+	for (size_t i = 0 ; i < count; ++i)
+		free(p[i]);
    #endif
 }
 
@@ -456,9 +463,7 @@ void testLoaders(TCHAR* fn)
 	_tcscat(targetFN, fn);
 	_tcscat(targetFN, L".150x150.bmp");
 
-	printf("Save scaled: " PathCharMod " -> " PathCharMod "\n", sourceFN, targetFN);
 	saveScaled(sourceFN, targetFN, 150, 150);
-	printf("Done\n");
 
 	// ilLoadF, ilLoadL and ilLoadFuncs can work only if the type of the file can be determined
 	// correctly from the contents without knowing the extension, so test that before running
@@ -629,6 +634,7 @@ int wmain (int argc, TCHAR** argv)
 		do {
 			if ((data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
 				auto t1 = GetTickCount();
+				printf(PathCharMod "\n", data.cFileName);
 				testLoaders(data.cFileName);
 				auto t2 = GetTickCount();
 				printf(PathCharMod ": %i ms\n", data.cFileName, t2-t1);
@@ -639,7 +645,7 @@ int wmain (int argc, TCHAR** argv)
 
 	// Test ilSave* function family
 	// A single image is loaded and saved using the ilSave* function family
-	_wmkdir(L"D:\\TestIL\\encoded");
+	_wmkdir(encodedPath);
 	testSavers(L"D:\\TestIL\\Don't Panic 24.bmp", L"D:\\TestIL\\encoded\\Don't Panic 24");
 
  	printf("%i errors\n", errors);

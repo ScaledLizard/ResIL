@@ -401,24 +401,11 @@ void ILAPIENTRY ilRegisterType(ILenum Type)
 
 void ILAPIENTRY il2RegisterPal(ILimage* image, void *Pal, ILuint Size, ILenum Type)
 {
-	if (!image->Pal.Palette || !image->Pal.PalSize || image->Pal.PalType != IL_PAL_NONE) {
-		ifree(image->Pal.Palette);
-	}
-
-	image->Pal.PalSize = Size;
-	image->Pal.PalType = Type;
-	image->Pal.Palette = (ILubyte*)ialloc(Size);
-	if (image->Pal.Palette == NULL)
-		return;
-
-	if (Pal != NULL) {
-		memcpy(image->Pal.Palette, Pal, Size);
-	}
-	else {
-		il2SetError(IL_INVALID_PARAM);
-	}
-	
-	return;
+	auto bpp = ilGetBppPal(Type);
+	auto numCols = 0;
+	if (bpp > 0)
+		auto numCols = Size / bpp;
+	image->Pal.use(numCols, (ILubyte*) Pal, Type);
 }
 
 

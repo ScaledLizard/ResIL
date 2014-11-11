@@ -436,20 +436,14 @@ ILimage *iNeuQuant(ILimage *Image, ILuint NumCols)
 	NewImage->Format = IL_COLOUR_INDEX;
 	NewImage->Type = IL_UNSIGNED_BYTE;
 
-	NewImage->Pal.PalSize = netsizethink * 3;
-	NewImage->Pal.PalType = IL_PAL_BGR24;
-	NewImage->Pal.Palette = (ILubyte*)ialloc(256*3);
-	if (NewImage->Pal.Palette == NULL) {
+	if (!NewImage->Pal.use(256, NULL, IL_PAL_BGR24)) {
 		ilCloseImage(TempImage);
 		ilCloseImage(NewImage);
 		return NULL;
 	}
 
-	for (i = 0, j = 0; i < (unsigned)netsizethink; i++, j += 3) {
-		NewImage->Pal.Palette[j  ] = network[i][0];
-		NewImage->Pal.Palette[j+1] = network[i][1];
-		NewImage->Pal.Palette[j+2] = network[i][2];
-	}
+	for (i = 0, j = 0; i < (unsigned)netsizethink; i++) 
+		NewImage->Pal.setRGB(i, network[i][0], network[i][1], network[i][2]);
 
 	inxbuild();
 	for (i = 0, j = 0; j < TempImage->SizeOfData; i++, j += 3) {

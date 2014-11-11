@@ -355,24 +355,14 @@ ILboolean decodeTiffLuminanceOrPaletted(ILimage* baseImage, TiffLoadState& state
 
 	if (state.photometric == PHOTOMETRIC_PALETTE) { //read palette
 		uint16 *red, *green, *blue;
-		//ILboolean is16bitpalette = IL_FALSE;
-		ILubyte *entry;
 		uint32 count = 1 << state.bitspersample, j;
 		
 		TIFFGetField(state.tif, TIFFTAG_COLORMAP, &red, &green, &blue);
 
 		state.frame->Format = IL_COLOUR_INDEX;
-		state.frame->Pal.PalSize = (count)*3;
-		state.frame->Pal.PalType = IL_PAL_RGB24;
-		state.frame->Pal.Palette = (ILubyte*)ialloc(state.frame->Pal.PalSize);
-		entry = state.frame->Pal.Palette;
-		for (j = 0; j < count; ++j) {
-			entry[0] = (ILubyte)(red[j] >> 8);
-			entry[1] = (ILubyte)(green[j] >> 8);
-			entry[2] = (ILubyte)(blue[j] >> 8);
-
-			entry += 3;
-		}
+		state.frame->Pal.use(count, NULL, IL_PAL_RGB24);
+		for (j = 0; j < count; ++j)
+			state.frame->Pal.setRGB(j, red[j] >> 8, green[j] >> 8, blue[j] >> 8);
 	}
 
 	TIFFGetField(state.tif, TIFFTAG_ROWSPERSTRIP, &rowsperstrip);
@@ -729,7 +719,7 @@ ILboolean iSaveTiffInternal(ILimage* image)
 		Compression = COMPRESSION_NONE;
 
 	if (image->Format == IL_COLOUR_INDEX) {
-		if (ilGetBppPal(image->Pal.PalType) == 4)  // Preserve the alpha.
+		if (ilGetBppPal(image->Pal.getPalType()) == 4)  // Preserve the alpha.
 			TempImage = iConvertImage(image, IL_RGBA, IL_UNSIGNED_BYTE);
 		else
 			TempImage = iConvertImage(image, IL_RGB, IL_UNSIGNED_BYTE);

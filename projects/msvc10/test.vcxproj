@@ -137,7 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>x64\debug\resil.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>x64\debug\resil.lib;x64\debug\ilu.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
@@ -157,7 +157,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Release-msvcrt\resil.lib;Kernel32.lib;msvcrt.lib</AdditionalDependencies>
+      <AdditionalDependencies>Release-msvcrt\resil.lib;release-libcmt\ilu.lib;Kernel32.lib;msvcrt.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -178,7 +178,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>release-libcmt\resil.lib;Kernel32.lib;libcmt.lib</AdditionalDependencies>
+      <AdditionalDependencies>release-libcmt\resil.lib;release-libcmt\ilu.lib;Kernel32.lib;libcmt.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -198,7 +198,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>x64\release-msvcrt\resil.lib;msvcrt.lib;Kernel32.lib</AdditionalDependencies>
+      <AdditionalDependencies>x64\release-msvcrt\resil.lib;x64\release-msvcrt\ilu.lib;msvcrt.lib;Kernel32.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -218,7 +218,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>x64\release-libcmt\resil.lib;Kernel32.lib;libcmt.lib</AdditionalDependencies>
+      <AdditionalDependencies>x64\release-libcmt\resil.lib;x64\release-libcmt\ilu.lib;Kernel32.lib;libcmt.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>

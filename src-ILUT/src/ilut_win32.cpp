@@ -35,12 +35,11 @@ ILAPI ILboolean ilutWin32Init()
 
 ILAPI HBITMAP ILAPIENTRY ilut2ConvertSliceToHBitmap(ILimage* image, HDC hDC, ILuint slice)
 {
-	ILubyte		*Data, *DataBackup;
+	ILubyte		*Data = NULL, *DataBackup = NULL;
 	HBITMAP		hBitmap = NULL;
 	ILimage		*TempImage = NULL;
 	ILuint		pad, i, j, k, l, m, n, DepthBackup;
-	ILpal		*palImg;
-	ILboolean	alloc_buffer;
+	ILboolean	alloc_buffer = false;
 
 	//reserve space for palette in every case...
 	ILubyte		buff[sizeof(BITMAPINFOHEADER) + 256*sizeof(RGBQUAD)];
@@ -168,17 +167,9 @@ ILAPI HBITMAP ILAPIENTRY ilut2ConvertSliceToHBitmap(ILimage* image, HDC hDC, ILu
 					pal[i].rgbRed = pal[i].rgbGreen = pal[i].rgbBlue = (ILubyte)i;
 			}
 			else {
+				ILpal		palImg;
 				palImg = iConvertPal(&TempImage->Pal, IL_PAL_BGR32);
-				if (palImg != NULL) {
-					memcpy(pal, palImg->Palette, palImg->PalSize);
-					ilClosePal(palImg);
-				}
-				else {
-					//il2SetError(IL_INVALID_PARAM);
-					// Generate greyscale palette  <-- Why is this here?
-					for (i = 0; i < 256; i++)
-						pal[i].rgbRed = pal[i].rgbGreen = pal[i].rgbBlue = (ILubyte)i;
-				}
+				memcpy(pal, palImg.getPalette(), palImg.getPalSize());
 			}
 			info->bmiHeader.biBitCount = 8;
 			break;
@@ -409,16 +400,16 @@ HPALETTE ILAPIENTRY ilutGetHPal()
 		return NULL;
 	}
 
-	if (!ilutCurImage->Pal.Palette || !ilutCurImage->Pal.PalSize || ilutCurImage->Pal.PalType == IL_PAL_NONE) {
+	if (!ilutCurImage->Pal.hasPalette()) {
 		//il2SetError(ILUT_ILLEGAL_OPERATION);
 		return NULL;
 	}
 
-	CurPalType = ilutCurImage->Pal.PalType;
+	CurPalType = ilutCurImage->Pal.getPalType();
 	if (!ilConvertPal(IL_PAL_RGB24)) {
 		return NULL;  // ilConvertPal already sets the error
 	}
-	NumEntries = ilutCurImage->Pal.PalSize / 3;
+	NumEntries = ilutCurImage->Pal.getPalSize() / 3;
 
 	LogPal = (LOGPALETTE*)ialloc(sizeof(LOGPALETTE) + NumEntries * sizeof(PALETTEENTRY));
 	if (!LogPal) {
@@ -429,9 +420,11 @@ HPALETTE ILAPIENTRY ilutGetHPal()
 	LogPal->palNumEntries = (WORD)NumEntries;
 
 	for (i = 0; i < NumEntries; i++) {
-		LogPal->palPalEntry[i].peRed   = ilutCurImage->Pal.Palette[i * 3];
-		LogPal->palPalEntry[i].peGreen = ilutCurImage->Pal.Palette[i * 3 + 1];
-		LogPal->palPalEntry[i].peBlue  = ilutCurImage->Pal.Palette[i * 3 + 2];
+		ILubyte r, g, b;
+		ilutCurImage->Pal.getRGB(i, r, g, b);
+		LogPal->palPalEntry[i].peRed   = r;
+		LogPal->palPalEntry[i].peGreen = g;
+		LogPal->palPalEntry[i].peBlue  = b;
 		LogPal->palPalEntry[i].peFlags = 0;
 	}
 
@@ -541,17 +534,15 @@ ILboolean ILAPIENTRY ilutSetHPal(HPALETTE Pal)
 		ifree(PalEntries);
 		return IL_FALSE;
 	}
-	if (ilutCurImage->Pal.Palette)
-		ifree(ilutCurImage->Pal.Palette);
-	ilutCurImage->Pal.Palette = TempPal;
-	ilutCurImage->Pal.PalSize = NumEntries * 3;
-	ilutCurImage->Pal.PalType = IL_PAL_RGB24;
 
 	for (i = 0; i < NumEntries; i++) {
 		*TempPal++ = PalEntries[i].peRed;
 		*TempPal++ = PalEntries[i].peGreen;
 		*TempPal++ = PalEntries[i].peBlue;
 	}
+
+	ilutCurImage->Pal.use(NumEntries, TempPal, IL_PAL_RGB24);
+	ifree(TempPal);
 
 	ifree(PalEntries);
 

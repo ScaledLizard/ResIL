@@ -102,14 +102,12 @@ ILboolean iLoadMdlInternal(ILimage* image)
 			image = BaseImage;
 			return IL_FALSE;
 		}
-		image->Pal.Palette = TempPal;
-		image->Pal.PalSize = 768;
-		image->Pal.PalType = IL_PAL_RGB24;
+		image->Pal.use(256, NULL, IL_PAL_RGB24);
 
 		io->seek(io, TexHead.Offset, IL_SEEK_SET);
 		if (io->read(io, image->Data, TexHead.Width * TexHead.Height, 1) != 1)
 			return IL_FALSE;
-		if (io->read(io, image->Pal.Palette, 1, 768) != 768)
+		if (!image->Pal.readFromFile(io))
 			return IL_FALSE;
 
 		if (ilGetBoolean(IL_CONV_PAL) == IL_TRUE) {

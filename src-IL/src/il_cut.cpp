@@ -159,15 +159,10 @@ ILboolean iLoadCutInternal(ILimage* image)
 	ifree(chunk);
 	image->Origin = IL_ORIGIN_UPPER_LEFT;  // Not sure
 
-	image->Pal.PalSize = 256 * 3; // never larger than 768
-	image->Pal.PalType = IL_PAL_RGB24;
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-
 	// Create a fake greyscale palette
+	image->Pal.use(256, NULL, IL_PAL_RGB24);
 	for (int i = 0; i < 256; ++i) {
-		image->Pal.Palette[3*i  ] = i;
-		image->Pal.Palette[3*i+1] = i;
-		image->Pal.Palette[3*i+2] = i;
+		image->Pal.setRGB(i, i, i, i);
 	}
 
 	return il2FixImage(image);

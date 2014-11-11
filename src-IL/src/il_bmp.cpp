@@ -190,15 +190,9 @@ ILboolean iGetOS2Bmp(ILimage* image, OS2_HEAD *Header)
 			return IL_FALSE;
 		}
 		image->Origin = IL_ORIGIN_LOWER_LEFT;
+		image->Pal.use(2, NULL, IL_PAL_BGR24);
 
-		image->Pal.Palette = (ILubyte*)ialloc(2 * 3);
-		if (image->Pal.Palette == NULL) {
-			return IL_FALSE;
-		}
-		image->Pal.PalSize = 2 * 3;
-		image->Pal.PalType = IL_PAL_BGR24;
-
-		if (image->io.read(&image->io, image->Pal.Palette, 1, 2 * 3) != 6)
+		if (!image->Pal.readFromFile(&image->io))
 			return IL_FALSE;
 
 		PadSize = ((32 - (image->Width % 32)) / 8) % 4;  // Has to truncate.
@@ -229,15 +223,9 @@ ILboolean iGetOS2Bmp(ILimage* image, OS2_HEAD *Header)
 			return IL_FALSE;
 		}
 		image->Origin = IL_ORIGIN_LOWER_LEFT;
+		image->Pal.use(16, NULL, IL_PAL_BGR24);
 
-		image->Pal.Palette = (ILubyte*)ialloc(16 * 3);
-		if (image->Pal.Palette == NULL) {
-			return IL_FALSE;
-		}
-		image->Pal.PalSize = 16 * 3;
-		image->Pal.PalType = IL_PAL_BGR24;
-
-		if (image->io.read(&image->io, image->Pal.Palette, 1, 16 * 3) != 16*3)
+		if (!image->Pal.readFromFile(&image->io))
 			return IL_FALSE;
 
 		PadSize = ((8 - (image->Width % 8)) / 2) % 4;  // Has to truncate
@@ -263,14 +251,9 @@ ILboolean iGetOS2Bmp(ILimage* image, OS2_HEAD *Header)
 		if (!il2TexImage(image, Header->cx, Header->cy, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
 			return IL_FALSE;
 
-		image->Pal.Palette = (ILubyte*)ialloc(256 * 3);
-		if (image->Pal.Palette == NULL) {
-			return IL_FALSE;
-		}
-		image->Pal.PalSize = 256 * 3;
-		image->Pal.PalType = IL_PAL_BGR24;
+		image->Pal.use(256, NULL, IL_PAL_BGR24);
 
-		if (image->io.read(&image->io, image->Pal.Palette, 1, 256 * 3) != 256*3)
+		if (!image->Pal.readFromFile(&image->io))
 			return IL_FALSE;
 	}
 	else { //has to be 24 bpp
@@ -331,16 +314,12 @@ ILboolean ilReadUncompBmp1(ILimage* image, BMPHEAD * Header)
 	}
 
 	// Prepare palette
-	image->Pal.PalType = IL_PAL_BGR32;
-	image->Pal.PalSize = 2 * 4;
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL) {
+	if (!image->Pal.use(2, NULL, IL_PAL_BGR32))
 		return IL_FALSE;
-	}
 
 	// Read the palette
 	image->io.seek(&image->io, sizeof(BMPHEAD), IL_SEEK_SET);
-	if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
+	if (!image->Pal.readFromFile(&image->io))
 		return IL_FALSE;
 
 	// Seek to the data from the "beginning" of the file
@@ -383,20 +362,16 @@ ILboolean ilReadUncompBmp4(ILimage* image, BMPHEAD * Header)
 	}
 
 	// Prepare palette
-	image->Pal.PalType = IL_PAL_BGR32;
-	image->Pal.PalSize = Header->biClrUsed ? 
-			Header->biClrUsed * 4 : 256 * 4;
+	ILuint newColCount = Header->biClrUsed ? Header->biClrUsed : 256;
 			
 	if (Header->biBitCount == 4)  // biClrUsed is 0 for 4-bit bitmaps
-		image->Pal.PalSize = 16 * 4;
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL) {
+		newColCount = 16;
+	if (!image->Pal.use(newColCount, NULL, IL_PAL_BGR32))
 		return IL_FALSE;
-	}
 
 	// Read the palette
 	image->io.seek(&image->io, sizeof(BMPHEAD), IL_SEEK_SET);
-	if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
+	if (!image->Pal.readFromFile(&image->io))
 		return IL_FALSE;
 
 	// Seek to the data from the "beginning" of the file
@@ -430,20 +405,16 @@ ILboolean ilReadUncompBmp8(ILimage* image, BMPHEAD * Header)
 	}
 
 	// Prepare the palette
-	image->Pal.PalType = IL_PAL_BGR32;
-	image->Pal.PalSize = Header->biClrUsed ? 
-			Header->biClrUsed * 4 : 256 * 4;
+	ILuint newColCount = Header->biClrUsed ? Header->biClrUsed : 256;
 			
 	if (Header->biBitCount == 4)  // biClrUsed is 0 for 4-bit bitmaps
-		image->Pal.PalSize = 16 * 4;
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL) {
+		newColCount = 16;
+	if (!image->Pal.use(newColCount, NULL, IL_PAL_BGR32))
 		return IL_FALSE;
-	}
 
 	// Read the palette
 	image->io.seek(&image->io, sizeof(BMPHEAD), IL_SEEK_SET);
-	if (image->io.read(&image->io, image->Pal.Palette, 1, image->Pal.PalSize) != image->Pal.PalSize)
+	if (!image->Pal.readFromFile(&image->io))
 		return IL_FALSE;
 
 	// Seek to the data from the "beginning" of the file
@@ -607,8 +578,7 @@ ILboolean ilReadUncompBmp(ILimage* image, BMPHEAD * header)
 	// A height of 0 is illegal
 	if (header->biHeight == 0) {
 		il2SetError(IL_ILLEGAL_FILE_VALUE);
-		if (image->Pal.Palette)
-			ifree(image->Pal.Palette);
+		image->Pal.clear();
 		return IL_FALSE;
 	}
 
@@ -649,12 +619,10 @@ ILboolean ilReadRLE8Bmp(ILimage* image, BMPHEAD *Header)
 		return IL_FALSE;
 
 	image->Format = IL_COLOUR_INDEX;
-	image->Pal.PalType = IL_PAL_BGR32;
-	image->Pal.PalSize = Header->biClrUsed * 4;  // 256 * 4 for most images
-	if (image->Pal.PalSize == 0)
-		image->Pal.PalSize = 256 * 4;
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL)
+	ILuint newColCount = Header->biClrUsed;
+	if (newColCount == 0)
+		newColCount = 256;
+	if (!image->Pal.use(newColCount, NULL, IL_PAL_BGR32))
 		return IL_FALSE;
 
 	// If the image height is negative, then the image is flipped
@@ -664,7 +632,7 @@ ILboolean ilReadRLE8Bmp(ILimage* image, BMPHEAD *Header)
 	
 	// Read the palette
 	image->io.seek(&image->io, sizeof(BMPHEAD), IL_SEEK_SET);
-	if (image->io.read(&image->io, image->Pal.Palette, image->Pal.PalSize, 1) != 1)
+	if (!image->Pal.readFromFile(&image->io))
 		return IL_FALSE;
 
 	// Seek to the data from the "beginning" of the file
@@ -727,10 +695,7 @@ ILboolean ilReadRLE4Bmp(ILimage* image, BMPHEAD *Header)
 	}
 
 	image->Format = IL_COLOUR_INDEX;
-	image->Pal.PalType = IL_PAL_BGR32;
-	image->Pal.PalSize = 16 * 4; //Header->biClrUsed * 4;  // 16 * 4 for most images
-	image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-	if (image->Pal.Palette == NULL)
+	if (!image->Pal.use(16, NULL, IL_PAL_BGR32))
 		return IL_FALSE;
 
 	// If the image height is negative, then the image is flipped
@@ -741,7 +706,7 @@ ILboolean ilReadRLE4Bmp(ILimage* image, BMPHEAD *Header)
 	// Read the palette
 	image->io.seek(&image->io, sizeof(BMPHEAD), IL_SEEK_SET);
 
-	if (image->io.read(&image->io, image->Pal.Palette, image->Pal.PalSize, 1) != 1)
+	if (!image->Pal.readFromFile(&image->io))
 		return IL_FALSE;
 
 	// Seek to the data from the "beginning" of the file
@@ -869,7 +834,6 @@ ILboolean iSaveBitmapInternal(ILimage* image)
 	int compress_rle8 = IL_FALSE; // disabled BMP RLE compression. broken
 	ILuint	i, PadSize, Padding = 0;
 	ILimage	*TempImage = NULL;
-	ILpal	*TempPal;
 	ILubyte	*TempData;
 
 	if (image == NULL) {
@@ -888,49 +852,35 @@ ILboolean iSaveBitmapInternal(ILimage* image)
 	header.biPlanes = 1;
 	header.biClrImportant = 1;
 
+	ILpal TempPal;
 	if( compress_rle8 == IL_TRUE ) {
 		header.biCompression = 1; 
 		TempImage = iConvertImage(image, IL_COLOR_INDEX, IL_UNSIGNED_BYTE);
-		if (TempImage == NULL)
-			return IL_FALSE;
 		TempPal = iConvertPal(&TempImage->Pal, IL_PAL_BGR32);
-		if (TempPal == NULL)
-		{
-			ilCloseImage(TempImage);
-			return IL_FALSE;
-		}
 	}
 
-	if((image->Format == IL_LUMINANCE) && (image->Pal.Palette == NULL))
+	if((image->Format == IL_LUMINANCE) && (!image->Pal.hasPalette()))
 	{
 		// For luminance images it is necessary to generate a grayscale BGR32
 		//  color palette.  Could call iConvertImage(..., IL_COLOR_INDEX, ...)
 		//  to generate an RGB24 palette, followed by iConvertPal(..., IL_PAL_BGR32),
 		//  to convert the palette to BGR32, but it seemed faster to just
 		//  explicitely generate the correct palette.
-		image->Pal.PalSize = 256*4;
-		image->Pal.PalType = IL_PAL_BGR32;
-		image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
+		image->Pal.use(256, NULL, IL_PAL_BGR32);
 		
 		// Generate grayscale palette
 		for (i = 0; i < 256; i++)
 		{
-			image->Pal.Palette[i * 4] = i;
-			image->Pal.Palette[i * 4 + 1] = i;
-			image->Pal.Palette[i * 4 + 2] = i;
-			image->Pal.Palette[i * 4 + 3] = 0;
+			image->Pal.setRGBA(i, i, i, i, 0);
 		}
 	}
 	
 	// Convert palette to BGR32, if necessary
-	TempPal = &image->Pal;
-	if( image->Pal.PalSize && image->Pal.Palette && image->Pal.PalType != IL_PAL_NONE ) {
+	TempPal = image->Pal;
+	if (image->Pal.hasPalette()) {
 		// If the palette in .bmp format, write it directly
-		if (image->Pal.PalType != IL_PAL_BGR32) {
+		if (image->Pal.getPalType() != IL_PAL_BGR32) {
 			TempPal = iConvertPal(&image->Pal, IL_PAL_BGR32);
-			if (TempPal == NULL) {
-				return IL_FALSE;
-			}
 		}
 		header.biClrUsed = il2GetInteger(IL_PALETTE_NUM_COLS);
 	}
@@ -964,10 +914,10 @@ ILboolean iSaveBitmapInternal(ILimage* image)
 
 	// Write header and palette, header will be updated later
 	io->write(&header, 1, sizeof(BMPHEAD), io);
-	if (TempPal->PalSize > 0) {
-		header.biClrUsed = TempPal->PalSize/4;
-		header.bfDataOff += TempPal->PalSize;
-		io->write(TempPal->Palette, 1, TempPal->PalSize, io);
+	if (TempPal.getPalSize() > 0) {
+		header.biClrUsed = TempPal.getPalSize()/4;
+		header.bfDataOff += TempPal.getPalSize();
+		TempPal.writeToFile(io);
 	}
 	
 	if( compress_rle8 == IL_TRUE ) {
@@ -997,10 +947,7 @@ ILboolean iSaveBitmapInternal(ILimage* image)
 	io->write(&header, 1, sizeof(BMPHEAD), io);
 	io->seek(io, header.biSize, IL_SEEK_SET);
 
-	if (TempPal != &image->Pal) {
-		ifree(TempPal->Palette);
-		ifree(TempPal);
-	}
+	//TempPal->clear(); // Destructor will be called when it goes off scope
 	if (TempData != TempImage->Data)
 		ifree(TempData);
 	if (TempImage != image)

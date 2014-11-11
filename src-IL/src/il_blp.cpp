@@ -244,14 +244,10 @@ ILboolean iLoadBlp1(ILimage * Image)
 							BaseCreated = IL_TRUE;
 
 							// We have a BGRA palette.
-							Image->Pal.Palette = (ILubyte*)ialloc(256 * 4);
-							if (Image->Pal.Palette == NULL)
-								return IL_FALSE;
-							Image->Pal.PalSize = 1024;
-							Image->Pal.PalType = IL_PAL_BGRA32;
+							Image->Pal.use(256, NULL, IL_PAL_BGRA32);
 
 							// Read in the palette ...
-							if (io->read(io, Image->Pal.Palette, 1, 1024) != 1024)
+							if (!Image->Pal.readFromFile(io))
 								return IL_FALSE;
 						}
 						else {
@@ -265,12 +261,7 @@ ILboolean iLoadBlp1(ILimage * Image)
 								return IL_FALSE;
 
 							// Copy the palette from the first image before we change our Image pointer.
-							Image->Mipmaps->Pal.Palette = (ILubyte*)ialloc(256 * 4);
-							if (Image->Mipmaps->Pal.Palette == NULL)
-								return IL_FALSE;
-							Image->Mipmaps->Pal.PalSize = 1024;
-							Image->Mipmaps->Pal.PalType = IL_PAL_BGRA32;
-							memcpy(Image->Mipmaps->Pal.Palette, Image->Pal.Palette, 1024);
+							Image->Mipmaps->Pal = Image->Pal;
 
 							// Move to the next mipmap in the linked list.
 							Image = Image->Mipmaps;
@@ -397,12 +388,9 @@ ILboolean iLoadBlpInternal(ILimage * Image)
 								return IL_FALSE;
 							BaseCreated = IL_TRUE;
 
-							Image->Pal.Palette = (ILubyte*)ialloc(256 * 4);  // 256 entries of ARGB8888 values (1024).
-							if (Image->Pal.Palette == NULL)
-								return IL_FALSE;
-							Image->Pal.PalSize = 1024;
-							Image->Pal.PalType = IL_PAL_BGRA32;  //@TODO: Find out if this is really BGRA data.
-							if (io->read(io, Image->Pal.Palette, 1, 1024) != 1024)  // Read in the palette.
+							if (!Image->Pal.use(256, NULL, IL_PAL_BGRA32))  //@TODO: Find out if this is really BGRA data.
+								return false;
+							if (Image->Pal.readFromFile(io))  // Read in the palette.
 								return IL_FALSE;
 						}
 						else {

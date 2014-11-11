@@ -127,7 +127,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src-IL\src\il_neuquant.cpp" />
     <ClCompile Include="..\..\src-IL\src\il_nvidia.cpp" />
-    <ClCompile Include="..\..\src-IL\src\il_pal.cpp" />
+    <ClCompile Include="..\..\src-IL\src\il_palette.cpp" />
     <ClCompile Include="..\..\src-IL\src\il_pcd.cpp" />
     <ClCompile Include="..\..\src-IL\src\il_pcx.cpp" />
     <ClCompile Include="..\..\src-IL\src\il_pic.cpp" />
@@ -260,7 +260,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -280,7 +280,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
       <CompileAsManaged>false</CompileAsManaged>
     </ClCompile>
     <Link>
@@ -302,7 +302,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\ilmbase-2.1.0\IlmThread</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\Input Libs\ilmbase-2.2.0\IlmThread</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -330,7 +330,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\ilmbase-2.1.0\IlmThread</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\Input Libs\ilmbase-2.2.0\IlmThread</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -358,7 +358,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\ilmbase-2.1.0\IlmThread</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\Input Libs\ilmbase-2.2.0\IlmThread</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <CompileAsManaged>false</CompileAsManaged>
@@ -388,7 +388,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1612;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.1.0\IlmImf;..\..\Input Libs\ilmbase-2.1.0\Imath;..\..\Input Libs\ilmbase-2.1.0\config.windows;..\..\Input Libs\openexr-2.1.0\config.windows;..\..\Input Libs\ilmbase-2.1.0\Half;..\..\Input Libs\ilmbase-2.1.0\Iex;..\..\Input Libs\ilmbase-2.1.0\IlmThread</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\src-IL\include;..\..\Input Libs\tiff-4.0.3\libtiff;..\..\Input Libs\lcms2-2.6\include;..\..\Input Libs\libpng1614;..\..\Input Libs\libmng-2.0.2;..\..\Input Libs\jpegsr9a;..\..\Input Libs\zlib-1.2.8;..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\Input Libs\openexr-2.2.0\config.windows;..\..\Input Libs\ilmbase-2.2.0\Half;..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\Input Libs\ilmbase-2.2.0\IlmThread</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <CompileAsManaged>false</CompileAsManaged>

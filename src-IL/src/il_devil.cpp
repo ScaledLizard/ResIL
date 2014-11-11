@@ -23,9 +23,7 @@ ILAPI ILboolean ILAPIENTRY il2InitImage(ILimage *Image, ILuint Width, ILuint Hei
 	memset(Image, 0, sizeof(ILimage));
 
 	Image->Origin      = IL_ORIGIN_LOWER_LEFT;
-	Image->Pal.PalType = IL_PAL_NONE;
-	Image->Pal.Palette = NULL;
-	Image->Pal.PalSize = 0;
+	Image->Pal.use(0, NULL, IL_PAL_NONE);
 	Image->Duration    = 0;
 	Image->DxtcFormat  = IL_DXT_NO_COMP;
 	Image->DxtcData    = NULL;
@@ -111,8 +109,19 @@ ILAPI void ILAPIENTRY il2DeleteImage(ILimage * image)
 	ifree(image);
 }
 
-// Internal version of ilTexImage.
-// Differs from ilTexImage in the first argument: ILimage* Image
+//! Changes an image to use new dimensions (current data is destroyed).
+/*! \param Image Specifies the image. The function fails if this is zero. 
+   \param Width Specifies the new image width.  This cannot be 0.
+	\param Height Specifies the new image height.  This cannot be 0.
+	\param Depth Specifies the new image depth.  This cannot be 0.
+	\param Bpp Number of channels (ex. 3 for RGB)
+	\param Format Enum of the desired format.  Any format values are accepted.
+	\param Type Enum of the desired type.  Any type values are accepted.
+	\param Data Specifies data that should be copied to the new image. If this parameter is NULL, no data is copied, and the new image data consists of undefined values.
+	\exception IL_ILLEGAL_OPERATION No currently bound image.
+	\exception IL_INVALID_PARAM One of the parameters is incorrect, such as one of the dimensions being 0.
+	\exception IL_OUT_OF_MEMORY Could not allocate enough memory.
+	\return Boolean value of failure or success*/
 ILAPI ILboolean ILAPIENTRY il2TexImage(ILimage *Image, ILuint Width, 
 	ILuint Height, ILuint Depth, ILubyte Bpp, ILenum Format, ILenum Type, 
 	void *Data)
@@ -128,17 +137,20 @@ ILAPI ILboolean ILAPIENTRY il2TexImage(ILimage *Image, ILuint Width,
 		return IL_FALSE;
 	}
 
-	////
-
-	// Not sure if we should be getting rid of the palette...
-	if (Image->Pal.Palette && Image->Pal.PalSize && Image->Pal.PalType != IL_PAL_NONE) {
-		ifree(Image->Pal.Palette);
-	}
+	// Reset palette
+	Image->Pal.clear();
 
 	ilCloseImage(Image->Mipmaps);
+	Image->Mipmaps = NULL;
+
 	ilCloseImage(Image->Next);
+	Image->Next = NULL;
+
 	ilCloseImage(Image->Faces);
+	Image->Faces = NULL; 
+
 	ilCloseImage(Image->Layers);
+	Image->Layers = NULL;
 
 	if (Image->AnimList) ifree(Image->AnimList);
 	if (Image->Profile)  ifree(Image->Profile);
@@ -246,7 +258,7 @@ ILAPI ILubyte* ILAPIENTRY il2GetPalette(ILimage* image)
 		return NULL;
 	}
 	
-	return image->Pal.Palette;
+	return image->Pal.getPalette();
 }
 
 
@@ -626,20 +638,9 @@ ILAPI ILboolean ILAPIENTRY il2ClearImage(ILimage *Image)
 	else {
 		imemclear(Image->Data, Image->SizeOfData);
 		
-		if (Image->Pal.Palette)
-			ifree(Image->Pal.Palette);
-		Image->Pal.Palette = (ILubyte*)ialloc(4);
-		if (Image->Pal.Palette == NULL) {
-			return IL_FALSE;
-		}
-		
-		Image->Pal.PalType = IL_PAL_RGBA32;
-		Image->Pal.PalSize = 4;
-		
-		Image->Pal.Palette[0] = Colours[0] * UCHAR_MAX;
-		Image->Pal.Palette[1] = Colours[1] * UCHAR_MAX;
-		Image->Pal.Palette[2] = Colours[2] * UCHAR_MAX;
-		Image->Pal.Palette[3] = Colours[3] * UCHAR_MAX;
+		Image->Pal.use(1, NULL, IL_PAL_RGBA32);
+		Image->Pal.setRGBA(0, Colours[0] * UCHAR_MAX, 
+			Colours[1] * UCHAR_MAX, Colours[2] * UCHAR_MAX, Colours[3] * UCHAR_MAX);
 	}
 	
 	return IL_TRUE;
@@ -889,11 +890,13 @@ ILAPI ILboolean ILAPIENTRY il2CopyImageAttr(ILimage *Dest, ILimage *Src)
 		il2SetError(IL_INVALID_PARAM);
 		return IL_FALSE;
 	}
-	
-	if (Dest->Pal.Palette && Dest->Pal.PalSize && Dest->Pal.PalType != IL_PAL_NONE) {
-		ifree(Dest->Pal.Palette);
-		Dest->Pal.Palette = NULL;
+
+	if (Dest->Data != NULL) {
+		ifree(Dest->Data);
+		Dest->Data = NULL;
 	}
+	
+	Dest->Pal.clear();
 	if (Dest->Faces) {
 		ilCloseImage(Dest->Faces);
 		Dest->Faces = NULL;
@@ -937,19 +940,9 @@ ILAPI ILboolean ILAPIENTRY il2CopyImageAttr(ILimage *Dest, ILimage *Src)
 		memcpy(Dest->Profile, Src->Profile, Src->ProfileSize);
 		Dest->ProfileSize = Src->ProfileSize;
 	}
-	if (Src->Pal.Palette) {
-		Dest->Pal.Palette = (ILubyte*)ialloc(Src->Pal.PalSize);
-		if (Dest->Pal.Palette == NULL) {
-			return IL_FALSE;
-		}
-		memcpy(Dest->Pal.Palette, Src->Pal.Palette, Src->Pal.PalSize);
-	}
-	else {
-		Dest->Pal.Palette = NULL;
-	}
+
+	Dest->Pal.use(Src->Pal.getNumCols(), Src->Pal.getPalette(), Src->Pal.getPalType());
 	
-	Dest->Pal.PalSize = Src->Pal.PalSize;
-	Dest->Pal.PalType = Src->Pal.PalType;
 	Dest->Width = Src->Width;
 	Dest->Height = Src->Height;
 	Dest->Depth = Src->Depth;
@@ -1022,8 +1015,10 @@ ILAPI ILboolean ILAPIENTRY il2ResizeImage(ILimage *Image, ILuint Width, ILuint H
 		return IL_FALSE;
 	}
 	
-	if (Image->Data != NULL)
+	if (Image->Data != NULL) {
 		ifree(Image->Data);
+		Image-> Data = NULL;
+	}
 	
 	Image->Depth = Depth;
 	Image->Width = Width;

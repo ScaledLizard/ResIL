@@ -13,6 +13,7 @@
 #ifndef IL_EXPORTS_H
 #define IL_EXPORTS_H
 
+#include "il_internal.h"
 #include "IL/il2.h"
 
 #ifdef DEBUG
@@ -44,14 +45,13 @@
 #define IL_MAX(a,b) (((a) > (b)) ? (a) : (b))
 #define IL_MIN(a,b) (((a) < (b)) ? (a) : (b))
 
-
-//! Basic Palette struct
-typedef struct ILpal
-{
-	ILubyte* Palette; //!< the image palette (if any)
-	ILuint   PalSize; //!< size of the palette (in bytes)
-	ILenum   PalType; //!< the palette types in il.h (0x0500 range)
-} ILpal;
+// Memory functions
+ILAPI void* ILAPIENTRY ialloc(const ILsizei Size);
+ILAPI void  ILAPIENTRY ifree(const void *Ptr);
+ILAPI void* ILAPIENTRY icalloc(const ILsizei Size, const ILsizei Num);
+#ifdef ALTIVEC_GCC
+ILAPI void* ILAPIENTRY ivec_align_buffer(void *buffer, const ILuint size);
+#endif
 
 struct SIO {
 	// Function pointers set by ilSetRead, ilSetWrite
@@ -82,6 +82,8 @@ struct SIO {
 	// Size computation
 	ILint64 MaxPos;
 };
+
+#include <IL/il_palette.h>
 
 // glibc's attempt to redefine putc to _IO_putc doesn't go well with the
 // putc member in struct SIO
@@ -126,14 +128,6 @@ typedef struct ILimage
 } ILimage;
 
 
-// Memory functions
-ILAPI void* ILAPIENTRY ialloc(const ILsizei Size);
-ILAPI void  ILAPIENTRY ifree(const void *Ptr);
-ILAPI void* ILAPIENTRY icalloc(const ILsizei Size, const ILsizei Num);
-#ifdef ALTIVEC_GCC
-ILAPI void* ILAPIENTRY ivec_align_buffer(void *buffer, const ILuint size);
-#endif
-
 // Returns the current image.
 ILAPI ILimage* ILAPIENTRY ilGetCurImage();
 
@@ -176,7 +170,7 @@ ILAPI ILboolean ILAPIENTRY ilTexImage_     (ILimage *Image, ILuint Width, ILuint
 ILAPI ILboolean ILAPIENTRY ilTexSubImage_  (ILimage *Image, void *Data);
 ILAPI void*     ILAPIENTRY ilConvertBuffer (ILuint SizeOfData, ILenum SrcFormat, ILenum DestFormat, ILenum SrcType, ILenum DestType, ILpal *SrcPal, void *Buffer);
 ILAPI ILimage*  ILAPIENTRY iConvertImage   (ILimage *Image, ILenum DestFormat, ILenum DestType);
-ILAPI ILpal*    ILAPIENTRY iConvertPal     (ILpal *Pal, ILenum DestFormat);
+ILAPI ILpal    ILAPIENTRY iConvertPal     (ILpal *Pal, ILenum DestFormat);
 ILAPI ILubyte*  ILAPIENTRY iGetFlipped     (ILimage *Image);
 ILAPI ILboolean	ILAPIENTRY iMirror(ILimage *Image);
 ILAPI void      ILAPIENTRY iFlipBuffer(ILubyte *buff, ILuint depth, ILuint line_size, ILuint line_num);

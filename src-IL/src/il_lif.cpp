@@ -103,15 +103,12 @@ ILboolean iLoadLifInternal(ILimage* image)
 	}
 	image->Origin = IL_ORIGIN_UPPER_LEFT;
 
-	image->Pal.Palette = (ILubyte*)ialloc(1024);
-	if (image->Pal.Palette == NULL)
+	if (!image->Pal.use(256, NULL, IL_PAL_RGBA32))
 		return IL_FALSE;
-	image->Pal.PalSize = 1024;
-	image->Pal.PalType = IL_PAL_RGBA32;
 
 	if (io->read(io, image->Data, LifHead.Width * LifHead.Height, 1) != 1)
 		return IL_FALSE;
-	if (io->read(io, image->Pal.Palette, 1, 1024) != 1024)
+	if (!image->Pal.readFromFile(io))
 		return IL_FALSE;
 
 	// Each data offset is offset by -1, so we add one.

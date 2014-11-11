@@ -34,9 +34,6 @@ ILimage *iluScale3D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Heigh
 
 ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILuint Depth)
 {
-	ILimage		*Temp;
-	ILenum		Origin;
-
 	if (image == NULL) {
 		il2SetError(ILU_ILLEGAL_OPERATION);
 		return IL_FALSE;
@@ -49,6 +46,9 @@ ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILui
 	if (Width == 0)  Width = 1;
 	if (Height == 0) Height = 1;
 	if (Depth == 0)  Depth = 1;
+
+	ILenum Origin = image->Origin;
+	ILimage* Temp = NULL;
 
 	if ((image->Width<Width) || (image->Height<Height)) // only do special scale if there is some zoom?
 	{
@@ -106,9 +106,8 @@ ILboolean ILAPIENTRY ilu2Scale(ILimage* image, ILuint Width, ILuint Height, ILui
 		}
 	}
 
-	Origin = image->Origin;
-	ILboolean	UsePal = (image->Format == IL_COLOUR_INDEX);
-	ILenum		PalType = image->Pal.PalType;
+	ILboolean UsePal = (image->Format == IL_COLOUR_INDEX);
+	ILenum PalType = image->Pal.getPalType();
 	Temp = iluScale_(image, Width, Height, Depth);
 	if (Temp != NULL) {
 		if (!il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data)) {
@@ -136,8 +135,8 @@ ILAPI ILimage* ILAPIENTRY iluScale_(ILimage *image, ILuint Width, ILuint Height,
 
 	Format = image->Format;
 	if (Format == IL_COLOUR_INDEX) {
-		PalType = image->Pal.PalType;
-		ToScale = iConvertImage(image, ilGetPalBaseType(image->Pal.PalType), image->Type);
+		PalType = image->Pal.getPalType();
+		ToScale = iConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), image->Type);
 	}
 	else {
 		ToScale = image;

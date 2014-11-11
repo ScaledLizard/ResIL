@@ -87,24 +87,11 @@ ILboolean iGetPalette(SIO* io, ILubyte Info, ILpal *Pal, ILimage *PrevImage)
 {
 	// The ld(palettes bpp - 1) is stored in the lower 3 bits of Info
 	ILint palBitCount = (Info & 0x7) + 1;
-	Pal->PalSize = (1 << palBitCount) * 3; // never larger than 768
-	Pal->PalType = IL_PAL_RGB24;
-	Pal->Palette = (ILubyte*)ialloc(256 * 3);
-
-	if (Pal->Palette == NULL) {
-		Pal->PalSize = 0;
+	if (!Pal->use(1 << palBitCount, NULL, IL_PAL_RGB24)) 
 		return IL_FALSE;
-	}
 
 	// Read the new palette
-	ILuint read = (ILuint) io->read(io, Pal->Palette, 1, Pal->PalSize);
-	if (read == Pal->PalSize) {
-		return IL_TRUE;
-	} else {
-		// Clean up unread parts of the palette
-		memset(Pal->Palette + read, 0, Pal->PalSize-read);
-		return IL_FALSE;
-	}
+	return Pal->readFromFile(io);
 }
 
 
@@ -319,7 +306,8 @@ ILint get_next_code(GifDecompressor* state) {
 	return (ret & code_mask[state->curr_size]);
 }
 
-struct GifLoader {
+class GifLoader {
+public:
 	ILimage* mBaseImage;
 	ILimage* mCurrFrame;
 	ILimage* mPrevImage;
@@ -332,11 +320,25 @@ struct GifLoader {
 	ILpal	palette, GlobalPal;
 	IMAGEDESC	ImageDesc, OldImageDesc;
 
+	GifLoader();
 	ILboolean GifGetData(ILuint Stride);
 	ILboolean readExtensionBlock();
 	ILboolean readImage();
 	ILboolean GetImages();
 };
+
+GifLoader::GifLoader()
+	: mBaseImage (NULL),
+	  mCurrFrame (NULL),
+	  mPrevImage (NULL),
+	  mIo (NULL),
+	  gfxUsed (false),
+	  NumImages (0),
+	  input (0),
+	  palette (), 
+	  GlobalPal ()
+{
+}
 
 ILboolean GifLoader::GifGetData(ILuint Stride)
 {
@@ -539,38 +541,33 @@ ILboolean RemoveInterlace(ILimage *image)
 // Uses the transparent colour index to make an alpha channel.
 ILboolean ConvertTransparent(ILimage *Image, ILubyte TransColour)
 {
-	ILubyte	*Palette;
-	ILuint	i, j;
-	ILuint newSize = Image->Pal.PalSize / 3 * 4;
-
-	if (Image->Pal.Palette == NULL
-	||  Image->Pal.PalSize == 0
-	||  Image->Pal.PalType != IL_PAL_RGB24)
+	if (!Image->Pal.hasPalette())
 	{
 		return IL_FALSE;
 	}
 
-	Palette = (ILubyte*)ialloc(newSize);
-	if (Palette == NULL)
+	ILuint colorCount = Image->Pal.getNumCols();
+	ILuint newSize = colorCount * 4;
+	ILubyte	*tempPal = (ILubyte*)ialloc(newSize);
+	if (tempPal == NULL)
 		return IL_FALSE;
 
 	// Copy all colors as opaque
-	for (i = 0, j = 0; i < Image->Pal.PalSize; i += 3, j += 4) {
-		Palette[j  ] = Image->Pal.Palette[i  ];
-		Palette[j+1] = Image->Pal.Palette[i+1];
-		Palette[j+2] = Image->Pal.Palette[i+2];
-		Palette[j+3] = 0xFF;
+	for (ILuint i = 0, j = 0; i < colorCount; ++i, j += 4) {
+		ILubyte r, g, b;
+		Image->Pal.getRGB(i, r, g, b);
+		tempPal[j  ] = r;
+		tempPal[j+1] = g;
+		tempPal[j+2] = b;
+		tempPal[j+3] = 0xFF;
 	}
 
 	// Store transparent color if TransColour is a legal index
 	ILuint TransColourIndex = 4*TransColour+3;
 	if (TransColourIndex < newSize)
-		Palette[TransColourIndex] = 0x00;
+		tempPal[TransColourIndex] = 0x00;
 
-	ifree(Image->Pal.Palette);
-	Image->Pal.Palette = Palette;
-	Image->Pal.PalSize = newSize;
-	Image->Pal.PalType = IL_PAL_RGBA32;
+	Image->Pal.use(colorCount, tempPal, IL_PAL_RGBA32);
 
 	return IL_TRUE;
 }
@@ -753,8 +750,7 @@ ILboolean iLoadGifInternal(ILimage* image)
 		return IL_FALSE;
 	}
 
-	loader.GlobalPal.Palette = NULL;
-	loader.GlobalPal.PalSize = 0;
+	loader.GlobalPal.clear();
 
 	// Read header
 	auto read = image->io.read(&image->io, &loader.mHeader, 1, sizeof(GIFHEAD));
@@ -796,11 +792,7 @@ ILboolean iLoadGifInternal(ILimage* image)
 	if (!loader.GetImages())
 		return IL_FALSE;
 
-	if (loader.palette.Palette != NULL) {
-		ifree(loader.palette.Palette);
-		loader.palette.Palette = NULL;
-	}
-	loader.palette.PalSize = 0;
+	loader.palette.clear();
 
 	return il2FixImage(image);
 }

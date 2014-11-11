@@ -27,7 +27,7 @@ ILboolean ILAPIENTRY ilu2Pixelize(ILimage* image, ILuint PixSize)
 	r = 0;
 
 	if (image->Format == IL_COLOUR_INDEX)
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 
 	RegionMask = iScanFill(image);
 
@@ -423,7 +423,7 @@ ILboolean ILAPIENTRY ilu2EdgeDetectP(ILimage* image)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -481,7 +481,7 @@ ILboolean ILAPIENTRY ilu2EdgeDetectS(ILimage* image)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -538,7 +538,7 @@ ILboolean ILAPIENTRY ilu2BlurAvg(ILimage* image, ILuint Iter)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -577,7 +577,7 @@ ILboolean ILAPIENTRY ilu2BlurGaussian(ILimage* image, ILuint Iter)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -615,7 +615,7 @@ ILboolean ILAPIENTRY ilu2Emboss(ILimage* image)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -651,7 +651,7 @@ ILboolean ILAPIENTRY ilu2EdgeDetectE(ILimage* image)
 
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	}
 	else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
@@ -704,15 +704,16 @@ ILboolean ILAPIENTRY ilu2ScaleAlpha(ILimage* image, ILfloat scale)
 			break;
 
 		case IL_COLOUR_INDEX:
-			switch (image->Pal.PalType)
+			switch (image->Pal.getPalType())
 			{
 				case IL_PAL_RGBA32:
 				case IL_PAL_BGRA32:
-					for (i = 0; i < image->Pal.PalSize; i += paletteBPP) {
-						alpha = (ILint)(image->Pal.Palette[i+3] * scale);
-						if (alpha > UCHAR_MAX) alpha = UCHAR_MAX;
-						if (alpha < 0) alpha = 0;
-						image->Pal.Palette[i+3] = (ILubyte)alpha;
+					for (i = 0; i < image->Pal.getPalSize(); i += paletteBPP) {
+						ILubyte r, g, b, a;
+						image->Pal.getRGBA(i, r, g, b, a);
+						if (a > UCHAR_MAX) a = UCHAR_MAX;
+						if (a < 0) a = 0;
+						image->Pal.setRGBA(i, r, g, b, a);
 					}
 					break;
 
@@ -836,43 +837,43 @@ ILboolean ILAPIENTRY ilu2ScaleColours(ILimage* image, ILfloat r, ILfloat g, ILfl
 			break;
 
 		case IL_COLOUR_INDEX:
-			switch (image->Pal.PalType)
+			switch (image->Pal.getPalType())
 			{
 				case IL_PAL_RGB24:
 				case IL_PAL_RGB32:
 				case IL_PAL_RGBA32:
-					for (i = 0; i < image->Pal.PalSize; i += paletteBPP) {
-						red = (ILint)(image->Pal.Palette[i] * r);
-						grn = (ILint)(image->Pal.Palette[i+1] * g);
-						blu = (ILint)(image->Pal.Palette[i+2] * b);
+					for (i = 0; i < image->Pal.getPalSize(); i += paletteBPP) {
+						ILubyte red, grn, blu;
+						image->Pal.getRGB(i, red, grn, blu);
+						red = (ILubyte) (r*red);
+						grn = (ILubyte) (g*grn);
+						blu = (ILubyte) (b*blu);
 						if (red > UCHAR_MAX) red = UCHAR_MAX;
 						if (red < 0) red = 0;
 						if (grn > UCHAR_MAX) grn = UCHAR_MAX;
 						if (grn < 0) grn = 0;
 						if (blu > UCHAR_MAX) blu = UCHAR_MAX;
 						if (blu < 0) blu = 0;
-						image->Pal.Palette[i]   = (ILubyte)red;
-						image->Pal.Palette[i+1] = (ILubyte)grn;
-						image->Pal.Palette[i+2] = (ILubyte)blu;
+						image->Pal.setRGB(i, red, grn, blu);
 					}
 					break;
 
 				case IL_PAL_BGR24:
 				case IL_PAL_BGR32:
 				case IL_PAL_BGRA32:
-					for (i = 0; i < image->Pal.PalSize; i += paletteBPP) {
-						red = (ILint)(image->Pal.Palette[i+2] * r);
-						grn = (ILint)(image->Pal.Palette[i+1] * g);
-						blu = (ILint)(image->Pal.Palette[i] * b);
+					for (i = 0; i < image->Pal.getPalSize(); i += paletteBPP) {
+						ILubyte red, grn, blu;
+						image->Pal.getRGB(i, red, grn, blu);
+						red = (ILubyte) (r*red);
+						grn = (ILubyte) (g*grn);
+						blu = (ILubyte) (b*blu);
 						if (red > UCHAR_MAX) red = UCHAR_MAX;
 						if (red < 0) red = 0;
 						if (grn > UCHAR_MAX) grn = UCHAR_MAX;
 						if (grn < 0) grn = 0;
 						if (blu > UCHAR_MAX) blu = UCHAR_MAX;
 						if (blu < 0) blu = 0;
-						image->Pal.Palette[i+2]   = (ILubyte)red;
-						image->Pal.Palette[i+1] = (ILubyte)grn;
-						image->Pal.Palette[i] = (ILubyte)blu;
+						image->Pal.setRGB(i, red, grn, blu);
 					}
 					break;
 
@@ -910,11 +911,18 @@ ILboolean ILAPIENTRY ilu2GammaCorrect(ILimage* image, ILfloat Gamma)
 
 	// Do we need to clamp here?
 	if (image->Format == IL_COLOUR_INDEX) {
-		for (i = 0; i < image->Pal.PalSize; i++) {
+		/*for (i = 0; i < image->Pal.getPalSize(); i++) {
 			image->Pal.Palette[i] = (ILubyte)(Table[image->Pal.Palette[i]] * 255);
-		}
-	}
-	else {
+		}*/
+		for (i = 0; i < image->Pal.getNumCols(); i++) {
+			ILubyte r, g, b;
+			image->Pal.getRGB(i, r, g, b);
+			r = (ILubyte)(Table[r] * 255);
+			g = (ILubyte)(Table[g] * 255);
+			b = (ILubyte)(Table[b] * 255);
+			image->Pal.setRGB(i, r, g, b);
+		}	
+	} else {
 		// Not too sure if this is the correct way of handling multiple bpc's.
 		switch (image->Bpc)
 		{
@@ -1220,7 +1228,7 @@ ILAPI ILboolean ILAPIENTRY ilu2Convolution(ILimage* image, ILint *matrix, ILint 
 	
 	if (image->Format == IL_COLOUR_INDEX) {
 		Palette = IL_TRUE;
-		il2ConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		il2ConvertImage(image, ilGetPalBaseType(image->Pal.getPalType()), IL_UNSIGNED_BYTE);
 	} else if (image->Type > IL_UNSIGNED_BYTE) {
 		Converted = IL_TRUE;
 		Type = image->Type;

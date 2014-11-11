@@ -74,20 +74,20 @@ ILboolean ilSaveCHeader(ILimage* image, char *InternalName)
 	fprintf(HeadFile, "};\n");
 
 
-	if (image->Pal.Palette && image->Pal.PalSize && image->Pal.PalType != IL_PAL_NONE) {
+	if (image->Pal.hasPalette()) {
 		fprintf(HeadFile, "\n\n");
-		fprintf(HeadFile, "#define IMAGE_PALSIZE %u\n\n", image->Pal.PalSize);
-		fprintf(HeadFile, "#define IMAGE_PALTYPE 0x%X\n\n", image->Pal.PalType);
+		fprintf(HeadFile, "#define IMAGE_PALSIZE %u\n\n", image->Pal.getPalSize());
+		fprintf(HeadFile, "#define IMAGE_PALTYPE 0x%X\n\n", image->Pal.getPalType());
         fprintf(HeadFile, "ILubyte %sPal[] = {\n", Name);
-		for (i = 0; i < image->Pal.PalSize; i += MAX_LINE_WIDTH) {
+		for (i = 0; i < image->Pal.getPalSize(); i += MAX_LINE_WIDTH) {
 			fprintf(HeadFile, "\t");
 			for (j = 0; j < MAX_LINE_WIDTH; j++) {
-				if (i + j >= image->Pal.PalSize - 1) {
-					fprintf(HeadFile, " %4d", image->Pal.Palette[i+j]);
+				if (i + j >= image->Pal.getPalSize() - 1) {
+					fprintf(HeadFile, " %4d", image->Pal.getPalette()[i+j]);
 					break;
 				}
 				else
-					fprintf(HeadFile, " %4d,", image->Pal.Palette[i+j]);
+					fprintf(HeadFile, " %4d,", image->Pal.getPalette()[i+j]);
 			}
 			fprintf(HeadFile, "\n");
 		}

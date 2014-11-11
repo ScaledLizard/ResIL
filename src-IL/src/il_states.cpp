@@ -527,19 +527,19 @@ ILAPI void ILAPIENTRY il2GetImageInteger(ILimage *Image, ILenum Mode, ILint *Par
             break;
 
         case IL_PALETTE_TYPE:
-             *Param = Image->Pal.PalType;
+             *Param = Image->Pal.getPalType();
              break;
         case IL_PALETTE_BPP:
-             *Param = ilGetBppPal(Image->Pal.PalType);
+             *Param = ilGetBppPal(Image->Pal.getPalType());
              break;
         case IL_PALETTE_NUM_COLS:
-             if (!Image->Pal.Palette || !Image->Pal.PalSize || Image->Pal.PalType == IL_PAL_NONE)
+             if (!Image->Pal.hasPalette())
                   *Param = 0;
              else
-                  *Param = Image->Pal.PalSize / ilGetBppPal(Image->Pal.PalType);
+                  *Param = Image->Pal.getPalSize() / ilGetBppPal(Image->Pal.getPalType());
              break;
         case IL_PALETTE_BASE_TYPE:
-             switch (Image->Pal.PalType)
+             switch (Image->Pal.getPalType())
              {
                   case IL_PAL_RGB24:
                       *Param = IL_RGB;

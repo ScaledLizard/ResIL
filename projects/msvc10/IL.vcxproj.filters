@@ -266,9 +266,6 @@
     <ClCompile Include="..\..\src-IL\src\il_register.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src-IL\src\il_pal.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src-IL\src\il_lif.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -345,6 +342,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src-il\src\il_api1.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src-IL\src\il_palette.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

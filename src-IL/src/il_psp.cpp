@@ -425,16 +425,11 @@ ILboolean ReadPalette(PspLoadState* state, ILuint BlockLen, ILimage* image)
 		PalCount = GetLittleUInt(&image->io);
 	}
 
-	state->Pal.PalSize = PalCount * 4;
-	state->Pal.PalType = IL_PAL_BGRA32;
-	state->Pal.Palette = (ILubyte*)ialloc(state->Pal.PalSize);
-	if (state->Pal.Palette == NULL)
+	if (state->Pal.use(PalCount, NULL, IL_PAL_BGRA32))
 		return IL_FALSE;
 
-	if (image->io.read(&image->io, state->Pal.Palette, state->Pal.PalSize, 1) != 1) {
-		ifree(state->Pal.Palette);
+	if (!state->Pal.readFromFile(&image->io))
 		return IL_FALSE;
-	}
 
 	return IL_TRUE;
 }
@@ -508,11 +503,9 @@ ILboolean AssembleImage(PspLoadState* state, ILimage* image)
 			image->Data[i] = state->Channels[0][i];
 		}
 
-		if (state->Pal.Palette) {
+		if (state->Pal.hasPalette()) {
 			image->Format = IL_COLOUR_INDEX;
-			image->Pal.PalSize = state->Pal.PalSize;
-			image->Pal.PalType = state->Pal.PalType;
-			image->Pal.Palette = state->Pal.Palette;
+			image->Pal = state->Pal;
 		}
 	}
 	else {
@@ -578,7 +571,7 @@ ILboolean Cleanup(PspLoadState* state)
 
 	state->Channels = NULL;
 	state->Alpha = NULL;
-	state->Pal.Palette = NULL;
+	state->Pal.clear();
 
 	return IL_TRUE;
 }
@@ -595,7 +588,6 @@ ILboolean iLoadPspInternal(ILimage* image)
 	PspLoadState state;
 	state.Channels = NULL;
 	state.Alpha = NULL;
-	state.Pal.Palette = NULL;
 
 	if (!iGetPspHead(&image->io, &state.Header))
 		return IL_FALSE;

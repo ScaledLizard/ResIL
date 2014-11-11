@@ -229,37 +229,37 @@ void EndianSwapData(void *_Image)
 	}
 
 	if (Image->Format == IL_COLOUR_INDEX) {
-		switch (Image->Pal.PalType) {
+		switch (Image->Pal.getPalType()) {
 			case IL_PAL_RGB24:
 			case IL_PAL_BGR24:
-				temp = (ILubyte*)ialloc(Image->Pal.PalSize);
+				temp = (ILubyte*)ialloc(Image->Pal.getPalSize());
 				if (temp == NULL)
 					return;
-				s = Image->Pal.Palette;
+				s = Image->Pal.getPalette();
 				d = temp;
 
-				for (i = Image->Pal.PalSize / 3; i > 0; i--) {
+				for (i = Image->Pal.getPalSize() / 3; i > 0; i--) {
 					*d++ = *(s+2);
 					*d++ = *(s+1);
 					*d++ = *s;
 					s += 3;
 				}
 
-				ifree(Image->Pal.Palette);
-				Image->Pal.Palette = temp;
+				Image->Pal.use(Image->Pal.getNumCols(), temp, Image->Pal.getPalType());
+				delete temp;
 				break;
 
 			case IL_PAL_RGBA32:
 			case IL_PAL_RGB32:
 			case IL_PAL_BGRA32:
 			case IL_PAL_BGR32:
-				temp = (ILubyte*)ialloc(Image->Pal.PalSize);
+				temp = (ILubyte*)ialloc(Image->Pal.getPalSize());
 				if (temp == NULL)
 					return;
-				s = Image->Pal.Palette;
+				s = Image->Pal.getPalette();
 				d = temp;
 
-				for (i = Image->Pal.PalSize / 4; i > 0; i--) {
+				for (i = Image->Pal.getPalSize() / 4; i > 0; i--) {
 					*d++ = *(s+3);
 					*d++ = *(s+2);
 					*d++ = *(s+1);
@@ -267,8 +267,8 @@ void EndianSwapData(void *_Image)
 					s += 4;
 				}
 
-				ifree(Image->Pal.Palette);
-				Image->Pal.Palette = temp;
+				Image->Pal.use(Image->Pal.getNumCols(), temp, Image->Pal.getPalType());
+				delete temp;
 				break;
 		}
 	}

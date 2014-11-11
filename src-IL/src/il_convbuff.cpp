@@ -73,9 +73,7 @@ ILAPI void* ILAPIENTRY ilConvertBuffer(ILuint SizeOfData, ILenum SrcFormat, ILen
 		if (PalImage == NULL)
 			return NULL;
 		// Populate the temporary palette image.
-		PalImage->Pal.Palette = SrcPal->Palette;
-		PalImage->Pal.PalSize = SrcPal->PalSize;
-		PalImage->Pal.PalType = SrcPal->PalType;
+		PalImage->Pal = *SrcPal;
 		PalImage->Width = NumPix;
 		PalImage->Height = 1;
 		PalImage->Depth = 1;
@@ -89,7 +87,7 @@ ILAPI void* ILAPIENTRY ilConvertBuffer(ILuint SizeOfData, ILenum SrcFormat, ILen
 		TempImage = iConvertPalette(PalImage, DestFormat);
 		if (TempImage == NULL) {
 			// So that we do not delete the original palette or data.
-			PalImage->Pal.Palette = NULL;
+			PalImage->Pal.clear();
 			PalImage->Data = NULL;
 			ilCloseImage(PalImage);
 			return NULL;
@@ -100,7 +98,7 @@ ILAPI void* ILAPIENTRY ilConvertBuffer(ILuint SizeOfData, ILenum SrcFormat, ILen
 		NewData = TempImage->Data;
 		TempImage->Data = NULL;
 		// So that we do not delete the original palette or data.
-		PalImage->Pal.Palette = NULL;
+		PalImage->Pal.clear();
 		PalImage->Data = NULL;
 
 		// Clean up here.

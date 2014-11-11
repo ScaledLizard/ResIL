@@ -50,13 +50,8 @@ ILboolean iLoadDoomInternal(ILimage* image)
 	}
 	image->Origin = IL_ORIGIN_UPPER_LEFT;
 
-	image->Pal.Palette = (ILubyte*)ialloc(IL_DOOMPAL_SIZE);
-	if (image->Pal.Palette == NULL) {
+	if (!image->Pal.use(IL_DOOMPAL_SIZE/3, (ILubyte*) ilDefaultDoomPal, IL_PAL_RGB24))
 		return IL_FALSE;
-	}
-	image->Pal.PalSize = IL_DOOMPAL_SIZE;
-	image->Pal.PalType = IL_PAL_RGB24;
-	memcpy(image->Pal.Palette, ilDefaultDoomPal, IL_DOOMPAL_SIZE);
 
 	// 247 is always the transparent colour (usually cyan)
 	memset(image->Data, 247, image->SizeOfData);
@@ -96,14 +91,17 @@ ILboolean iLoadDoomInternal(ILimage* image)
 		}
 
 		for (i = 0; i < image->SizeOfData; i++) {
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4 + 3] = image->Data[i] != 247 ? 255 : 0;
+			ILubyte r, g, b, a;
+			image->Pal.getRGBA(i, r, g, b, a);
+			NewData[i * 4] = r;
+			NewData[i * 4 + 1] = g;
+			NewData[i * 4 + 2] = b;
+			NewData[i * 4 + 3] = i != 247 ? 255 : 0;
 		}
 
 		if (!ilTexImage(image->Width, image->Height, image->Depth,
-			4, IL_RGBA, image->Type, NewData)) {
+			4, IL_RGBA, image->Type, NewData)) 
+		{
 			ifree(NewData);
 			return IL_FALSE;
 		}
@@ -136,13 +134,7 @@ ILboolean iLoadDoomFlatInternal(ILimage* image)
 	}
 	image->Origin = IL_ORIGIN_UPPER_LEFT;
 
-	image->Pal.Palette = (ILubyte*)ialloc(IL_DOOMPAL_SIZE);
-	if (image->Pal.Palette == NULL) {
-		return IL_FALSE;
-	}
-	image->Pal.PalSize = IL_DOOMPAL_SIZE;
-	image->Pal.PalType = IL_PAL_RGB24;
-	memcpy(image->Pal.Palette, ilDefaultDoomPal, IL_DOOMPAL_SIZE);
+	image->Pal.use(IL_DOOMPAL_SIZE/3, (ILubyte*) ilDefaultDoomPal, IL_PAL_RGB24);
 
 	if (io->read(io, image->Data, 1, 4096) != 4096)
 		return IL_FALSE;
@@ -154,10 +146,12 @@ ILboolean iLoadDoomFlatInternal(ILimage* image)
 		}
 
 		for (i = 0; i < image->SizeOfData; i++) {
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4] = image->Pal.Palette[image->Data[i]];
-			NewData[i * 4 + 3] = image->Data[i] != 247 ? 255 : 0;
+			ILubyte r, g, b, a;
+			image->Pal.getRGBA(i, r, g, b, a);
+			NewData[i * 4] = r;
+			NewData[i * 4 + 1] = g;
+			NewData[i * 4 + 2] = b;
+			NewData[i * 4 + 3] = i != 247 ? 255 : 0;
 		}
 
 		if (!ilTexImage(image->Width, image->Height, image->Depth,

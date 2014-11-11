@@ -32,7 +32,7 @@ typedef struct WALHEAD
 ILboolean iLoadWalInternal(ILimage* image)
 {
 	WALHEAD	Header;
-	ILimage	*Mipmaps[3], *CurImage;
+	ILimage	*Mipmaps[3];
 	ILuint	i, NewW, NewH;
 	SIO* io = &image->io;
 
@@ -40,8 +40,6 @@ ILboolean iLoadWalInternal(ILimage* image)
 		il2SetError(IL_ILLEGAL_OPERATION);
 		return IL_FALSE;
 	}
-	CurImage = image;
-
 
 	// Read header
 	io->read(io, &Header.FileName, 1, 32);
@@ -56,34 +54,22 @@ ILboolean iLoadWalInternal(ILimage* image)
 	Header.Contents = GetLittleUInt(io);
 	Header.Value = GetLittleUInt(io);
 
-	if (!il2TexImage(CurImage, Header.Width, Header.Height, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
+	if (!il2TexImage(image, Header.Width, Header.Height, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
 		return IL_FALSE;
-
-	for (i = 0; i < 3; i++) {
-		Mipmaps[i] = (ILimage*)icalloc(sizeof(ILimage), 1);
-		if (Mipmaps[i] == NULL)
-			goto cleanup_error;
-		Mipmaps[i]->Pal.Palette = (ILubyte*)ialloc(768);
-		if (Mipmaps[i]->Pal.Palette == NULL)
-			goto cleanup_error;
-		memcpy(Mipmaps[i]->Pal.Palette, ilDefaultQ2Pal, 768);
-		Mipmaps[i]->Pal.PalType = IL_PAL_RGB24;
-	}
 
 	NewW = Header.Width;
 	NewH = Header.Height;
 	for (i = 0; i < 3; i++) {
+		Mipmaps[i] = il2GenImage();
 		NewW /= 2;
 		NewH /= 2;
-		image = Mipmaps[i];
-		if (!il2TexImage(CurImage, NewW, NewH, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
+		if (!il2TexImage(Mipmaps[i], NewW, NewH, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
 			goto cleanup_error;
-		// Don't set until now so ilTexImage won't get rid of the palette.
-		Mipmaps[i]->Pal.PalSize = 768;
+		// Don't set before now so ilTexImage won't get rid of the palette.
+		Mipmaps[i]->Pal.use(256, ilDefaultQ2Pal, IL_PAL_RGB24);
 		Mipmaps[i]->Origin = IL_ORIGIN_UPPER_LEFT;
 	}
 
-	image = CurImage;
 	ilCloseImage(image->Mipmaps);
 	image->Mipmaps = Mipmaps[0];
 	Mipmaps[0]->Mipmaps = Mipmaps[1];
@@ -91,15 +77,7 @@ ILboolean iLoadWalInternal(ILimage* image)
 
 	image->Origin = IL_ORIGIN_UPPER_LEFT;
 
-	if (image->Pal.Palette && image->Pal.PalSize && image->Pal.PalType != IL_PAL_NONE)
-		ifree(image->Pal.Palette);
-	image->Pal.Palette = (ILubyte*)ialloc(768);
-	if (image->Pal.Palette == NULL)
-		goto cleanup_error;
-
-	image->Pal.PalSize = 768;
-	image->Pal.PalType = IL_PAL_RGB24;
-	memcpy(image->Pal.Palette, ilDefaultQ2Pal, 768);
+	image->Pal.use(256, ilDefaultQ2Pal, IL_PAL_RGB24);
 
 	io->seek(io, Header.Offsets[0], IL_SEEK_SET);
 	if (io->read(io, image->Data, Header.Width * Header.Height, 1) != 1)

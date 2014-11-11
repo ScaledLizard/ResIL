@@ -2080,9 +2080,7 @@ ILAPI ILboolean ILAPIENTRY ilTexImageDxtc(ILimage* image, ILint w, ILint h, ILin
 	////
 
 	// Not sure if we should be getting rid of the palette...
-	if (Image->Pal.Palette && Image->Pal.PalSize && Image->Pal.PalType != IL_PAL_NONE) {
-		ifree(Image->Pal.Palette);
-	}
+	Image->Pal.clear();
 
 	// These are set NULL later by the memset call.
 	ilCloseImage(Image->Mipmaps);
@@ -2105,7 +2103,6 @@ ILAPI ILboolean ILAPIENTRY ilTexImageDxtc(ILimage* image, ILint w, ILint h, ILin
 
 	//TODO: What about origin with dxtc data?
 	Image->Origin	   = IL_ORIGIN_LOWER_LEFT;
-	Image->Pal.PalType = IL_PAL_NONE;
 
     // Allocate DXT data buffer
 	xBlocks = (w + 3)/4;

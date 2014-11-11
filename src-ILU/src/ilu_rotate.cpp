@@ -328,8 +328,8 @@ ILboolean ILAPIENTRY ilu2Rotate(ILimage* image, ILfloat Angle)
 	}
 
 	if (image->Format == IL_COLOUR_INDEX) {
-		PalType = image->Pal.PalType;
-		image = iConvertImage(image, ilGetPalBaseType(image->Pal.PalType), IL_UNSIGNED_BYTE);
+		PalType = image->Pal.getPalType();
+		image = iConvertImage(image, ilGetPalBaseType(PalType), IL_UNSIGNED_BYTE);
 	}
 
 	Temp = ilu2Rotate_(image, Angle);
@@ -342,14 +342,7 @@ ILboolean ILAPIENTRY ilu2Rotate(ILimage* image, ILfloat Angle)
 		}
 		il2TexImage(image, Temp->Width, Temp->Height, Temp->Depth, Temp->Bpp, Temp->Format, Temp->Type, Temp->Data);
 		if (PalType != 0) {
-			image->Pal.PalSize = Temp->Pal.PalSize;
-			image->Pal.PalType = Temp->Pal.PalType;
-			image->Pal.Palette = (ILubyte*)ialloc(Temp->Pal.PalSize);
-			if (image->Pal.Palette == NULL) {
-				ilCloseImage(Temp);
-				return IL_FALSE;
-			}
-			memcpy(image->Pal.Palette, Temp->Pal.Palette, Temp->Pal.PalSize);
+			image->Pal = Temp->Pal;
 		}
 
 		image->Origin = Temp->Origin;

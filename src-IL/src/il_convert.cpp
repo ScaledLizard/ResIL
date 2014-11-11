@@ -14,255 +14,18 @@
 #include "il_internal.h"
 #include "il_manip.h"
 #include <limits.h>
-//#include "IL/il.h"
 
 
 ILimage *iConvertPalette(ILimage *Image, ILenum DestFormat)
 {
-	static const ILfloat LumFactor[3] = { 0.212671f, 0.715160f, 0.072169f };  // http://www.inforamp.net/~poynton/ and libpng's libpng.txt - Used for conversion to luminance.
-	ILimage		*NewImage = NULL, *CurImage = NULL;
-	ILuint		i, j, k, c, Size, LumBpp = 1;
-	ILfloat		Resultf;
-	ILubyte		*Temp = NULL;
-	ILboolean	Converted;
-	ILboolean	HasAlpha;
-
-	NewImage = (ILimage*)icalloc(1, sizeof(ILimage));  // Much better to have it all set to 0.
-	if (NewImage == NULL) {
-		return IL_FALSE;
-	}
-
+	ILimage * NewImage = il2GenImage();
 	il2CopyImageAttr(NewImage, Image);
-
-	if (!Image->Pal.Palette || !Image->Pal.PalSize || Image->Pal.PalType == IL_PAL_NONE || Image->Bpp != 1) {
-		ilCloseImage(NewImage);
-		il2SetError(IL_ILLEGAL_OPERATION);
-		return NULL;
-	}
-
-	if (DestFormat == IL_LUMINANCE || DestFormat == IL_LUMINANCE_ALPHA) {
-		if (NewImage->Pal.Palette)
-			ifree(NewImage->Pal.Palette);
-		if (DestFormat == IL_LUMINANCE_ALPHA)
-			LumBpp = 2;
-
-		switch (Image->Pal.PalType)
-		{
-			case IL_PAL_RGB24:
-			case IL_PAL_RGB32:
-			case IL_PAL_RGBA32:
-				Temp = (ILubyte*)ialloc(LumBpp * Image->Pal.PalSize / ilGetBppPal(Image->Pal.PalType));
-				if (Temp == NULL)
-					goto alloc_error;
-
-				Size = ilGetBppPal(Image->Pal.PalType);
-				for (i = 0, k = 0; i < Image->Pal.PalSize; i += Size, k += LumBpp) {
-					Resultf = 0.0f;
-					for (c = 0; c < Size; c++) {
-						Resultf += Image->Pal.Palette[i + c] * LumFactor[c];
-					}
-					Temp[k] = (ILubyte)Resultf;
-					if (LumBpp == 2) {
-						if (Image->Pal.PalType == IL_PAL_RGBA32)
-							Temp[k+1] = Image->Pal.Palette[i + 3];
-						else
-							Temp[k+1] = 0xff;
-					}
-				}
-
-				break;
-
-			case IL_PAL_BGR24:
-			case IL_PAL_BGR32:
-			case IL_PAL_BGRA32:
-				Temp = (ILubyte*)ialloc(LumBpp * Image->Pal.PalSize / ilGetBppPal(Image->Pal.PalType));
-				if (Temp == NULL)
-					goto alloc_error;
-
-				Size = ilGetBppPal(Image->Pal.PalType);
-				for (i = 0, k = 0; i < Image->Pal.PalSize; i += Size, k += LumBpp) {
-					Resultf = 0.0f;  j = 2;
-					for (c = 0; c < Size; c++, j--) {
-						Resultf += Image->Pal.Palette[i + c] * LumFactor[j];
-					}
-					Temp[k] = (ILubyte)Resultf;
-					if (LumBpp == 2) {
-						if (Image->Pal.PalType == IL_PAL_BGRA32)
-							Temp[k+1] = Image->Pal.Palette[i + 3];
-						else
-							Temp[k+1] = 0xff;
-					}
-				}
-
-				break;
-		}
-
-		NewImage->Pal.Palette = NULL;
-		NewImage->Pal.PalSize = 0;
-		NewImage->Pal.PalType = IL_PAL_NONE;
-		NewImage->Format = DestFormat;
-		NewImage->Bpp = LumBpp;
-		NewImage->Bps = NewImage->Width * LumBpp;
-		NewImage->SizeOfData = NewImage->SizeOfPlane = NewImage->Bps * NewImage->Height;
-		NewImage->Data = (ILubyte*)ialloc(NewImage->SizeOfData);
-		if (NewImage->Data == NULL)
-			goto alloc_error;
-
-		if (LumBpp == 2) {
-			for (i = 0; i < Image->SizeOfData; i++) {
-				NewImage->Data[i*2] = Temp[Image->Data[i] * 2];
-				NewImage->Data[i*2+1] = Temp[Image->Data[i] * 2 + 1];
-			}
-		}
-		else {
-			for (i = 0; i < Image->SizeOfData; i++) {
-				NewImage->Data[i] = Temp[Image->Data[i]];
-			}
-		}
-
-		ifree(Temp);
-
+	if (il2ConvertPal(NewImage, DestFormat)) {
 		return NewImage;
-	}
-	else if (DestFormat == IL_ALPHA) {
-		if (NewImage->Pal.Palette)
-			ifree(NewImage->Pal.Palette);
-
-		switch (Image->Pal.PalType)
-		{
-			// Opaque, so all the values are 0xFF.
-			case IL_PAL_RGB24:
-			case IL_PAL_RGB32:
-			case IL_PAL_BGR24:
-			case IL_PAL_BGR32:
-				HasAlpha = IL_FALSE;
-				break;
-
-			case IL_PAL_BGRA32:
-			case IL_PAL_RGBA32:
-				HasAlpha = IL_TRUE;
-				Temp = (ILubyte*)ialloc(1 * Image->Pal.PalSize / ilGetBppPal(Image->Pal.PalType));
-				if (Temp == NULL)
-					goto alloc_error;
-
-				Size = ilGetBppPal(Image->Pal.PalType);
-				for (i = 0, k = 0; i < Image->Pal.PalSize; i += Size, k += 1) {
-					Temp[k] = Image->Pal.Palette[i + 3];
-				}
-
-				break;
-		}
-
-		NewImage->Pal.Palette = NULL;
-		NewImage->Pal.PalSize = 0;
-		NewImage->Pal.PalType = IL_PAL_NONE;
-		NewImage->Format = DestFormat;
-		NewImage->Bpp = LumBpp;
-		NewImage->Bps = NewImage->Width * 1;  // Alpha is only one byte.
-		NewImage->SizeOfData = NewImage->SizeOfPlane = NewImage->Bps * NewImage->Height;
-		NewImage->Data = (ILubyte*)ialloc(NewImage->SizeOfData);
-		if (NewImage->Data == NULL)
-			goto alloc_error;
-
-		if (HasAlpha) {
-			for (i = 0; i < Image->SizeOfData; i++) {
-				NewImage->Data[i*2] = Temp[Image->Data[i] * 2];
-				NewImage->Data[i*2+1] = Temp[Image->Data[i] * 2 + 1];
-			}
-		}
-		else {  // No alpha, opaque.
-			for (i = 0; i < Image->SizeOfData; i++) {
-				NewImage->Data[i] = 0xFF;
-			}
-		}
-
-		ifree(Temp);
-
-		return NewImage;
-	}
-
-	//NewImage->Format = ilGetPalBaseType(Image->Pal.PalType);
-	NewImage->Format = DestFormat;
-
-	if (ilGetBppFormat(NewImage->Format) == 0) {
-		ilCloseImage(NewImage);
-		il2SetError(IL_ILLEGAL_OPERATION);
+	} else {
+		ifree(NewImage);
 		return NULL;
 	}
-
-	CurImage = Image;
-	//ilSetCurImage(NewImage);
-
-	switch (DestFormat)
-	{
-		case IL_RGB:
-			Converted = il2ConvertPal(NewImage, IL_PAL_RGB24);
-			break;
-
-		case IL_BGR:
-			Converted = il2ConvertPal(NewImage, IL_PAL_BGR24);
-			break;
-
-		case IL_RGBA:
-			Converted = il2ConvertPal(NewImage, IL_PAL_RGB32);
-			break;
-
-		case IL_BGRA:
-			Converted = il2ConvertPal(NewImage, IL_PAL_BGR32);
-			break;
-
-		case IL_COLOUR_INDEX:
-			// Just copy the original image over.
-			NewImage->Data = (ILubyte*)ialloc(CurImage->SizeOfData);
-			if (NewImage->Data == NULL)
-				goto alloc_error;
-			NewImage->Pal.Palette = (ILubyte*)ialloc(Image->Pal.PalSize);
-			if (NewImage->Pal.Palette == NULL)
-				goto alloc_error;
-			memcpy(NewImage->Data, CurImage->Data, CurImage->SizeOfData);
-			memcpy(NewImage->Pal.Palette, Image->Pal.Palette, Image->Pal.PalSize);
-			NewImage->Pal.PalSize = Image->Pal.PalSize;
-			NewImage->Pal.PalType = Image->Pal.PalType;
-			//ilSetCurImage(CurImage);
-			return NewImage;
-
-		default:
-			ilCloseImage(NewImage);
-			il2SetError(IL_INVALID_CONVERSION);
-			return NULL;
-	}
-
-	// Resize to new bpp
-	il2ResizeImage(NewImage, NewImage->Width, NewImage->Height, NewImage->Depth, ilGetBppFormat(DestFormat), /*ilGetBpcType(DestType)*/1);
-
-	// il2ConvertPal already sets the error message - no need to confuse the user.
-	if (!Converted) {
-		//ilSetCurImage(CurImage);
-		ilCloseImage(NewImage);
-		return NULL;
-	}
-
-	Size = ilGetBppPal(NewImage->Pal.PalType);
-	for (i = 0; i < Image->SizeOfData; i++) {
-		for (c = 0; c < NewImage->Bpp; c++) {
-			NewImage->Data[i * NewImage->Bpp + c] = NewImage->Pal.Palette[Image->Data[i] * Size + c];
-		}
-	}
-
-	ifree(NewImage->Pal.Palette);
-
-	NewImage->Pal.Palette = NULL;
-	NewImage->Pal.PalSize = 0;
-	NewImage->Pal.PalType = IL_PAL_NONE;
-	//ilSetCurImage(CurImage);
-
-	return NewImage;
-
-alloc_error:
-	ifree(Temp);
-	if (NewImage)
-		ilCloseImage(NewImage);
-	return NULL;
 }
 
 
@@ -345,13 +108,9 @@ ILAPI ILimage* ILAPIENTRY iConvertImage(ILimage *Image, ILenum DestFormat, ILenu
 		NewImage->SizeOfData = NewImage->SizeOfPlane * NewImage->Depth;
 
 		if (DestFormat == IL_COLOUR_INDEX && Image->Format == IL_LUMINANCE) {
-			NewImage->Pal.PalSize = 768;
-			NewImage->Pal.PalType = IL_PAL_RGB24;
-			NewImage->Pal.Palette = (ILubyte*)ialloc(768);
+			NewImage->Pal.use(256, NULL, IL_PAL_RGB24);
 			for (i = 0; i < 256; i++) {
-				NewImage->Pal.Palette[i * 3] = i;
-				NewImage->Pal.Palette[i * 3 + 1] = i;
-				NewImage->Pal.Palette[i * 3 + 2] = i;
+				NewImage->Pal.setRGB(i, i, i, i);
 			}
 			NewImage->Data = (ILubyte*)ialloc(Image->SizeOfData);
 			if (NewImage->Data == NULL) {
@@ -420,13 +179,10 @@ ILboolean ILAPIENTRY il2ConvertImage(ILimage* image, ILenum DestFormat, ILenum D
 		pCurFrame->SizeOfPlane = pCurFrame->Bps * pCurFrame->Height;
 		pCurFrame->SizeOfData = pCurFrame->Depth * pCurFrame->SizeOfPlane;
 
-		if (pCurFrame->Pal.Palette && pCurFrame->Pal.PalSize && pCurFrame->Pal.PalType != IL_PAL_NONE)
-			ifree(pCurFrame->Pal.Palette);
-		pCurFrame->Pal.Palette = convertedImage->Pal.Palette;
-		pCurFrame->Pal.PalSize = convertedImage->Pal.PalSize;
-		pCurFrame->Pal.PalType = convertedImage->Pal.PalType;
+		pCurFrame->Pal.use(convertedImage->Pal.getNumCols(), convertedImage->Pal.getPalette(),
+			convertedImage->Pal.getPalType());
 
-		convertedImage->Pal.Palette = NULL;
+		convertedImage->Pal.clear();
 		ifree(pCurFrame->Data);
 		pCurFrame->Data = convertedImage->Data;
 		convertedImage->Data = NULL;
@@ -447,10 +203,11 @@ ILboolean il2SwapColours(ILimage* image)
 		return IL_FALSE;
 
 	ILuint		i = 0, Size = image->Bpp * image->Width * image->Height;
-	ILbyte		PalBpp = ilGetBppPal(image->Pal.PalType);
+	ILbyte		PalBpp = ilGetBppPal(image->Pal.getPalType());
 	ILushort	*ShortPtr;
 	ILuint		*IntPtr, Temp;
 	ILdouble	*DoublePtr, DoubleTemp;
+	ILenum newPalType;
 
 	if ((image->Bpp != 1 && image->Bpp != 3 && image->Bpp != 4)) {
 		il2SetError(IL_INVALID_VALUE);
@@ -484,25 +241,25 @@ ILboolean il2SwapColours(ILimage* image)
 		case IL_LUMINANCE_ALPHA:
 			return IL_TRUE;  // No need to do anything to luminance or alpha images.
 		case IL_COLOUR_INDEX:
-			switch (image->Pal.PalType)
+			switch (image->Pal.getPalType())
 			{
 				case IL_PAL_RGB24:
-					image->Pal.PalType = IL_PAL_BGR24;
+					newPalType = IL_PAL_BGR24;
 					break;
 				case IL_PAL_RGB32:
-					image->Pal.PalType = IL_PAL_BGR32;
+					newPalType = IL_PAL_BGR32;
 					break;
 				case IL_PAL_RGBA32:
-					image->Pal.PalType = IL_PAL_BGRA32;
+					newPalType = IL_PAL_BGRA32;
 					break;
 				case IL_PAL_BGR24:
-					image->Pal.PalType = IL_PAL_RGB24;
+					newPalType = IL_PAL_RGB24;
 					break;
 				case IL_PAL_BGR32:
-					image->Pal.PalType = IL_PAL_RGB32;
+					newPalType = IL_PAL_RGB32;
 					break;
 				case IL_PAL_BGRA32:
-					image->Pal.PalType = IL_PAL_RGBA32;
+					newPalType = IL_PAL_RGBA32;
 					break;
 				default:
 					il2SetError(IL_ILLEGAL_OPERATION);
@@ -515,11 +272,14 @@ ILboolean il2SwapColours(ILimage* image)
 	}
 
 	if (image->Format == IL_COLOUR_INDEX) {
-		for (; i < image->Pal.PalSize; i += PalBpp) {
-				Temp = image->Pal.Palette[i];
-				image->Pal.Palette[i] = image->Pal.Palette[i+2];
-				image->Pal.Palette[i+2] = Temp;
+		ILpal tempPal;
+		tempPal.use(image->Pal.getNumCols(), NULL, newPalType);
+		for (ILuint i = 0; i < image->Pal.getNumCols(); ++i) {
+			ILubyte r, g, b;
+			image->Pal.getRGB(i, r, g, b);
+			tempPal.setRGB(i, r, g, b);
 		}
+		image->Pal = tempPal;
 	}
 	else {
 		ShortPtr = (ILushort*)image->Data;
@@ -682,7 +442,7 @@ void ILAPIENTRY ilKeyColour(ILclampf Red, ILclampf Green, ILclampf Blue, ILclamp
 ILboolean ilAddAlphaKey(ILimage *Image)
 {
 	ILfloat KeyRed = 0, KeyGreen = 0, KeyBlue = 0, KeyAlpha = 0;
-        ILubyte		*NewData, NewBpp;
+	ILubyte		*NewData, NewBpp;
 	ILfloat		KeyColour[3];
 	ILuint		i = 0, j = 0, c, Size;
 	ILboolean	Same;
@@ -854,7 +614,7 @@ ILboolean ilAddAlphaKey(ILimage *Image)
 			return IL_FALSE;
 		}
 
-		switch (Image->Pal.PalType)
+		switch (Image->Pal.getPalType())
 		{
 			case IL_PAL_RGB24:
 			case IL_PAL_RGB32:
@@ -874,11 +634,14 @@ ILboolean ilAddAlphaKey(ILimage *Image)
 		}
 
 		// Set the colour index to be transparent.
-		Image->Pal.Palette[(ILuint)(KeyAlpha * UCHAR_MAX) * 4 + 3] = 0;
+		//Image->Pal.Palette[(ILuint)(KeyAlpha * UCHAR_MAX) * 4 + 3] = 0;
+		ILubyte r, g, b;
+		Image->Pal.getRGB(KeyAlpha * UCHAR_MAX, r, g, b);
+		Image->Pal.setRGBA(KeyAlpha * UCHAR_MAX, r, g, b, 0);
 
 		// @TODO: Check if this is the required behaviour.
 
-		if (Image->Pal.PalType == IL_PAL_RGBA32)
+		if (Image->Pal.getPalType() == IL_PAL_RGBA32)
 			il2ConvertImage(Image, IL_RGBA, IL_UNSIGNED_BYTE);
 		else
 			il2ConvertImage(Image, IL_BGRA, IL_UNSIGNED_BYTE);

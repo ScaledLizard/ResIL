@@ -431,12 +431,8 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 		return NULL;
 	}
 
-	ILubyte * Palette = (ILubyte*)ialloc(3 * num_alloced_colors);
-	if (!Palette) {
-		ifree(NewData);
-		ifree(Palette);
+	if (!Image->Pal.use(num_alloced_colors, NULL, IL_PAL_BGR24))
 		return NULL;
-	}
 
 	Ir = (ILubyte*)ialloc(Width * Height * Depth);
 	Ig = (ILubyte*)ialloc(Width * Height * Depth);
@@ -446,7 +442,6 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 		ifree(Ig);
 		ifree(Ib);
 		ifree(NewData);
-		ifree(Palette);
 		return NULL;
 	}
 
@@ -580,9 +575,7 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 		ifree(Qadd);
 
 		for (k = 0; k < NumCols; k++) {
-			Palette[k * 3]     = lut_b[k];
-			Palette[k * 3 + 1] = lut_g[k];
-			Palette[k * 3 + 2] = lut_r[k];
+			Image->Pal.setRGB(k, lut_r[k], lut_g[k], lut_b[k]);
 		}
 	}
 	else { // If colors more than 256
@@ -608,17 +601,12 @@ ILimage *iQuantizeImage(ILimage *Image, ILuint NumCols)
 	NewImage->SizeOfData = NewImage->SizeOfPlane;
 	NewImage->Format = IL_COLOUR_INDEX;
 	NewImage->Type = IL_UNSIGNED_BYTE;
-
-	NewImage->Pal.Palette = Palette;
-	NewImage->Pal.PalSize = num_alloced_colors * 3;
-	NewImage->Pal.PalType = IL_PAL_BGR24;
 	NewImage->Data = NewData;
 
 	return NewImage;
 
 error_label:
 	ifree(NewData);
-	ifree(Palette);
 	ifree(Ig);
 	ifree(Ib);
 	ifree(Ir);

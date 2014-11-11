@@ -169,17 +169,19 @@ ILimage *iUncompressDcxSmall(ILimage* image, DCXHEAD *Header)
 	}
 	else {   // 4-bit images
 		Bps = Header->Bps * Header->NumPlanes * 2;
-		Image->Pal.Palette = (ILubyte*)ialloc(16 * 3);  // Size of palette always (48 bytes).
-		Image->Pal.PalSize = 16 * 3;
-		Image->Pal.PalType = IL_PAL_RGB24;
+		if (!Image->Pal.use(16, NULL, IL_PAL_RGB24)) {
+			ifree(ScanLine);
+			ilCloseImage(Image);
+			return NULL;
+		}
 		ScanLine = (ILubyte*)ialloc(Bps);
-		if (Image->Pal.Palette == NULL || ScanLine == NULL) {
+		if (ScanLine == NULL) {
 			ifree(ScanLine);
 			ilCloseImage(Image);
 			return NULL;
 		}
 
-		memcpy(Image->Pal.Palette, Header->ColMap, 16 * 3);
+		memcpy(Image->Pal.getPalette(), Header->ColMap, 16 * 3);
 		imemclear(Image->Data, Image->SizeOfData);  // Since we do a += later.
 
 		for (y = 0; y < Image->Height; y++) {
@@ -256,24 +258,17 @@ ILimage *iUncompressDcx(ILimage* image, DCXHEAD *Header)
 	{
 		case 1:
 			Image->Format = IL_COLOUR_INDEX;
-			Image->Pal.PalType = IL_PAL_RGB24;
-			Image->Pal.PalSize = 256 * 3; // Need to find out for sure...
-			Image->Pal.Palette = (ILubyte*)ialloc(Image->Pal.PalSize);
-			if (Image->Pal.Palette == NULL)
+			if (!Image->Pal.use(256, NULL, IL_PAL_RGB24))
 				goto dcx_error;
 			break;
 		//case 2:  // No 16-bit images in the dcx format!
 		case 3:
 			Image->Format = IL_RGB;
-			Image->Pal.Palette = NULL;
-			Image->Pal.PalSize = 0;
-			Image->Pal.PalType = IL_PAL_NONE;
+			Image->Pal.clear();
 			break;
 		case 4:
 			Image->Format = IL_RGBA;
-			Image->Pal.Palette = NULL;
-			Image->Pal.PalSize = 0;
-			Image->Pal.PalType = IL_PAL_NONE;
+			Image->Pal.clear();
 			break;
 
 		default:
@@ -318,7 +313,7 @@ ILimage *iUncompressDcx(ILimage* image, DCXHEAD *Header)
 							//	We should do a check to make certain it's 12...
 		if (ByteHead != 12)
 			io->seek(io, -1, IL_SEEK_CUR);
-		if (io->read(io, Image->Pal.Palette, 1, Image->Pal.PalSize) != Image->Pal.PalSize) {
+		if (!Image->Pal.readFromFile(io)) {
 			ilCloseImage(Image);
 			return NULL;
 		}

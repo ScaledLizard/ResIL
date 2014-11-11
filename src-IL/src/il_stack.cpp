@@ -22,9 +22,9 @@ ILAPI ILboolean ILAPIENTRY ilIsValidPal(ILpal *Palette)
 {
 	if (Palette == NULL)
 		return IL_FALSE;
-	if (Palette->PalSize == 0 || Palette->Palette == NULL)
+	if (!Palette->hasPalette())
 		return IL_FALSE;
-	switch (Palette->PalType)
+	switch (Palette->getPalType())
 	{
 		case IL_PAL_RGB24:
 		case IL_PAL_RGB32:
@@ -41,13 +41,8 @@ ILAPI ILboolean ILAPIENTRY ilIsValidPal(ILpal *Palette)
 //! Closes Palette and frees all memory associated with it.
 ILAPI void ILAPIENTRY ilClosePal(ILpal *Palette)
 {
-	if (Palette == NULL)
-		return;
-	if (!ilIsValidPal(Palette))
-		return;
-	ifree(Palette->Palette);
-	ifree(Palette);
-	return;
+	if (ilIsValidPal(Palette))
+		delete Palette;
 }
 
 // Create a number of sub images of a given type

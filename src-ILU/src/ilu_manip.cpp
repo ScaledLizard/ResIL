@@ -316,12 +316,12 @@ ILboolean ILAPIENTRY ilu2Negative(ILimage* image)
 	}
 
 	if (image->Format == IL_COLOUR_INDEX) {
-		if (!image->Pal.Palette || !image->Pal.PalSize || image->Pal.PalType == IL_PAL_NONE) {
+		if (!image->Pal.hasPalette()) {
 			il2SetError(ILU_ILLEGAL_OPERATION);
 			return IL_FALSE;
 		}
-		Data = image->Pal.Palette;
-		i = image->Pal.PalSize;
+		Data = image->Pal.getPalette();
+		i = image->Pal.getPalSize();
 	}
 	else {
 		Data = image->Data;
@@ -458,12 +458,12 @@ ILboolean ILAPIENTRY ilu2SwapColours(ILimage* image)
 	}
 
 	if (image->Bpp == 1) {
-		if (ilGetBppPal(image->Pal.PalType) == 0 || image->Format != IL_COLOUR_INDEX) {
+		if (ilGetBppPal(image->Pal.getPalType()) == 0 || image->Format != IL_COLOUR_INDEX) {
 			il2SetError(ILU_ILLEGAL_OPERATION);  // Can be luminance.
 			return IL_FALSE;
 		}
 		
-		switch( img->Pal.PalType ) {
+		switch (img->Pal.getPalType()) {
 			case IL_PAL_RGB24:
 				return il2ConvertPal(image, IL_PAL_BGR24);
 			case IL_PAL_RGB32:
@@ -743,8 +743,8 @@ ILboolean ILAPIENTRY ilu2Equalize(ILimage* image)
 	}
 
 	if (image->Format == IL_COLOUR_INDEX) {
-		NumPixels = image->Pal.PalSize / ilGetBppPal(image->Pal.PalType);
-		Bpp = ilGetBppPal(image->Pal.PalType);
+		Bpp = ilGetBppPal(image->Pal.getPalType());
+		NumPixels = image->Pal.getPalSize() / Bpp;
 	} else {
 		NumPixels = image->Width * image->Height * image->Depth;
 		Bpp = image->Bpp;
@@ -771,7 +771,7 @@ ILboolean ILAPIENTRY ilu2Equalize(ILimage* image)
 	}
 
 
-	BytePtr = (image->Format == IL_COLOUR_INDEX) ? image->Pal.Palette : image->Data;
+	BytePtr = (image->Format == IL_COLOUR_INDEX) ? image->Pal.getPalette() : image->Data;
 	ShortPtr = (ILushort*)image->Data;
 	IntPtr = (ILuint*)image->Data;
 

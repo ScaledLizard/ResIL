@@ -467,7 +467,7 @@ cleanup_error:
 
 ILboolean ReadIndexed(ILimage* image, PSDHEAD *Head)
 {
-	ILuint		ColorMode, ResourceSize, MiscInfo, i, j, NumEnt;
+	ILuint		ColorMode, ResourceSize, MiscInfo, NumEnt;
 	ILushort	Compressed;
 	ILubyte		*Palette = NULL, *Resources = NULL;
 	ILushort ChannelNum;
@@ -509,18 +509,13 @@ ILboolean ReadIndexed(ILimage* image, PSDHEAD *Head)
 	if (!il2TexImage(image, Head->Width, Head->Height, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
 		goto cleanup_error;
 
-	image->Pal.Palette = (ILubyte*)ialloc(ColorMode);
-	if (image->Pal.Palette == NULL) {
+	if (!image->Pal.use(ColorMode/3, NULL, IL_PAL_RGB24)) {
 		goto cleanup_error;
 	}
-	image->Pal.PalSize = ColorMode;
-	image->Pal.PalType = IL_PAL_RGB24;
 
-	NumEnt = image->Pal.PalSize / 3;
-	for (i = 0, j = 0; i < image->Pal.PalSize; i += 3, j++) {
-		image->Pal.Palette[i  ] = Palette[j];
-		image->Pal.Palette[i+1] = Palette[j+NumEnt];
-		image->Pal.Palette[i+2] = Palette[j+NumEnt*2];
+	NumEnt = image->Pal.getNumCols();
+	for (ILuint j = 0; j < NumEnt; j++) {
+		image->Pal.setRGB(j, Palette[j], Palette[j+NumEnt], Palette[j+NumEnt*2]);
 	}
 	ifree(Palette);
 	Palette = NULL;
@@ -804,7 +799,7 @@ ILboolean iSavePsdInternal(ILimage* image)
 {
 	ILubyte		*Signature = (ILubyte*)"8BPS";
 	ILimage		*TempImage;
-	ILpal		*TempPal;
+	ILpal		TempPal;
 	ILuint		c, i;
 	ILubyte		*TempData;
 	ILushort	*ShortPtr;
@@ -867,18 +862,29 @@ ILboolean iSavePsdInternal(ILimage* image)
 		// @TODO: We're currently making a potentially fatal assumption that
 		//	iConvertImage was not called if the format is IL_COLOUR_INDEX.
 		TempPal = iConvertPal(&TempImage->Pal, IL_PAL_RGB24);
-		if (TempPal == NULL)
-			return IL_FALSE;
 		SaveBigInt(&image->io,768);
 
 		// Have to save the palette in a planar format.
-		for (c = 0; c < 3; c++) {
+		/*for (c = 0; c < 3; c++) {
 			for (i = c; i < TempPal->PalSize; i += 3) {
 				image->io.putc(TempPal->Palette[i], &image->io);
 			}
-		}
+		}*/
 
-		ifree(TempPal->Palette);
+		// Write r, g, b values separately as required by the format
+		ILubyte r, g, b;
+		for (i = 0; i < TempPal.getPalSize(); i += 3) {
+			TempPal.getRGB(i, r, g, b);
+			image->io.putc(r, &image->io);
+		}
+		for (i = 0; i < TempPal.getPalSize(); i += 3) {
+			TempPal.getRGB(i, r, g, b);
+			image->io.putc(g, &image->io);
+		}
+		for (i = 0; i < TempPal.getPalSize(); i += 3) {
+			TempPal.getRGB(i, r, g, b);
+			image->io.putc(b, &image->io);
+		}
 	}
 	else {
 		SaveBigInt(&image->io,0);  // No colour mode data.

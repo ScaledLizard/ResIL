@@ -435,12 +435,7 @@ ILboolean iLoadUtxInternal(ILimage* baseImage)
 			switch (Format)
 			{
 				case UTX_P8:
-					currImage->Pal.PalSize = Palettes[PalEntry].Count * 4;
-					currImage->Pal.Palette = (ILubyte*)ialloc(currImage->Pal.PalSize);
-					if (currImage->Pal.Palette == NULL)
-						return IL_FALSE;
-					memcpy(currImage->Pal.Palette, Palettes[PalEntry].Pal, currImage->Pal.PalSize);
-					currImage->Pal.PalType = IL_PAL_RGBA32;
+					currImage->Pal.use(Palettes[PalEntry].Count, Palettes[PalEntry].Pal, IL_PAL_RGBA32);
 
 					if (io->read(io, currImage->Data, currImage->SizeOfData, 1) != 1)
 						return IL_FALSE;

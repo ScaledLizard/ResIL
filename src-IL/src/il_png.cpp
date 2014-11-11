@@ -271,7 +271,6 @@ ILboolean readpng_get_image(ILimage* image, struct PNGData * data, ILdouble disp
 
 	//copy palette
 	if (format == IL_COLOUR_INDEX) {
-		int chans;
 		png_bytep trans = NULL;
 		int  num_trans = -1;
 		if (!png_get_PLTE(data->png_ptr, data->info_ptr, &palette, &num_palette)) {
@@ -280,29 +279,21 @@ ILboolean readpng_get_image(ILimage* image, struct PNGData * data, ILdouble disp
 			return IL_FALSE;
 		}
 
-		chans = 3;
-		image->Pal.PalType = IL_PAL_RGB24;
-
 		if (png_get_valid(data->png_ptr, data->info_ptr, PNG_INFO_tRNS)) {
 			png_get_tRNS(data->png_ptr, data->info_ptr, &trans, &num_trans, NULL);
-			image->Pal.PalType = IL_PAL_RGBA32;
-			chans = 4;
-		}
-
-		image->Pal.PalSize = num_palette * chans;
-
-		image->Pal.Palette = (ILubyte*)ialloc(image->Pal.PalSize);
-
-		for (j = 0; j < num_palette; ++j) {
-			image->Pal.Palette[chans*j + 0] = palette[j].red;
-			image->Pal.Palette[chans*j + 1] = palette[j].green;
-			image->Pal.Palette[chans*j + 2] = palette[j].blue;
-			if (trans!=NULL) {
+			image->Pal.use(num_palette, NULL, IL_PAL_RGBA32);
+			for (j = 0; j < num_palette; ++j) {
 				if (j<num_trans)
-					image->Pal.Palette[chans*j + 3] = trans[j];
+					image->Pal.setRGBA(j, palette[j].red, palette[j].green, palette[j].blue, trans[j]);
 				else
-					image->Pal.Palette[chans*j + 3] = 255;
+					image->Pal.setRGBA(j, palette[j].red, palette[j].green, palette[j].blue, 255);
 			}
+		} else {
+			image->Pal.use(num_palette, NULL, IL_PAL_RGB24);
+			trans = NULL;
+			num_trans = 0;
+			for (j = 0; j < num_palette; ++j) 
+				image->Pal.setRGB(j, palette[j].red, palette[j].green, palette[j].blue);
 		}
 	}
 
@@ -368,7 +359,7 @@ ILboolean iSavePngInternal(ILimage* image)
 	ILuint		BitDepth, i, j;
 	ILubyte 	**RowPtr = NULL;
 	ILimage 	*Temp = NULL;
-	ILpal		*TempPal = NULL;
+	ILpal		TempPal;
 
 //XIX alpha
 	ILubyte		transpart[1];
@@ -479,7 +470,7 @@ ILboolean iSavePngInternal(ILimage* image)
 	if (image->Format == IL_COLOUR_INDEX) {
 		// set the palette if there is one.  REQUIRED for indexed-color images.
 		TempPal = iConvertPal(&image->Pal, IL_PAL_RGB24);
-		png_set_PLTE(png_ptr, info_ptr, (png_colorp)TempPal->Palette,
+		png_set_PLTE(png_ptr, info_ptr, (png_colorp)TempPal.getPalette(),
 			il2GetInteger(IL_PALETTE_NUM_COLS));
 
 //XIX alpha
@@ -584,7 +575,6 @@ ILboolean iSavePngInternal(ILimage* image)
 
 	if (Temp != image)
 		ilCloseImage(Temp);
-	ilClosePal(TempPal);
 
 	return IL_TRUE;
 
@@ -593,7 +583,6 @@ error_label:
 	ifree(RowPtr);
 	if (Temp != image)
 		ilCloseImage(Temp);
-	ilClosePal(TempPal);
 	return IL_FALSE;
 }
 

@@ -525,65 +525,54 @@ ILboolean TplGetIndexImage(ILimage *Image, ILuint TexOff, ILuint DataFormat)
 	switch (PalFormat)
 	{
 		case TPL_PAL_IA8:
-			Image->Pal.Palette = (ILubyte*)ialloc(NumPal * 4);
-			if (Image->Pal.Palette == NULL)
-				return IL_FALSE;
-			Image->Pal.PalType = IL_PAL_RGBA32;  //@TODO: Use this format natively.
-			Image->Pal.PalSize = NumPal * 4;
 			PalBpp = 4;
+			Image->Pal.use(NumPal, NULL, IL_PAL_RGBA32);
 
 			for (i = 0; i < NumPal; i++) {
 				LumVal = io->getc(io);
 				//@TODO: Do proper conversion of luminance, or support this format natively.
-				Image->Pal.Palette[i * 4] = LumVal;  // Assign the luminance value.
-				Image->Pal.Palette[i * 4 + 1] = LumVal;
-				Image->Pal.Palette[i * 4 + 2] = LumVal;
-				Image->Pal.Palette[i * 4 + 3] = io->getc(io);  // Get alpha value.
+				ILubyte alpha = io->getc(io);  // Get alpha value.
+				Image->Pal.setRGBA(i, LumVal, LumVal, LumVal, alpha);
 			}
 			break;
 
 		case TPL_PAL_RGB565:
-			Image->Pal.Palette = (ILubyte*)ialloc(NumPal * 3);
-			if (Image->Pal.Palette == NULL)
-				return IL_FALSE;
-			Image->Pal.PalType = IL_PAL_RGB24;
-			Image->Pal.PalSize = NumPal * 3;
+			Image->Pal.use(NumPal, NULL, IL_PAL_RGB24);
 			PalBpp = 3;
 
 			for (i = 0; i < NumPal; i++) {
 				ShortPixel = GetBigUShort(io);
 				// This is mostly the same code as in the TPL_RGB565 case.
-				Image->Pal.Palette[i*3] = ((ShortPixel & 0xF800) >> 8) | ((ShortPixel & 0xE000) >> 13); // Red
-				Image->Pal.Palette[i*3+1] = ((ShortPixel & 0x7E0) >> 3) | ((ShortPixel & 0x600) >> 9); // Green
-				Image->Pal.Palette[i*3+2] = ((ShortPixel & 0x1f) << 3) | ((ShortPixel & 0x1C) >> 2); // Blue
+				ILubyte r = ((ShortPixel & 0xF800) >> 8) | ((ShortPixel & 0xE000) >> 13); // Red
+				ILubyte g = ((ShortPixel & 0x7E0) >> 3) | ((ShortPixel & 0x600) >> 9); // Green
+				ILubyte b = ((ShortPixel & 0x1f) << 3) | ((ShortPixel & 0x1C) >> 2); // Blue
+				Image->Pal.setRGB(i, r, g, b);
 			}
 			break;
 
 		case TPL_PAL_RGB5A3:
-			Image->Pal.Palette = (ILubyte*)ialloc(NumPal * 4);
-			if (Image->Pal.Palette == NULL)
-				return IL_FALSE;
-			Image->Pal.PalType = IL_PAL_RGBA32;
-			Image->Pal.PalSize = NumPal * 4;
+			Image->Pal.use(NumPal, NULL, IL_PAL_RGBA32);
 			PalBpp = 4;
 
 			for (i = 0; i < NumPal; i++) {
+				ILubyte r, g, b, a;
 				ShortPixel = GetBigUShort(io);
 				// This is mostly the same code as in the TPL_RGB565 case.
 				if (ShortPixel & 0x8000) {  // Check MSB.
-					// We have RGB5.
-					Image->Pal.Palette[i*4] = ((ShortPixel & 0x7C00) >> 7) | ((ShortPixel & 0x7000) >> 12); // Red
-					Image->Pal.Palette[i*4+1] = ((ShortPixel & 0x3E0) >> 2) | ((ShortPixel & 0x380) >> 7); // Green
-					Image->Pal.Palette[i*4+2] = ((ShortPixel & 0x1F) << 3) | ((ShortPixel & 0x1C) >> 2); // Blue
-					Image->Pal.Palette[i*4+3] = 0xFF;  // I am just assuming that it is opaque.
+					// RGB5
+					r = ((ShortPixel & 0x7C00) >> 7) | ((ShortPixel & 0x7000) >> 12);
+					g = ((ShortPixel & 0x3E0) >> 2) | ((ShortPixel & 0x380) >> 7);
+					b = ((ShortPixel & 0x1F) << 3) | ((ShortPixel & 0x1C) >> 2);
+					a = 0xFF;  // I am just assuming that it is opaque.
 				}
 				else {
-					// We have RGB4A3.
-					Image->Pal.Palette[i*4] = ((ShortPixel & 0x7800) >> 7) | ((ShortPixel & 0x7800) >> 11); // Red
-					Image->Pal.Palette[i*4+1] = ((ShortPixel & 0x0780) >> 3) | ((ShortPixel & 0x0780) >> 7); // Green
-					Image->Pal.Palette[i*4+2] = ((ShortPixel & 0x0078) << 1) | ((ShortPixel & 0x0078) >> 3); // Blue
-					Image->Pal.Palette[i*4+3] = ((ShortPixel & 0x07) << 5) | ((ShortPixel & 0x07) << 2) | (ShortPixel >> 1); // Alpha
+					// RGB4A3
+					r = ((ShortPixel & 0x7800) >> 7) | ((ShortPixel & 0x7800) >> 11);
+					g = ((ShortPixel & 0x0780) >> 3) | ((ShortPixel & 0x0780) >> 7);
+					b = ((ShortPixel & 0x0078) << 1) | ((ShortPixel & 0x0078) >> 3);
+					a = ((ShortPixel & 0x07) << 5) | ((ShortPixel & 0x07) << 2) | (ShortPixel >> 1);
 				}
+				Image->Pal.setRGBA(i, r, g, b, a);
 			}
 			break;
 
@@ -670,22 +659,22 @@ ILboolean TplGetIndexImage(ILimage *Image, ILuint TexOff, ILuint DataFormat)
 							}
 							ShortPixel = GetBigUShort(io);
 							ShortPixel >>= 2;  // Lower 2 bits are padding bits.
-							Image->Data[DataOff] = Image->Pal.Palette[ShortPixel * PalBpp];
-							Image->Data[DataOff+1] = Image->Pal.Palette[ShortPixel * PalBpp + 1];
-							Image->Data[DataOff+2] = Image->Pal.Palette[ShortPixel * PalBpp + 2];
+							ILubyte r, g, b, a;
+							Image->Pal.getRGBA(ShortPixel, r, g, b, a);
+							Image->Data[DataOff] = r;
+							Image->Data[DataOff+1] = g;
+							Image->Data[DataOff+2] = b;
 							if (PalFormat == TPL_PAL_RGB565)
 								Image->Data[DataOff+3] = 0xFF;
 							else
-								Image->Data[DataOff+3] = Image->Pal.Palette[ShortPixel * PalBpp + 3];
+								Image->Data[DataOff+3] = a;
 							DataOff++;
 						}
 					}
 				}
 			}
 			// Get rid of the palette, since we no longer need it.
-			ifree(Image->Pal.Palette);
-			Image->Pal.PalType = IL_PAL_NONE;
-			Image->Pal.PalSize = 0;
+			Image->Pal.clear();
 			break;
 
 	}

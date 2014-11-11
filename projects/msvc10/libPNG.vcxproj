@@ -27,30 +27,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Input Libs\libpng1612\png.h" />
-    <ClInclude Include="..\..\Input Libs\libpng1612\pngconf.h" />
-    <ClInclude Include="..\..\Input Libs\libpng1612\pngdebug.h" />
-    <ClInclude Include="..\..\Input Libs\libpng1612\pnginfo.h" />
-    <ClInclude Include="..\..\Input Libs\libpng1612\pngpriv.h" />
-    <ClInclude Include="..\..\Input Libs\libpng1612\pngstruct.h" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\png.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngerror.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngget.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngmem.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngpread.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngread.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrio.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrtran.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrutil.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngset.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngtest.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngtrans.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwio.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwrite.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwtran.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Input Libs\libpng1612\png.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngerror.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngget.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngmem.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngpread.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngread.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngrio.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngrtran.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngrutil.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngset.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngtest.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngtrans.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngwio.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngwrite.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngwtran.c" />
-    <ClCompile Include="..\..\Input Libs\libpng1612\pngwutil.c" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\png.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngconf.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngdebug.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pnginfo.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngpriv.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngstruct.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{042F8741-A81E-41ED-82D9-8890B75F746A}</ProjectGuid>

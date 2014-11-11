@@ -35,9 +35,9 @@ static ILfloat	*FloatPtr, *SFloatPtr;
 
 ILimage *iluScale2D_(ILimage *Image, ILimage *Scaled, ILuint Width, ILuint Height)
 {
-	if (Image == NULL) {
+	if (Image == NULL || Image->Data == NULL) {
 		il2SetError(ILU_ILLEGAL_OPERATION);
-		return IL_FALSE;
+		return NULL;
 	}
 
 	ScaleX = (ILfloat)Width / Image->Width;

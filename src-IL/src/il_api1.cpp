@@ -154,8 +154,11 @@ ILAPI void ILAPIENTRY ilDeleteImages(ILsizei Num, const ILuint *Images)
 }
 
 
-ILAPI void ILAPIENTRY ilDeleteImage(const ILuint Num) {
-    ilDeleteImages(1,&Num);
+ILAPI void ILAPIENTRY ilDeleteImage(const ILuint Num) 
+{
+    //ilDeleteImages(1,&Num);
+	ilCloseImage(ImageStack[Num]);
+	ImageStack[Num] = NULL;
 }
 
 //! Checks if Image is a valid ilGenImages-generated image (like glIsTexture()).
@@ -192,10 +195,7 @@ ILAPI void ILAPIENTRY ilCloseImage(void * image)
 		Image->Data = NULL;
 	}
 
-	if (Image->Pal.Palette != NULL && Image->Pal.PalSize > 0 && Image->Pal.PalType != IL_PAL_NONE) {
-		ifree(Image->Pal.Palette);
-		Image->Pal.Palette = NULL;
-	}
+	Image->Pal.clear();
 
 	if (Image->Next != NULL) {
 		ilCloseImage(Image->Next);

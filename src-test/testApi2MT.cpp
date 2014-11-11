@@ -33,10 +33,13 @@ int errors;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const TCHAR* sourceDir = L"D:\\testIL\\";
-//const TCHAR* sourceDir = L"D:\\testIL\\bad\\";
-//const TCHAR* sourceDir = L"D:\\temp\\bugs\\";
-const TCHAR* targetDir = L"D:\\testIL\\decoded\\";
+//const TCHAR* sourceDir = L"D:\\testIL\\";
+const TCHAR* sourceDir = L"c:\\testIL\\";
+
+//const TCHAR* targetDir = L"D:\\testIL\\decoded\\";
+const TCHAR* targetDir = L"c:\\testIL\\decoded\\";
+
+const TCHAR* encodedPath = L"D:\\TestIL\\encoded";
 
 void printOffset(void* a, void* b, char* msg)
 {

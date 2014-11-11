@@ -238,20 +238,14 @@ ILboolean iLoadSunInternal(ILimage* image)
 					return IL_FALSE;
 				}
 			}
-			image->Pal.Palette = (ILubyte*)ialloc(6);  // Just need 2 entries in the color map.
+
+			image->Pal.use(2, NULL, IL_PAL_RGB24);
 			if (Header.ColorMapLength == 0) {  // Create the color map
-				image->Pal.Palette[0] = 0x00;  // Entry for black
-				image->Pal.Palette[1] = 0x00;
-				image->Pal.Palette[2] = 0x00;
-				image->Pal.Palette[3] = 0xFF;  // Entry for white
-				image->Pal.Palette[4] = 0xFF;
-				image->Pal.Palette[5] = 0xFF;
+				image->Pal.setRGB(0, 0, 0, 0);
+				image->Pal.setRGB(0, 255, 255, 255);
+			} else {
+				image->Pal.readFromFile(io);
 			}
-			else {
-				io->read(io, image->Pal.Palette, 1, 6);  // Read in the color map.
-			}
-			image->Pal.PalSize = 6;
-			image->Pal.PalType = IL_PAL_RGB24;
 
 			Padding = (16 - (image->Width % 16)) % 16;  // Has to be aligned on a 16-bit boundary.  The rest is padding.
 
@@ -272,8 +266,7 @@ ILboolean iLoadSunInternal(ILimage* image)
 			else {  // Colour-mapped image
 				if (!il2TexImage(image, Header.Width, Header.Height, 1, 1, IL_COLOUR_INDEX, IL_UNSIGNED_BYTE, NULL))
 					return IL_FALSE;
-				image->Pal.Palette = (ILubyte*)ialloc(Header.ColorMapLength);  // Allocate color map.
-				if (image->Pal.Palette == NULL)
+				if (image->Pal.use(Header.ColorMapLength, NULL, IL_PAL_RGB24))
 					return IL_FALSE;
 
 				ILubyte* sunPalette = (ILubyte*) ialloc(Header.ColorMapLength);
@@ -286,14 +279,9 @@ ILboolean iLoadSunInternal(ILimage* image)
 				ILubyte* g = &sunPalette[Header.ColorMapLength / 3];
 				ILubyte* b = &sunPalette[2*colCount];
 				for (int i = 0; i < colCount; ++i) {
-					image->Pal.Palette[3*i] = r[i];
-					image->Pal.Palette[3*i+1] = g[i];
-					image->Pal.Palette[3*i+2] = b[i];
+					image->Pal.setRGB(i, r[i], g[i], b[i]);
 				}
 				ifree(sunPalette);
-
-				image->Pal.PalSize = Header.ColorMapLength;
-				image->Pal.PalType = IL_PAL_RGB24;
 			}
 
 			if (Header.Type != IL_SUN_BYTE_ENC) {  // Regular uncompressed image data
