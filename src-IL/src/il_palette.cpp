@@ -2,9 +2,7 @@
 //
 // ImageLib Sources
 // Copyright (C) 2000-2009 by Denton Woods
-// Last modified: 02/14/2009
-//
-// Filename: src-IL/src/il_pal.c
+// Last modified: Nov 12th, 2014 by Björn Ganster
 //
 // Description: Loads palettes from different file formats
 //

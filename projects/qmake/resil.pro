@@ -130,7 +130,7 @@ SOURCES += \
 ../../src-IL/src/il_alloc.cpp \
 ../../src-IL/src/il_states.cpp \
 ../../src-IL/src/il_neuquant.cpp \
-../../src-IL/src/il_pal.cpp \
+../../src-IL/src/il_palette.cpp \
 ../../src-IL/src/il_mdl.cpp \
 ../../src-IL/src/il_pxr.cpp \
 ../../src-IL/src/il_blp.cpp \
