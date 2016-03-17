@@ -1,6 +1,0 @@
-EXPORTS
-ilutInit
-ilutConvertToHBitmap
-
-ilut2Init
-ilut2ConvertToHBitmap

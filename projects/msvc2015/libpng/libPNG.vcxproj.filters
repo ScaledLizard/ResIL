@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Input Libs\libpng1614\png.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngerror.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngget.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngmem.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngpread.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngread.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrio.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrtran.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngrutil.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngset.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngtest.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngtrans.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwio.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwrite.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwtran.c" />
+    <ClCompile Include="..\..\Input Libs\libpng1614\pngwutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Input Libs\libpng1614\png.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngconf.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngdebug.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pnginfo.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngpriv.h" />
+    <ClInclude Include="..\..\Input Libs\libpng1614\pngstruct.h" />
+  </ItemGroup>
+</Project>

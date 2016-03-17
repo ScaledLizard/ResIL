@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Input Libs\lcms2-2.7\src\lcms2_internal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmscam02.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmscgats.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmscnvrt.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmserr.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsgamma.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsgmt.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmshalf.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsintrp.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsio0.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsio1.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmslut.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsmd5.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsmtrx.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsnamed.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsopt.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmspack.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmspcs.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsplugin.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsps2.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmssamp.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmssm.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmstypes.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsvirt.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmswtpnt.c" />
+    <ClCompile Include="..\..\..\Input Libs\lcms2-2.7\src\cmsxform.c" />
+  </ItemGroup>
+</Project>

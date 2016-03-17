@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{f8befb25-5589-4264-8d28-2afa63c16d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{ea647f71-c6da-490c-86e7-3904086c2f25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\IL\ilut.h" />
+    <ClInclude Include="..\..\..\src-ILUT\include\ilut_allegro.h" />
+    <ClInclude Include="..\..\..\src-ILUT\include\ilut_internal.h" />
+    <ClInclude Include="..\..\..\src-ILUT\include\ilut_opengl.h" />
+    <ClInclude Include="..\..\..\src-ILUT\include\ilut_states.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_allegro.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_directx.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_directx9.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_internal.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_main.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_opengl.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_sdlsurface.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_states.cpp" />
+    <ClCompile Include="..\..\..\src-ILUT\src\ilut_win32.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILUT.def" />
+  </ItemGroup>
+</Project>

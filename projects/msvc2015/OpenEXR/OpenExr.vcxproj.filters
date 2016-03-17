@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="IlmImf">
+      <UniqueIdentifier>{7beece52-6752-4be7-89a6-b7fca8ebfe4a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\b44ExpLogTable.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\dwaLookups.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfAcesFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfB44Compressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfBoxAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChannelList.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChannelListAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChromaticities.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChromaticitiesAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompositeDeepScanLine.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompressionAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfConvert.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCRgbaFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepCompositing.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepFrameBuffer.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepImageStateAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineInputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineOutputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledInputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledOutputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDoubleAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDwaCompressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfEnvmap.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfEnvmapAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFastHuf.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFloatAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFloatVectorAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFrameBuffer.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFramesPerSecond.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfGenericInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfGenericOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfHeader.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfHuf.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputPartData.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfIntAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfIO.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfKeyCode.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfKeyCodeAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfLineOrderAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfLut.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMatrixAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMisc.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiPartInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiPartOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiView.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOpaqueAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputPartData.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPartType.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPizCompressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPreviewImage.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPreviewImageAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPxr24Compressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRational.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRationalAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRgbaFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRgbaYca.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRle.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRleCompressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfScanLineInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStandardAttributes.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStdIO.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStringAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStringVectorAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfSystemSpecific.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTestFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfThreading.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTileDescriptionAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledInputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledInputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledMisc.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledOutputFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledOutputPart.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledRgbaFile.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTileOffsets.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTimeCode.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTimeCodeAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfVecAttribute.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfVersion.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfWav.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfZip.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfZipCompressor.cpp">
+      <Filter>IlmImf</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\b44ExpLogTable.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\dwaLookups.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfAcesFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfArray.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfAutoArray.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfB44Compressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfBoxAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChannelList.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChannelListAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCheckedArithmetic.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChromaticities.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfChromaticitiesAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompositeDeepScanLine.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompression.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompressionAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCompressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfConvert.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfCRgbaFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepCompositing.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepFrameBuffer.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepImageState.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepImageStateAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineInputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepScanLineOutputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledInputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDeepTiledOutputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDoubleAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDwaCompressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfDwaCompressorSimd.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfEnvmap.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfEnvmapAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfExport.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFastHuf.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFloatAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFloatVectorAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfForward.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFrameBuffer.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfFramesPerSecond.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfGenericInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfGenericOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfHeader.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfHuf.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputPartData.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInputStreamMutex.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfInt64.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfIntAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfIO.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfKeyCode.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfKeyCodeAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfLineOrder.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfLineOrderAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfLut.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMatrixAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMisc.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiPartInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiPartOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfMultiView.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfName.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfNamespace.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOpaqueAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOptimizedPixelReading.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputPartData.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfOutputStreamMutex.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPartHelper.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPartType.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPixelType.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPizCompressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPreviewImage.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPreviewImageAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfPxr24Compressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRational.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRationalAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRgba.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRgbaFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRgbaYca.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRle.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfRleCompressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfScanLineInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfSimd.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStandardAttributes.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStdIO.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStringAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfStringVectorAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfSystemSpecific.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTestFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfThreading.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTileDescription.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTileDescriptionAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledInputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledInputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledMisc.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledOutputFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledOutputPart.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTiledRgbaFile.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTileOffsets.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTimeCode.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfTimeCodeAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfVecAttribute.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfVersion.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfWav.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfXdr.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfZip.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input Libs\openexr-2.2.0\IlmImf\ImfZipCompressor.h">
+      <Filter>IlmImf</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

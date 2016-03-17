@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{6ae82450-9018-4e0b-a66a-8e94f0611078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{3d56cbf4-622c-4076-bfc1-0c3def01e64a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\IL\devil_internal_exports.h" />
+    <ClInclude Include="..\..\..\include\IL\il.h" />
+    <ClInclude Include="..\..\..\include\IL\il2.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_alloc.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_bits.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_bmp.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_dds.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_doompal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_dpx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_endian.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_exr.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_files.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_gif.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_hdr.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_icns.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_icon.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_internal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_jpeg.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_manip.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_mdl.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pcx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pic.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pnm.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_psd.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_psp.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_q2pal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_register.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_rle.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_sgi.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_stack.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_states.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_targa.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_utx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_vtf.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_wdp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src-IL\src\il_alloc.cpp" />
+    <ClCompile Include="..\..\..\src-il\src\il_api1.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_bits.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_blp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_bmp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_convbuff.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_convert.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_cut.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dcx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dds-save.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dds.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_devil.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dicom.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_doom.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dpx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_endian.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_error.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_exr.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_fastconv.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_files.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_fits.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_ftx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_gif.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_hdr.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_header.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_icns.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_icon.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_iff.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_ilbm.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_internal.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_io.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_iwi.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_jp2.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_jpeg.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_lif.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_main.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_manip.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_mdl.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_mng.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_mp3.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_neuquant.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_nvidia.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_palette.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pcd.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pcx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pic.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pix.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_png.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pnm.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_profiles.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_psd.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_psp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pxr.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_quantizer.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_raw.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rawdata.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_register.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rle.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rot.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_sgi.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_size.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_squish.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_stack.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_states.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_sun.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_targa.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_texture.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_tiff.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_tpl.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_utility.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_utx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_vtf.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wal.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wbmp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wdp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_xpm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ResIL.def" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-libcmt|Win32">
+      <Configuration>Release-libcmt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-libcmt|x64">
+      <Configuration>Release-libcmt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-msvcrt|Win32">
+      <Configuration>Release-msvcrt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-msvcrt|x64">
+      <Configuration>Release-msvcrt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.1.0\config.windows\IlmBaseConfig.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\half.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\halfExport.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\halfFunction.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\halfLimits.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IexMath\IexMathFloatExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IexMath\IexMathFpu.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IexMath\IexMathIeeeExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\Iex.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexBaseExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexErrnoExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexExport.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexForward.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexMacros.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexMathExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexNamespace.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexThrowErrnoExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThread.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadExport.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadForward.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadMutex.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadNamespace.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadPool.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadSemaphore.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathBox.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathBoxAlgo.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathColor.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathColorAlgo.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathEuler.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathExc.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathExport.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathForward.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathFrame.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathFrustum.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathFrustumTest.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathFun.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathGL.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathGLU.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathHalfLimits.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathInt64.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathInterval.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathLimits.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathLine.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathLineAlgo.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathMath.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathMatrix.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathMatrixAlgo.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathNamespace.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathPlane.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathPlatform.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathQuat.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathRandom.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathRoots.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathShear.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathSphere.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathVec.h" />
+    <ClInclude Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathVecAlgo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\eLut.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\half.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Half\toFloat.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IexMath\IexMathFloatExc.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IexMath\IexMathFpu.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexBaseExc.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Iex\IexThrowErrnoExc.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThread.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadMutex.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadMutexPosix.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadMutexWin32.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadPool.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadPosix.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadSemaphore.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadSemaphorePosix.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadSemaphorePosixCompat.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadSemaphoreWin32.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\IlmThread\IlmThreadWin32.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathBox.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathColorAlgo.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathFun.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathMatrixAlgo.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathRandom.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathShear.cpp" />
+    <ClCompile Include="..\..\..\Input Libs\ilmbase-2.2.0\Imath\ImathVec.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BF4DA0BF-AC31-4AB7-A67C-CBB493732EE1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>IlmBase</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ILMBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\IexMath;..\..\..\Input Libs\ilmbase-2.2.0\Half</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt3|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt3|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

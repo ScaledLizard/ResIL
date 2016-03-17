@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{24e28b3d-5ce2-4d16-8d5b-6461bfc59c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{6f1a33f7-d644-4000-a716-caf9e120507f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_alloc.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_api1.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_error.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_filter.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_filter_rcg.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_internal.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_main.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_manip.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_mipmap.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_noise.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_region.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_rotate.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_scale.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_scale2d.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_scale3d.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_scaling.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_states.cpp" />
+    <ClCompile Include="..\..\..\src-ILU\src\ilu_utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\IL\ilu.h" />
+    <ClInclude Include="..\..\..\include\IL\ilu2.h" />
+    <ClInclude Include="..\..\..\src-ILU\include\ilu_alloc.h" />
+    <ClInclude Include="..\..\..\src-ILU\include\ilu_filter.h" />
+    <ClInclude Include="..\..\..\src-ILU\include\ilu_internal.h" />
+    <ClInclude Include="..\..\..\src-ILU\include\ilu_region.h" />
+    <ClInclude Include="..\..\..\src-ILU\include\ilu_states.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILU.def" />
+  </ItemGroup>
+</Project>

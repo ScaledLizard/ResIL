@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{a6ffad34-c292-402e-b418-06098e64a692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{d78f1cdd-61bf-4ee9-8bcf-9e3e270305ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_cm.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_debug.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_getopt.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_icc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_iccdata.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_image.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_init.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_malloc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_seq.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_stream.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_string.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_tmr.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_tvp.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\base\jas_version.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\bmp\bmp_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\bmp\bmp_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\bmp\bmp_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jp2\jp2_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jp2\jp2_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jp2\jp2_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_bs.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_cs.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_math.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mct.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqcod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqdec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqenc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_qmfb.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_tagtree.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_tsfb.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_util.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_dummy.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_val.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\mif\mif_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pgx\pgx_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pgx\pgx_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pgx\pgx_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pnm\pnm_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pnm\pnm_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pnm\pnm_enc.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\ras\ras_cod.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\ras\ras_dec.c" />
+    <ClCompile Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\ras\ras_enc.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\bmp\bmp_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\bmp\bmp_enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jp2\jp2_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jp2\jp2_dec.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_bs.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_cs.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_dec.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_fix.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_flt.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_math.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mct.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqcod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqdec.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_mqenc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_qmfb.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1dec.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t1enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2dec.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_t2enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_tagtree.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_tsfb.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpc\jpc_util.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\jpg\jpg_jpeglib.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\mif\mif_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pnm\pnm_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\pnm\pnm_enc.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\ras\ras_cod.h" />
+    <ClInclude Include="..\..\..\Input Libs\jasper-1.900.1\src\libjasper\ras\ras_enc.h" />
+  </ItemGroup>
+</Project>

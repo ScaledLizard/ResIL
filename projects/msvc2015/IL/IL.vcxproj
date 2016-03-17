@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-libcmt|Win32">
+      <Configuration>Release-libcmt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-libcmt|x64">
+      <Configuration>Release-libcmt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-msvcrt|Win32">
+      <Configuration>Release-msvcrt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-msvcrt|x64">
+      <Configuration>Release-msvcrt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\IL\devil_internal_exports.h" />
+    <ClInclude Include="..\..\..\include\IL\il.h" />
+    <ClInclude Include="..\..\..\include\IL\il2.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_alloc.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_bits.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_bmp.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_dds.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_doompal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_dpx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_endian.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_exr.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_files.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_gif.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_hdr.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_icns.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_icon.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_internal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_jpeg.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_manip.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_mdl.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pcx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pic.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_pnm.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_psd.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_psp.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_q2pal.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_register.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_rle.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_sgi.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_stack.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_states.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_targa.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_utx.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_vtf.h" />
+    <ClInclude Include="..\..\..\src-IL\include\il_wdp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src-IL\src\il_alloc.cpp" />
+    <ClCompile Include="..\..\..\src-il\src\il_api1.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_bits.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_blp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_bmp.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_convbuff.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_convert.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_cut.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dcx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dds-save.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dds.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_devil.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dicom.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_doom.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_dpx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_endian.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_error.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_exr.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_fastconv.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_files.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_fits.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_ftx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_gif.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'">Default</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_hdr.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_header.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_icns.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_icon.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_iff.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_ilbm.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_internal.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_io.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_iwi.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_jp2.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_jpeg.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_lif.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_main.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_manip.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_mdl.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_mng.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_mp3.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_neuquant.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_nvidia.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_palette.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pcd.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pcx.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pic.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pix.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_png.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pnm.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_profiles.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_psd.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_psp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_pxr.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_quantizer.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_raw.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rawdata.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_register.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rle.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_rot.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_sgi.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_size.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_squish.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_stack.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_states.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_sun.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_targa.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_texture.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_tiff.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_tpl.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_utility.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_utx.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src-IL\src\il_vtf.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wal.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wbmp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_wdp.cpp" />
+    <ClCompile Include="..\..\..\src-IL\src\il_xpm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ResIL.def" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A335D80E-B684-41F1-904B-BE37EEDB5B50}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>IL</RootNamespace>
+    <ProjectName>ResIL</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\debug\IlmBase.lib;..\debug\OpenExr.lib;..\debug\libjasper.lib;..\debug\IlmBase.lib;..\debug\OpenExr.lib;..\debug\libjasper.lib;..\Debug\libmng.lib;..\debug\zlib.lib;..\debug\libPNG.lib;..\debug\lcms.lib;..\debug\libTIFF.lib;..\debug\jpeg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+      <Version>
+      </Version>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>DevIL.map</MapFileName>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\x64\debug\libjasper.lib;..\x64\debug\libmng.lib;..\x64\debug\zlib.lib;..\x64\debug\libPNG.lib;..\x64\debug\lcms.lib;..\x64\debug\libTIFF.lib;..\x64\debug\jpeg.lib;..\x64\debug\ilmBase.lib;..\x64\debug\OpenExr.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>
+      </Version>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(TargetDir)$(TargetName).map</MapFileName>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>msvcrt.lib;..\release-msvcrt\libjasper.lib;..\release-msvcrt\libmng.lib;..\release-msvcrt\zlib1.lib;..\release-msvcrt\libPNG.lib;..\release-msvcrt\lcms.lib;..\release-msvcrt\libTIFF.lib;..\release-msvcrt\jpeg.lib;..\release-msvcrt\IlmBase.lib;..\release-msvcrt\OpenExr.lib;kernel32.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <Version>
+      </Version>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libcmt.lib;..\release-libcmt\libjasper.lib;..\release-libcmt\libmng.lib;..\release-libcmt\zlib1.lib;..\release-libcmt\libPNG.lib;..\release-libcmt\lcms.lib;..\release-libcmt\libTIFF.lib;..\release-libcmt\IlmBase.lib;..\release-libcmt\OpenExr.lib;..\release-libcmt\jpeg.lib;kernel32.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <Version>
+      </Version>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-msvcrt|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex;..\..\..\Input Libs\ilmbase-2.2.0\IlmThread</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>..\x64\release-msvcrt\libjasper.lib;..\x64\release-msvcrt\libmng.lib;..\x64\release-msvcrt\zlib1.lib;..\x64\release-msvcrt\libPNG.lib;..\x64\release-msvcrt\lcms.lib;..\x64\release-msvcrt\libTIFF.lib;..\x64\release-msvcrt\jpeg.lib;..\x64\release-msvcrt\ilmBase.lib;..\x64\release-msvcrt\OpenExr.lib;kernel32.lib;msvcrt.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <Version>
+      </Version>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <GenerateMapFile>true</GenerateMapFile>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-libcmt|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src-IL\include;..\..\..\Input Libs\tiff-4.0.6\libtiff;..\..\..\Input Libs\lcms2-2.7\include;..\..\..\Input Libs\libpng1621;..\..\..\Input Libs\libmng-2.0.3;..\..\..\Input Libs\jpeg-9b;..\..\..\Input Libs\zlib-1.2.8;..\..\..\Input Libs\jasper-1.900.1\src\libjasper\include;..\..\..\Input Libs\openexr-2.2.0\IlmImf;..\..\..\Input Libs\ilmbase-2.2.0\Imath;..\..\..\Input Libs\ilmbase-2.2.0\config.windows;..\..\..\Input Libs\openexr-2.2.0\config.windows;..\..\..\Input Libs\ilmbase-2.2.0\Half;..\..\..\Input Libs\ilmbase-2.2.0\Iex</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libcmt.lib;..\x64\release-libcmt\libjasper.lib;..\x64\release-libcmt\libmng.lib;..\x64\release-libcmt\zlib1.lib;..\x64\release-libcmt\libPNG.lib;..\x64\release-libcmt\lcms.lib;..\x64\release-libcmt\libTIFF.lib;..\x64\release-libcmt\jpeg.lib;..\x64\release-libcmt\ilmBase.lib;..\x64\release-libcmt\OpenExr.lib;kernel32.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <Version>
+      </Version>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <ModuleDefinitionFile>ResIL.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>msvcrt.lib;release\libjasper.lib;release\libmng.lib;release\zlib1.lib;release\libPNG.lib;release\lcms.lib;release\libTIFF.lib;release\jpeg.lib;kernel32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
